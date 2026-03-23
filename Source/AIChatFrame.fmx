@@ -1,11 +1,11 @@
 object FrameAIChat: TFrameAIChat
-  Size.Width = 664.000000000000000000
-  Size.Height = 489.000000000000000000
+  Size.Width = 556.000000000000000000
+  Size.Height = 456.000000000000000000
   Size.PlatformDefault = False
   object WebBrowser1: TWebBrowser
-    Align = Top
-    Size.Width = 664.000000000000000000
-    Size.Height = 185.000000000000000000
+    Align = Client
+    Size.Width = 556.000000000000000000
+    Size.Height = 456.000000000000000000
     Size.PlatformDefault = False
     WindowsEngine = EdgeIfAvailable
   end
@@ -45,6 +45,7 @@ object FrameAIChat: TFrameAIChat
     Size.Height = 40.000000000000000000
     Size.PlatformDefault = False
     TabOrder = 7
+    Visible = False
     OnClick = btnRefreshClick
     Caption = #37325#26032#21152#36733
     Text = #37325#26032#21152#36733

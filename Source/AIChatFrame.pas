@@ -6,6 +6,7 @@ uses
   System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
 
   uManager,
+  uOpenClawHelper,
   EasyServiceCommonMaterialDataMoudle,
   FMX.Types, FMX.Graphics, FMX.Controls, FMX.Forms, FMX.Dialogs, FMX.StdCtrls, FMX.WebBrowser, uSkinFireMonkeyControl, uSkinButtonType;
 
@@ -46,11 +47,14 @@ procedure TFrameAIChat.Load;
 begin
   Self.WebBrowser1.Align:=TAlignLayout.Client;
 
-  //  Self.WebBrowser1.URL:='http://localhost:3003/chat?username=root&password='+'123456';//不能自动登录
-  //这个比较稳定一点
-//  Self.WebBrowser1.URL:=GlobalManager.FJetAIUrl;
-  Self.WebBrowser1.Navigate(GlobalManager.FJetAIUrl)
-//  Self.WebBrowser1.URL:=GlobalManager.FJetAIUrl+'login?lastRoute=/chat&username=root&password='+'123456';
+  if GlobalManager.FJetAIUrl<>'' then
+  begin
+    Self.WebBrowser1.Navigate(GlobalManager.FJetAIUrl)
+  end
+  else
+  begin
+    Self.WebBrowser1.Navigate(GlobalOpenClawHelper.GetGatewayUrl);
+  end;
 
 end;
 
