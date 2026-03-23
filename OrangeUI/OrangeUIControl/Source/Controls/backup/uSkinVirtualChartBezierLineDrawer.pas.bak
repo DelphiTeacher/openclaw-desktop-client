@@ -1,0 +1,688 @@
+﻿//convert pas to utf8 by ¥
+
+/// <summary>
+///   <para>
+///     列表框
+///   </para>
+///   <para>
+///     List Box
+///   </para>
+/// </summary>
+unit uSkinVirtualChartBezierLineDrawer;
+
+interface
+
+
+{$I FrameWork.inc}
+{$I Version.inc}
+
+uses
+  Classes,
+  SysUtils,
+  uFuncCommon,
+
+  {$IF CompilerVersion>=30.0}
+  Types,//定义了TRectF
+  {$IFEND}
+
+  uBaseList,
+  uBaseLog,
+  DateUtils,
+
+  {$IFDEF VCL}
+  Messages,
+  ExtCtrls,
+  Controls,
+  {$ENDIF}
+  {$IFDEF FMX}
+  UITypes,
+  FMX.Types,
+  FMX.Controls,
+  FMX.Dialogs,
+  {$ENDIF}
+
+
+  Math,
+  uBaseSkinControl,
+  uSkinItems,
+  uDrawParam,
+  uGraphicCommon,
+  uSkinBufferBitmap,
+  uDrawCanvas,
+  uFileCommon,
+  uComponentType,
+  uDrawEngine,
+  uBinaryTreeDoc,
+  uDrawPicture,
+  uSkinMaterial,
+  uDrawTextParam,
+  uDrawLineParam,
+  uDrawRectParam,
+  uBasePathData,
+  uDrawPathParam,
+  uSkinImageList,
+  uSkinListLayouts,
+  uSkinPanelType,
+  uSkinCustomListType,
+  uSkinVirtualListType,
+  uSkinListBoxType,
+  uSkinLabelType,
+  uSkinItemDesignerPanelType,
+
+  {$IFDEF FMX}
+  uSkinFireMonkeyItemDesignerPanel,
+  {$ENDIF}
+
+  {$IFDEF OPENSOURCE_VERSION}
+  {$ELSE}
+  uSkinListViewType,
+  {$ENDIF}
+  uSkinVirtualChartType,
+
+//  uSkinControlGestureManager,
+//  uSkinScrollControlType,
+  uDrawPictureParam;
+
+
+type
+
+  TVirtualChartSeriesBezierLineDrawData=class(TVirtualChartSeriesLineDrawData)
+  public
+//    //线状图的点
+//    FLinePoint:TPointF;
+//    //线状图的点圆,用于画圆,也用于判断鼠标在不在数据项里面
+//    FLineDotRect:TRectF;
+
+    FControlPoint1:TPointF;
+    FControlPoint2:TPointF;
+  end;
+
+  //贝塞尔线状图生成路径
+  TVirtualChartSeriesBezierLineDrawer=class(TVirtualChartSeriesLineDrawer)
+  public
+    class function ChartType:TSkinChartType;override;
+//    //判断鼠标是否在Item里面
+//    function PtInItem(ADataItem:TVirtualChartSeriesDataItem;APoint:TPointF):Boolean;override;
+//    procedure GenerateLineDotList(APathDrawRect:TRectF);
+    procedure GenerateAreaPathList(APathDrawRect:TRectF);override;
+//    //生成路径绘制列表
+//    procedure GenerateDrawPathList(APathDrawRect:TRectF);override;
+//    function GetDataItemColor(ADataItem:TVirtualChartSeriesDataItem):TDelphiColor;override;
+    //绘制Y轴分隔线，X轴刻度值
+    function CustomPaint(ACanvas:TDrawCanvas;ASkinMaterial:TSkinControlMaterial;const ADrawRect:TRectF;APaintData:TPaintData;const APathDrawRect:TRectF):Boolean;override;
+  end;
+
+
+implementation
+
+
+{ TVirtualChartSeriesBezierLineDrawer }
+
+procedure TVirtualChartSeriesBezierLineDrawer.GenerateAreaPathList(
+  APathDrawRect: TRectF);
+var
+  I: Integer;
+//  ADataItemRect:TRectF;
+//  ADataItemPathRect:TRectF;
+  AVirtualChartSeriesList:TVirtualChartSeriesList;
+  AXAxisSkinListBox:TSkinListBox;
+//  ALegendSkinListView:TSkinVirtualList;
+  AItemWidth:Double;
+  ALeft:Double;
+  ADataItem:TVirtualChartSeriesDataItem;
+  APathActionItem:TPathActionItem;
+  ASkinVirtualChartDefaultMaterial:TSkinVirtualChartDefaultMaterial;
+  ADrawData:TVirtualChartSeriesBezierLineDrawData;
+  APoints:Array of TPointF;
+  ADrawPoints:Array of TPointF;
+begin
+//  Inherited;
+
+
+
+  AVirtualChartSeriesList:=TVirtualChartSeriesList(Self.FSeries.Collection);
+
+  AXAxisSkinListBox:=TVirtualChartSeriesList(Self.FSeries.Collection).FSkinVirtualChartIntf.Properties.FXAxisSkinListBox;
+//  ASkinVirtualChartDefaultMaterial:=TSkinVirtualChartDefaultMaterial(TVirtualChartSeriesList(Self.FSeries.Collection).FSkinVirtualChartIntf.Properties.FSkinControlIntf.GetCurrentUseMaterial);
+  ASkinVirtualChartDefaultMaterial:=TSkinVirtualChartDefaultMaterial(TSkinVirtualChart(TVirtualChartSeriesList(Self.FSeries.Collection).FSkinVirtualChartIntf.Properties.SkinControl).CurrentUseMaterial);
+
+//  ALegendSkinListView:=TVirtualChartSeriesList(Self.FSeries.Collection).FSkinVirtualChartIntf.Properties.FLegendListView;
+//
+//  if ALegendSkinListView<>nil then
+//  begin
+//      ALegendSkinListView.Visible:=False;
+//      ALegendSkinListView.OnMouseOverItemChange:=nil;
+//      ALegendSkinListView.OnPrepareDrawItem:=nil;
+//  end;
+
+
+//  //横排的
+//  //生成Path列表
+//  //AItemWidth:=AXAxisSkinListBox.Prop.CalcItemWidth(AXAxisSkinListBox.Prop.Items[I]);
+//
+//  case ASkinVirtualChartDefaultMaterial.XAxisScalePosition of
+//    xscptLeft:
+//    begin
+//      //有从起点开始的,也有从中心点开始的
+//      AItemWidth:=APathDrawRect.Width / (AXAxisSkinListBox.Prop.Items.Count-1);
+//    end;
+//    xscptMiddle:
+//    begin
+//      //有从起点开始的,也有从中心点开始的
+//      AItemWidth:=APathDrawRect.Width / AXAxisSkinListBox.Prop.Items.Count;
+//    end;
+//  end;
+//
+////  //绘制线条
+////  SetLength(ADrawPoints,4);
+////  for I := 0 to Self.FSeries.DataItems.Count-1 do
+////  begin
+////    ADataItem:=Self.FSeries.DataItems[I];
+////
+////
+//////    APoints[I].X:=APathDrawRect.Left+ADataItem.FLinePoint.X;
+//////    APoints[I].Y:=APathDrawRect.Top+ADataItem.FLinePoint.Y;
+////
+////    if I<Self.FSeries.DataItems.Count-1 then
+////    begin
+////      AOldColor:=ASkinVirtualChartDefaultMaterial.LineColorParam.Color.FColor;
+////
+////      ASkinVirtualChartDefaultMaterial.LineColorParam.Color.FColor:=Self.GetDataItemColor(ADataItem);
+////      ADrawPoints[0]:=APoints[I];
+////      getCtrlPoint(APoints,I,ADrawPoints[1],ADrawPoints[2]);
+////      ADrawPoints[3]:=APoints[I+1];
+//////      FGraphics.DrawBeziers(AGPPen,ADrawPoints);
+////      ACanvas.DrawBezierLine(ASkinVirtualChartDefaultMaterial.LineColorParam,
+////                             ADrawPoints
+////                              );
+////
+////      ASkinVirtualChartDefaultMaterial.LineColorParam.Color.FColor:=AOldColor;
+////    end;
+//
+//  SetLength(APoints,Self.FSeries.DataItems.Count);
+//
+//
+//  //需要最大值,计算出百分比
+//  ALeft:=0;
+//  for I := 0 to Self.FSeries.DataItems.Count-1 do
+//  begin
+//      ADataItem:=Self.FSeries.DataItems[I];
+//      ADrawData:=TVirtualChartSeriesBezierLineDrawData(ADataItem.FDrawData);
+//
+//
+//      ADataItem.FDrawPercent:=0;
+//      if (AVirtualChartSeriesList.FMaxValue-AVirtualChartSeriesList.FMinValue)>0 then
+//      begin
+//        ADataItem.FDrawPercent:=
+//              (ADataItem.Value-AVirtualChartSeriesList.FMinValue)/(AVirtualChartSeriesList.FMaxValue-AVirtualChartSeriesList.FMinValue);
+//      end;
+//
+//
+//
+//
+//
+////      //数据项所在的大矩形-相对坐标
+////      ADataItemRect:=RectF(0,0,0,0);
+////      ADataItemRect.Left:=ALeft;
+////      ADataItemRect.Top:=0;
+////      ADataItemRect.Right:=ALeft+AItemWidth;
+////      ADataItemRect.Bottom:=APathDrawRect.Height;
+//
+//
+//      case ASkinVirtualChartDefaultMaterial.XAxisScalePosition of
+//        xscptLeft:
+//        begin
+//          //有从起点开始的,也有从中心点开始的
+//          ADrawData.FLinePoint.X:=ALeft;
+//        end;
+//        xscptMiddle:
+//        begin
+//          //有从起点开始的,也有从中心点开始的
+//          ADrawData.FLinePoint.X:=ALeft+AItemWidth/2;
+//        end;
+//      end;
+//      ADrawData.FLinePoint.Y:=APathDrawRect.Height*(1-ADataItem.FDrawPercent);
+//
+//
+//      APoints[I].X:=ADrawData.FLinePoint.X;
+//      APoints[I].Y:=ADrawData.FLinePoint.Y;
+//
+//
+//
+//
+//      ADrawData.FBarRect.Left:=APathDrawRect.Left+ALeft-AItemWidth/2;
+//      ADrawData.FBarRect.Top:=APathDrawRect.Top;
+//      ADrawData.FBarRect.Right:=APathDrawRect.Left+ALeft+AItemWidth/2;
+//      ADrawData.FBarRect.Bottom:=APathDrawRect.Bottom;
+//
+//
+//
+//      //下一个Item的左边距
+//      ALeft:=ALeft+AItemWidth;
+//
+//
+//
+//      ADataItem.FDrawPathActions.Clear;
+//
+//      APathActionItem:=TPathActionItem(ADataItem.FDrawPathActions.Add);
+//      APathActionItem.ActionType:=patStart;
+//
+////      ADataItemPathRect.Left:=ADataItemRect.Left+AItemWidth*(1-ABarSizePercent)/2;
+////      ADataItemPathRect.Top:=ADataItemRect.Top+APathDrawRect.Height*(1-ADataItem.FDrawPercent);
+////      ADataItemPathRect.Right:=ADataItemPathRect.Left+AItemWidth*ABarSizePercent;
+////      ADataItemPathRect.Bottom:=ADataItemRect.Bottom;
+//
+//
+//      //生成圈的Path
+//      APathActionItem:=TPathActionItem(ADataItem.FDrawPathActions.Add);
+//      APathActionItem.ActionType:=patAddEllipse;
+//      APathActionItem.X:=ADrawData.FLinePoint.X-ASkinVirtualChartDefaultMaterial.LineDotRadius;
+//      //这个柱状图是从底部上来的
+//      APathActionItem.Y:=ADrawData.FLinePoint.Y-ASkinVirtualChartDefaultMaterial.LineDotRadius;
+//      APathActionItem.X1:=ADrawData.FLinePoint.X+ASkinVirtualChartDefaultMaterial.LineDotRadius;
+//      APathActionItem.Y1:=ADrawData.FLinePoint.Y+ASkinVirtualChartDefaultMaterial.LineDotRadius;
+//
+//      ADrawData.FLineDotRect.Left:=APathDrawRect.Left+APathActionItem.X;
+//      ADrawData.FLineDotRect.Top:=APathDrawRect.Top+APathActionItem.Y;
+//      ADrawData.FLineDotRect.Right:=APathDrawRect.Left+APathActionItem.X1;
+//      ADrawData.FLineDotRect.Bottom:=APathDrawRect.Top+APathActionItem.Y1;
+//
+//
+//
+////      APathActionItem:=TPathActionItem(ADataItem.FDrawPathActions.Add);
+////      APathActionItem.ActionType:=patGetRegion;
+//
+//      APathActionItem:=TPathActionItem(ADataItem.FDrawPathActions.Add);
+//      APathActionItem.ActionType:=patStop;
+//
+//      //填充
+//      APathActionItem:=TPathActionItem(ADataItem.FDrawPathActions.Add);
+//      APathActionItem.ActionType:=patFillPath;
+//
+//      APathActionItem:=TPathActionItem(ADataItem.FDrawPathActions.Add);
+//      APathActionItem.ActionType:=patDrawPath;
+//
+//
+//
+//
+////      //绝对坐标
+////      OffsetRect(ADataItemPathRect,APathDrawRect.Left,APathDrawRect.Top);
+////      OffsetRect(ADataItemRect,APathDrawRect.Left,APathDrawRect.Top);
+////      ADataItem.FItemRect:=ADataItemRect;
+////      ADataItem.FItemDrawRect:=ADataItemRect;
+////      ADataItem.FBarPathDrawRect:=ADataItemPathRect;
+//
+//
+//
+//  end;
+
+  SetLength(APoints,Self.FSeries.DataItems.Count);
+  for I := 0 to Self.FSeries.DataItems.Count-1 do
+  begin
+      ADataItem:=Self.FSeries.DataItems[I];
+      ADrawData:=TVirtualChartSeriesBezierLineDrawData(ADataItem.FDrawData);
+      if ADrawData=nil then Break;
+      APoints[I].X:=ADrawData.FLinePoint.X;
+      APoints[I].Y:=ADrawData.FLinePoint.Y;
+  end;
+
+
+
+
+
+  //计算出贝塞尔曲线的两个控制点
+  SetLength(ADrawPoints,4);
+  for I := 0 to Self.FSeries.DataItems.Count-1 do
+  begin
+    ADataItem:=Self.FSeries.DataItems[I];
+    ADrawData:=TVirtualChartSeriesBezierLineDrawData(ADataItem.FDrawData);
+    if ADrawData=nil then Break;
+
+    if I<Self.FSeries.DataItems.Count-1 then
+    begin
+      ADrawPoints[0]:=APoints[I];
+      getCtrlPoint(APoints,I,ADrawPoints[1],ADrawPoints[2]);
+      //下一点做为线条终点
+      ADrawPoints[3]:=APoints[I+1];
+
+      ADrawData.FControlPoint1:=ADrawPoints[1];
+      ADrawData.FControlPoint2:=ADrawPoints[2];
+    end;
+  end;
+
+
+
+
+
+  //计算出外部轮廓
+  FSeriesDrawPathActions.Clear;
+  //左下角起点
+  APathActionItem:=TPathActionItem(FSeriesDrawPathActions.Add);
+  APathActionItem.ActionType:=patMoveTo;
+  APathActionItem.X:=0;
+  APathActionItem.Y:=APathDrawRect.Height;
+
+  ADataItem:=Self.FSeries.FDataItems[0];
+  ADrawData:=TVirtualChartSeriesBezierLineDrawData(ADataItem.FDrawData);
+  if ADrawData=nil then Exit;
+
+  APathActionItem:=TPathActionItem(FSeriesDrawPathActions.Add);
+  APathActionItem.ActionType:=patLineTo;
+  APathActionItem.X:=ADrawData.FLinePoint.X;
+  APathActionItem.Y:=ADrawData.FLinePoint.Y;
+
+  for I := 0 to Self.FSeries.FDataItems.Count-1 do
+  begin
+    ADataItem:=Self.FSeries.FDataItems[I];
+    ADrawData:=TVirtualChartSeriesBezierLineDrawData(ADataItem.FDrawData);
+    if ADrawData=nil then Break;
+
+    if (I<Self.FSeries.DataItems.Count-1) and (FSeries.DataItems[I+1].FDrawData<>nil) then
+    begin
+      APathActionItem:=TPathActionItem(FSeriesDrawPathActions.Add);
+      APathActionItem.ActionType:=patAddBezierLine;
+
+//      SetLength(APathActionItem.FPoints,4);
+//      APathActionItem.FPoints[0]:=ADrawData.FLinePoint;
+//      APathActionItem.FPoints[1]:=ADrawData.FControlPoint1;
+//      APathActionItem.FPoints[2]:=ADrawData.FControlPoint2;
+//      APathActionItem.FPoints[3]:=TVirtualChartSeriesBezierLineDrawData(Self.FSeries.FDataItems[I+1].FDrawData).FLinePoint;
+
+      APathActionItem.X:=ADrawData.FLinePoint.X;
+      APathActionItem.Y:=ADrawData.FLinePoint.Y;
+
+      APathActionItem.X1:=ADrawData.FControlPoint1.X;
+      APathActionItem.Y1:=ADrawData.FControlPoint1.Y;
+
+      APathActionItem.X2:=ADrawData.FControlPoint2.X;
+      APathActionItem.Y2:=ADrawData.FControlPoint2.Y;
+
+      //下一点做为线条终点
+      APathActionItem.X3:=TVirtualChartSeriesBezierLineDrawData(Self.FSeries.FDataItems[I+1].FDrawData).FLinePoint.X;
+      APathActionItem.Y3:=TVirtualChartSeriesBezierLineDrawData(Self.FSeries.FDataItems[I+1].FDrawData).FLinePoint.Y;
+
+
+//      //左下角起点
+//      APathActionItem:=TPathActionItem(FSeriesDrawPathActions.Add);
+//      APathActionItem.ActionType:=patMoveTo;
+//      APathActionItem.X:=TVirtualChartSeriesBezierLineDrawData(Self.FSeries.FDataItems[I+1].FDrawData).FLinePoint.X;
+//      APathActionItem.Y:=TVirtualChartSeriesBezierLineDrawData(Self.FSeries.FDataItems[I+1].FDrawData).FLinePoint.Y;
+
+
+//      //右下角点
+//      APathActionItem:=TPathActionItem(FSeriesDrawPathActions.Add);
+//      APathActionItem.ActionType:=patLineTo;
+//      APathActionItem.X:=TVirtualChartSeriesBezierLineDrawData(Self.FSeries.FDataItems[I+1].FDrawData).FLinePoint.X;
+//      APathActionItem.Y:=APathDrawRect.Height;
+//
+//      Break;
+    end;
+
+  end;
+
+
+  //右下角点
+  APathActionItem:=TPathActionItem(FSeriesDrawPathActions.Add);
+  APathActionItem.ActionType:=patLineTo;
+  APathActionItem.X:=APathDrawRect.Width;
+  APathActionItem.Y:=APathDrawRect.Height;
+
+
+  //回到起点
+  APathActionItem:=TPathActionItem(FSeriesDrawPathActions.Add);
+  APathActionItem.ActionType:=patLineTo;
+  APathActionItem.X:=0;
+  APathActionItem.Y:=APathDrawRect.Height;
+
+
+//  //填充
+//  APathActionItem:=TPathActionItem(FSeriesDrawPathActions.Add);
+//  APathActionItem.ActionType:=patDrawPath;
+
+  //填充
+  APathActionItem:=TPathActionItem(FSeriesDrawPathActions.Add);
+  APathActionItem.ActionType:=patFillPath;
+
+
+end;
+
+
+//function TVirtualChartSeriesBezierLineDrawer.PtInItem(
+//  ADataItem: TVirtualChartSeriesDataItem; APoint: TPointF): Boolean;
+//var
+//  ADrawData:TVirtualChartSeriesBezierLineDrawData;
+//begin
+//  ADrawData:=TVirtualChartSeriesBezierLineDrawData(ADataItem.FDrawData);
+//  //线状图,只需要判断鼠标是否在那个圆点上即可
+//  Result:=PtInRect(ADrawData.FLineDotRect,APoint);
+//
+//end;
+
+class function TVirtualChartSeriesBezierLineDrawer.ChartType: TSkinChartType;
+begin
+  Result:=sctBezierLine;
+end;
+
+function TVirtualChartSeriesBezierLineDrawer.CustomPaint(ACanvas: TDrawCanvas;
+  ASkinMaterial: TSkinControlMaterial; const ADrawRect: TRectF;
+  APaintData: TPaintData; const APathDrawRect: TRectF): Boolean;
+var
+  I: Integer;
+var
+//  ADrawRect:TRectF;
+  X:Double;
+  Y:Double;
+  AXAxisSkinListBox:TSkinListBox;
+  AYAxisSkinListBox:TSkinListBox;
+  ASkinVirtualChartIntf:ISkinVirtualChart;
+  ACaptionRect:TRectF;
+  AItemWidth:Double;
+var
+  ASkinVirtualChartDefaultMaterial:TSkinVirtualChartDefaultMaterial;
+//var
+//  I:Integer;
+var
+  ADataItem:TVirtualChartSeriesDataItem;
+  AItemEffectStates:TDPEffectStates;
+  AOldColor:TDelphiColor;
+  AOldAlpha:Byte;
+  AOldIsFill:Boolean;
+  AItemCaptionWidth:Double;
+  ALastItemCaptionDrawLeft:Double;
+//  APoints:Array of TPointF;
+  ADrawPoints:Array of TPointF;
+  ADrawData:TVirtualChartSeriesBezierLineDrawData;
+//  APoints:Array of TPoint;
+//  AItemPaintData:TPaintData;
+//var
+//  ASkinVirtualChartDefaultMaterial:TSkinVirtualChartDefaultMaterial;
+begin
+
+  ASkinVirtualChartDefaultMaterial:=TSkinVirtualChartDefaultMaterial(ASkinMaterial);
+  ASkinVirtualChartIntf:=TVirtualChartSeriesList(Self.FSeries.Collection).FSkinVirtualChartIntf;
+
+
+
+//  PaintAxis(ACanvas,ASkinMaterial,ADrawRect,APaintData,APathDrawRect);
+
+
+//  Inherited;
+
+
+  //绘制整个轮廓的背景色
+  if ASkinVirtualChartDefaultMaterial.IsFillLineChartArea then
+  begin
+    AOldColor:=ASkinVirtualChartDefaultMaterial.LineDotParam.FillColor.FColor;
+    AOldIsFill:=ASkinVirtualChartDefaultMaterial.LineDotParam.IsFill;
+    AOldAlpha:=ASkinVirtualChartDefaultMaterial.LineDotParam.FillColor.Alpha;
+
+    //渐变加透明度
+    ASkinVirtualChartDefaultMaterial.LineDotParam.FillColor.FColor:=GetSeriesColor(ASkinVirtualChartDefaultMaterial).FColor;
+  //  ASkinVirtualChartDefaultMaterial.LineDotParam.FillColor.FAlpha:=50;
+    ASkinVirtualChartDefaultMaterial.LineDotParam.FIsFill:=True;
+    ASkinVirtualChartDefaultMaterial.LineDotParam.FBrushKind:=TDRPBrushKind.drpbkGradient;
+//    ASkinVirtualChartDefaultMaterial.LineDotParam.FGradientStyle:=TGradientStyle.;
+  //  ASkinVirtualChartDefaultMaterial.LineDotParam.FPenWidth:=1;
+
+
+    //用渐变色来绘制
+    ACanvas.DrawPath(ASkinVirtualChartDefaultMaterial.LineDotParam,APathDrawRect,Self.FSeriesDrawPathActions);
+
+    ASkinVirtualChartDefaultMaterial.LineDotParam.FillColor.FColor:=AOldColor;
+    ASkinVirtualChartDefaultMaterial.LineDotParam.FIsFill:=AOldIsFill;
+    ASkinVirtualChartDefaultMaterial.LineDotParam.FillColor.FAlpha:=AOldAlpha;
+    ASkinVirtualChartDefaultMaterial.LineDotParam.FBrushKind:=TDRPBrushKind.drpbkFill;
+  end;
+
+
+
+  ASkinVirtualChartDefaultMaterial:=TSkinVirtualChartDefaultMaterial(ASkinMaterial);
+
+
+
+
+//  SetLength(APoints,Self.FSeries.FDataItems.Count);
+//  SetLength(APoints,Self.FSeries.DataItems.Count);
+//
+//  //绘制线条
+//  for I := 0 to Self.FSeries.DataItems.Count-1 do
+//  begin
+//    ADataItem:=Self.FSeries.DataItems[I];
+//    ADrawData:=TVirtualChartSeriesBezierLineDrawData(ADataItem.FDrawData);
+//
+//
+//    APoints[I].X:=APathDrawRect.Left+ADrawData.FLinePoint.X;
+//    APoints[I].Y:=APathDrawRect.Top+ADrawData.FLinePoint.Y;
+//
+////    APoints[I].X:=Ceil(APathDrawRect.Left+ADataItem.FLinePoint.X);
+////    APoints[I].Y:=Ceil(APathDrawRect.Top+ADataItem.FLinePoint.Y);
+//
+////    if I+1<Self.FSeries.FDataItems.Count then
+////    begin
+////      AOldColor:=ASkinVirtualChartDefaultMaterial.FLineColorParam.Color.FColor;
+////
+////      ASkinVirtualChartDefaultMaterial.FLineColorParam.Color.FColor:=Self.GetDataItemColor(ADataItem);
+//////      ACanvas.DrawLine(ASkinVirtualChartDefaultMaterial.FLineColorParam,
+//////                       APathDrawRect.Left+ADataItem.FLinePoint.X,
+//////                       APathDrawRect.Top+ADataItem.FLinePoint.Y,
+//////                       APathDrawRect.Left+Self.FSeries.FDataItems[I+1].FLinePoint.X,
+//////                       APathDrawRect.Top+Self.FSeries.FDataItems[I+1].FLinePoint.Y
+//////                        );
+////      SetLength(ADrawPointFs,4);
+////
+////      ADrawPointFs[0]:=APointFs[I];
+////      getCtrlPoint(APoints,I,pA,pB);
+////      AGPPoints[1]:=TGPPointF_Create(pA.X,pA.Y);
+////      AGPPoints[2]:=TGPPointF_Create(pB.X,pB.Y);
+////      AGPPoints[3]:=TGPPointF_Create(APoints[I+1].X,APoints[I+1].Y);
+////      FGraphics.DrawBeziers(AGPPen,AGPPoints);
+////
+////      ASkinVirtualChartDefaultMaterial.FLineColorParam.Color.FColor:=AOldColor;
+////    end;
+//
+//  end;
+
+
+//  ACanvas.FCanvas.Pen.Style:=TPenStyle.psSolid;
+//  ACanvas.FCanvas.Pen.Color:=Self.GetDataItemColor(ADataItem);
+//  ACanvas.FCanvas.Pen.Width:=Ceil(ASkinVirtualChartDefaultMaterial.FLineColorParam.PenWidth);
+//  ACanvas.FCanvas.PolyBezier(APoints);
+
+
+//  if Self.FSeries.FDataItems.Count>1 then
+//  begin
+//    ASkinVirtualChartDefaultMaterial.FLineColorParam.Color.FColor:=Self.GetDataItemColor(Self.FSeries.FDataItems[0]);
+//    ACanvas.DrawBezierLine(ASkinVirtualChartDefaultMaterial.FLineColorParam,APoints);
+//    ASkinVirtualChartDefaultMaterial.FLineColorParam.Color.FColor:=AOldColor;
+//  end;
+
+
+
+  //绘制线条
+  SetLength(ADrawPoints,4);
+  for I := 0 to Self.FSeries.DataItems.Count-1 do
+  begin
+    ADataItem:=Self.FSeries.DataItems[I];
+    ADrawData:=TVirtualChartSeriesBezierLineDrawData(ADataItem.FDrawData);
+    if ADrawData=nil then Break;
+
+
+
+//    APoints[I].X:=APathDrawRect.Left+ADataItem.FLinePoint.X;
+//    APoints[I].Y:=APathDrawRect.Top+ADataItem.FLinePoint.Y;
+
+    if (I<Self.FSeries.DataItems.Count-1) and (FSeries.DataItems[I+1].FDrawData<>nil) then
+    begin
+      AOldColor:=ASkinVirtualChartDefaultMaterial.LineColorParam.Color.FColor;
+
+      ASkinVirtualChartDefaultMaterial.LineColorParam.Color.FColor:=GetSeriesColor(ASkinVirtualChartDefaultMaterial).FColor;
+//      ADrawPoints[0]:=APoints[I];
+      ADrawPoints[0].X:=APathDrawRect.Left+ADrawData.FLinePoint.X;
+      ADrawPoints[0].Y:=APathDrawRect.Top+ADrawData.FLinePoint.Y;
+//      getCtrlPoint(APoints,I,ADrawPoints[1],ADrawPoints[2]);
+
+
+
+      ADrawPoints[1].X:=APathDrawRect.Left+ADrawData.FControlPoint1.X;
+      ADrawPoints[1].Y:=APathDrawRect.Top+ADrawData.FControlPoint1.Y;
+
+      ADrawPoints[2].X:=APathDrawRect.Left+ADrawData.FControlPoint2.X;
+      ADrawPoints[2].Y:=APathDrawRect.Top+ADrawData.FControlPoint2.Y;
+
+      ADrawPoints[3].X:=APathDrawRect.Left+TVirtualChartSeriesBezierLineDrawData(FSeries.DataItems[I+1].FDrawData).FLinePoint.X;
+      ADrawPoints[3].Y:=APathDrawRect.Top+TVirtualChartSeriesBezierLineDrawData(FSeries.DataItems[I+1].FDrawData).FLinePoint.Y;
+
+
+
+
+//      FGraphics.DrawBeziers(AGPPen,ADrawPoints);
+      ACanvas.DrawBezierLine(ASkinVirtualChartDefaultMaterial.LineColorParam,
+                             ADrawPoints
+                              );
+
+      ASkinVirtualChartDefaultMaterial.LineColorParam.Color.FColor:=AOldColor;
+    end;
+
+
+    //给数据项加上状态
+    AItemEffectStates:=Self.FSeries.FListLayoutsManager.ProcessItemDrawEffectStates(ADataItem);
+    ASkinVirtualChartDefaultMaterial.LineDotParam.StaticEffectStates:=AItemEffectStates;
+//    ASkinVirtualChartDefaultMaterial.FBarColorParam.FillColor.FColor:=Self.GetDataItemColor(ADataItem);
+//
+//
+//    //处理绘制参数的透明度
+//    ASkinVirtualChartDefaultMaterial.FBarColorParam.DrawAlpha:=Ceil(ASkinVirtualChartDefaultMaterial.FBarColorParam.CurrentEffectAlpha*1);
+
+//    AItemPaintData:=GlobalNullPaintData;
+//    AItemPaintData.IsDrawInteractiveState:=True;
+//    ProcessParamEffectStates(ASkinVirtualChartDefaultMaterial.FBarColorParam,
+//                                1,
+//                                AItemEffectStates,
+//                                AItemPaintData
+//                                );
+
+
+    AOldColor:=ASkinVirtualChartDefaultMaterial.BarColorParam.FillColor.FColor;
+
+
+    ASkinVirtualChartDefaultMaterial.LineDotParam.PenColor.FColor:=GetSeriesColor(ASkinVirtualChartDefaultMaterial).FColor;
+
+
+    //{$IFDEF FPC}
+    //ASkinVirtualChartDefaultMaterial.FLineDotParam.PenWidth:=10;
+    //{$ENDIF}
+
+
+
+    ACanvas.DrawPath(ASkinVirtualChartDefaultMaterial.LineDotParam,APathDrawRect,ADataItem.FDrawPathActions);
+
+
+    ASkinVirtualChartDefaultMaterial.BarColorParam.FillColor.FColor:=AOldColor;
+
+  end;
+
+end;
+
+
+
+end.
