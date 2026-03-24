@@ -1,4 +1,5 @@
-这是一个OpenClaw的桌面客户端应用程序，可以直接安装运行来使用Openclaw。    
+这是一个OpenClaw的桌面客户端应用程序，你可以打包一键安装包，可以直接安装运行来使用Openclaw，不需要使用官方的安装命令。    
+![Demo](screen1.png)    
 
 <p align="center">
   <a href="./README_en.md">English</a> |
@@ -14,7 +15,7 @@
 2.打开工程组,安装OrangeUI组件    
 3.编译客户端工程    
 4.下载openclaw源码，打包openclaw到客户端\Win32\Debug\openclaw目录    
-5.将绿色版node放在客户端\Win32\Debug\node目录
+5.将绿色版node放在客户端\Win32\Debug\node目录    
 6.运行客户端即可
 
 
