@@ -826,10 +826,11 @@ end;
 
 procedure TFrameMain.DoReturnFrameFromInstallDaemonFrame(AFrame: TFrame);
 begin
-  Self.pcMain.Prop.ActivePage:=tsHome;
-  pcMainChange(nil);
-  //显示网页
-  Self.FAIChatFrame.Load;
+//  Self.pcMain.Prop.ActivePage:=tsHome;
+//  pcMainChange(nil);
+//  //显示网页
+//  Self.FAIChatFrame.Load;
+  Self.tteGetBasicData.Run();
 end;
 
 //procedure TFrameMain.DoBaiduOCRScanCarPlateNumberSucc(Sender:TObject);
