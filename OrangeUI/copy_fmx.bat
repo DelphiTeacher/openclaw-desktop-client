@@ -1,51 +1,75 @@
-copy OrangeUIControl\Source\Common\CommonFrames\*.fmx OrangeUIDesign\DCU\FMX\D10_1\Win32\Debug\
-copy OrangeUIControl\Source\Common\CommonFrames\*.fmx OrangeUIDesign\DCU\FMX\D10_1\Win32\Release\
-copy OrangeUIControl\Source\Common\CommonFrames\*.fmx OrangeUIDesign\DCU\FMX\D10_1\Android\Release\
-copy OrangeUIControl\Source\Common\CommonFrames\*.fmx OrangeUIDesign\DCU\FMX\D10_1\Android64\Release\
-copy OrangeUIControl\Source\Common\CommonFrames\*.fmx OrangeUIDesign\DCU\FMX\D10_1\iOSDevice32\Release\
-copy OrangeUIControl\Source\Common\CommonFrames\*.fmx OrangeUIDesign\DCU\FMX\D10_1\iOSDevice64\Release\
-copy OrangeUIControl\Source\Common\CommonFrames\*.fmx OrangeUIDesign\DCU\FMX\D10_1\iOSSimulator\Release\
-copy OrangeUIControl\Source\Common\CommonFrames\*.fmx OrangeUIDesign\DCU\FMX\D10_1\OSX32\Release\
-copy OrangeUIControl\Source\Common\CommonFrames\*.fmx OrangeUIDesign\DCU\FMX\D10_1\OSX64\Release\
-copy OrangeUIControl\Source\Common\CommonFrames\*.fmx OrangeUIDesign\DCU\FMX\D10_1\OSXARM64\Release\
+copy OrangeUIControl\Source\FMX\*.fmx OrangeUIDesign\DCU\FMX\D10_1\Win32\Debug\
+copy OrangeUIControl\Source\FMX\*.fmx OrangeUIDesign\DCU\FMX\D10_1\Win32\Release\
+copy OrangeUIControl\Source\FMX\*.fmx OrangeUIDesign\DCU\FMX\D10_1\Android\Release\
+copy OrangeUIControl\Source\FMX\*.fmx OrangeUIDesign\DCU\FMX\D10_1\Android64\Release\
+copy OrangeUIControl\Source\FMX\*.fmx OrangeUIDesign\DCU\FMX\D10_1\iOSDevice32\Release\
+copy OrangeUIControl\Source\FMX\*.fmx OrangeUIDesign\DCU\FMX\D10_1\iOSDevice64\Release\
+copy OrangeUIControl\Source\FMX\*.fmx OrangeUIDesign\DCU\FMX\D10_1\iOSSimulator\Release\
+copy OrangeUIControl\Source\FMX\*.fmx OrangeUIDesign\DCU\FMX\D10_1\OSX32\Release\
+copy OrangeUIControl\Source\FMX\*.fmx OrangeUIDesign\DCU\FMX\D10_1\OSX64\Release\
+copy OrangeUIControl\Source\FMX\*.fmx OrangeUIDesign\DCU\FMX\D10_1\OSXARM64\Release\
 
-copy OrangeUIControl\Source\Common\CommonFrames\*.fmx OrangeUIDesign\DCU\FMX\D10_3\Win32\Debug\
-copy OrangeUIControl\Source\Common\CommonFrames\*.fmx OrangeUIDesign\DCU\FMX\D10_3\Win32\Release\
-copy OrangeUIControl\Source\Common\CommonFrames\*.fmx OrangeUIDesign\DCU\FMX\D10_3\Android\Release\
-copy OrangeUIControl\Source\Common\CommonFrames\*.fmx OrangeUIDesign\DCU\FMX\D10_3\Android64\Release\
-copy OrangeUIControl\Source\Common\CommonFrames\*.fmx OrangeUIDesign\DCU\FMX\D10_3\iOSDevice32\Release\
-copy OrangeUIControl\Source\Common\CommonFrames\*.fmx OrangeUIDesign\DCU\FMX\D10_3\iOSDevice64\Release\
-copy OrangeUIControl\Source\Common\CommonFrames\*.fmx OrangeUIDesign\DCU\FMX\D10_3\iOSSimulator\Release\
-copy OrangeUIControl\Source\Common\CommonFrames\*.fmx OrangeUIDesign\DCU\FMX\D10_3\OSX32\Release\
-copy OrangeUIControl\Source\Common\CommonFrames\*.fmx OrangeUIDesign\DCU\FMX\D10_3\OSX64\Release\
-copy OrangeUIControl\Source\Common\CommonFrames\*.fmx OrangeUIDesign\DCU\FMX\D10_3\OSXARM64\Release\
-
-
-
-copy OrangeUIControl\Source\Common\CommonFrames\*.fmx OrangeUIDesign\DCU\FMX\D10_4\Win32\Debug\
-copy OrangeUIControl\Source\Common\CommonFrames\*.fmx OrangeUIDesign\DCU\FMX\D10_4\Win32\Release\
-copy OrangeUIControl\Source\Common\CommonFrames\*.fmx OrangeUIDesign\DCU\FMX\D10_4\Android\Release\
-copy OrangeUIControl\Source\Common\CommonFrames\*.fmx OrangeUIDesign\DCU\FMX\D10_4\Android64\Release\
-copy OrangeUIControl\Source\Common\CommonFrames\*.fmx OrangeUIDesign\DCU\FMX\D10_4\iOSDevice32\Release\
-copy OrangeUIControl\Source\Common\CommonFrames\*.fmx OrangeUIDesign\DCU\FMX\D10_4\iOSDevice64\Release\
-copy OrangeUIControl\Source\Common\CommonFrames\*.fmx OrangeUIDesign\DCU\FMX\D10_4\iOSSimulator\Release\
-copy OrangeUIControl\Source\Common\CommonFrames\*.fmx OrangeUIDesign\DCU\FMX\D10_4\OSX32\Release\
-copy OrangeUIControl\Source\Common\CommonFrames\*.fmx OrangeUIDesign\DCU\FMX\D10_4\OSX64\Release\
-copy OrangeUIControl\Source\Common\CommonFrames\*.fmx OrangeUIDesign\DCU\FMX\D10_4\OSXARM64\Release\
+copy OrangeUIControl\Source\FMX\*.fmx OrangeUIDesign\DCU\FMX\D10_3\Win32\Debug\
+copy OrangeUIControl\Source\FMX\*.fmx OrangeUIDesign\DCU\FMX\D10_3\Win32\Release\
+copy OrangeUIControl\Source\FMX\*.fmx OrangeUIDesign\DCU\FMX\D10_3\Android\Release\
+copy OrangeUIControl\Source\FMX\*.fmx OrangeUIDesign\DCU\FMX\D10_3\Android64\Release\
+copy OrangeUIControl\Source\FMX\*.fmx OrangeUIDesign\DCU\FMX\D10_3\iOSDevice32\Release\
+copy OrangeUIControl\Source\FMX\*.fmx OrangeUIDesign\DCU\FMX\D10_3\iOSDevice64\Release\
+copy OrangeUIControl\Source\FMX\*.fmx OrangeUIDesign\DCU\FMX\D10_3\iOSSimulator\Release\
+copy OrangeUIControl\Source\FMX\*.fmx OrangeUIDesign\DCU\FMX\D10_3\OSX32\Release\
+copy OrangeUIControl\Source\FMX\*.fmx OrangeUIDesign\DCU\FMX\D10_3\OSX64\Release\
+copy OrangeUIControl\Source\FMX\*.fmx OrangeUIDesign\DCU\FMX\D10_3\OSXARM64\Release\
 
 
 
+copy OrangeUIControl\Source\FMX\*.fmx OrangeUIDesign\DCU\FMX\D10_4\Win32\Debug\
+copy OrangeUIControl\Source\FMX\*.fmx OrangeUIDesign\DCU\FMX\D10_4\Win32\Release\
+copy OrangeUIControl\Source\FMX\*.fmx OrangeUIDesign\DCU\FMX\D10_4\Android\Release\
+copy OrangeUIControl\Source\FMX\*.fmx OrangeUIDesign\DCU\FMX\D10_4\Android64\Release\
+copy OrangeUIControl\Source\FMX\*.fmx OrangeUIDesign\DCU\FMX\D10_4\iOSDevice32\Release\
+copy OrangeUIControl\Source\FMX\*.fmx OrangeUIDesign\DCU\FMX\D10_4\iOSDevice64\Release\
+copy OrangeUIControl\Source\FMX\*.fmx OrangeUIDesign\DCU\FMX\D10_4\iOSSimulator\Release\
+copy OrangeUIControl\Source\FMX\*.fmx OrangeUIDesign\DCU\FMX\D10_4\OSX32\Release\
+copy OrangeUIControl\Source\FMX\*.fmx OrangeUIDesign\DCU\FMX\D10_4\OSX64\Release\
+copy OrangeUIControl\Source\FMX\*.fmx OrangeUIDesign\DCU\FMX\D10_4\OSXARM64\Release\
 
-copy OrangeUIControl\Source\Common\CommonFrames\*.fmx OrangeUIDesign\DCU\FMX\D11\Win32\Debug\
-copy OrangeUIControl\Source\Common\CommonFrames\*.fmx OrangeUIDesign\DCU\FMX\D11\Win32\Release\
-copy OrangeUIControl\Source\Common\CommonFrames\*.fmx OrangeUIDesign\DCU\FMX\D11\Android\Release\
-copy OrangeUIControl\Source\Common\CommonFrames\*.fmx OrangeUIDesign\DCU\FMX\D11\Android64\Release\
-copy OrangeUIControl\Source\Common\CommonFrames\*.fmx OrangeUIDesign\DCU\FMX\D11\iOSDevice32\Release\
-copy OrangeUIControl\Source\Common\CommonFrames\*.fmx OrangeUIDesign\DCU\FMX\D11\iOSDevice64\Release\
-copy OrangeUIControl\Source\Common\CommonFrames\*.fmx OrangeUIDesign\DCU\FMX\D11\iOSSimulator\Release\
-copy OrangeUIControl\Source\Common\CommonFrames\*.fmx OrangeUIDesign\DCU\FMX\D11\OSX32\Release\
-copy OrangeUIControl\Source\Common\CommonFrames\*.fmx OrangeUIDesign\DCU\FMX\D11\OSX64\Release\
-copy OrangeUIControl\Source\Common\CommonFrames\*.fmx OrangeUIDesign\DCU\FMX\D11\OSXARM64\Release\
+
+
+
+copy OrangeUIControl\Source\FMX\*.fmx OrangeUIDesign\DCU\FMX\D11\Win32\Debug\
+copy OrangeUIControl\Source\FMX\*.fmx OrangeUIDesign\DCU\FMX\D11\Win32\Release\
+copy OrangeUIControl\Source\FMX\*.fmx OrangeUIDesign\DCU\FMX\D11\Android\Release\
+copy OrangeUIControl\Source\FMX\*.fmx OrangeUIDesign\DCU\FMX\D11\Android64\Release\
+copy OrangeUIControl\Source\FMX\*.fmx OrangeUIDesign\DCU\FMX\D11\iOSDevice32\Release\
+copy OrangeUIControl\Source\FMX\*.fmx OrangeUIDesign\DCU\FMX\D11\iOSDevice64\Release\
+copy OrangeUIControl\Source\FMX\*.fmx OrangeUIDesign\DCU\FMX\D11\iOSSimulator\Release\
+copy OrangeUIControl\Source\FMX\*.fmx OrangeUIDesign\DCU\FMX\D11\OSX32\Release\
+copy OrangeUIControl\Source\FMX\*.fmx OrangeUIDesign\DCU\FMX\D11\OSX64\Release\
+copy OrangeUIControl\Source\FMX\*.fmx OrangeUIDesign\DCU\FMX\D11\OSXARM64\Release\
+
+
+copy OrangeUIControl\Source\FMX\*.fmx OrangeUIDesign\DCU\FMX\D12\Win32\Debug\
+copy OrangeUIControl\Source\FMX\*.fmx OrangeUIDesign\DCU\FMX\D12\Win32\Release\
+copy OrangeUIControl\Source\FMX\*.fmx OrangeUIDesign\DCU\FMX\D12\Android\Release\
+copy OrangeUIControl\Source\FMX\*.fmx OrangeUIDesign\DCU\FMX\D12\Android64\Release\
+copy OrangeUIControl\Source\FMX\*.fmx OrangeUIDesign\DCU\FMX\D12\iOSDevice32\Release\
+copy OrangeUIControl\Source\FMX\*.fmx OrangeUIDesign\DCU\FMX\D12\iOSDevice64\Release\
+copy OrangeUIControl\Source\FMX\*.fmx OrangeUIDesign\DCU\FMX\D12\iOSSimulator\Release\
+copy OrangeUIControl\Source\FMX\*.fmx OrangeUIDesign\DCU\FMX\D12\OSX32\Release\
+copy OrangeUIControl\Source\FMX\*.fmx OrangeUIDesign\DCU\FMX\D12\OSX64\Release\
+copy OrangeUIControl\Source\FMX\*.fmx OrangeUIDesign\DCU\FMX\D12\OSXARM64\Release\
+
+
+copy OrangeUIControl\Source\FMX\*.fmx OrangeUIDesign\DCU\FMX\D13\Win32\Debug\
+copy OrangeUIControl\Source\FMX\*.fmx OrangeUIDesign\DCU\FMX\D13\Win32\Release\
+copy OrangeUIControl\Source\FMX\*.fmx OrangeUIDesign\DCU\FMX\D13\Android\Release\
+copy OrangeUIControl\Source\FMX\*.fmx OrangeUIDesign\DCU\FMX\D13\Android64\Release\
+copy OrangeUIControl\Source\FMX\*.fmx OrangeUIDesign\DCU\FMX\D13\iOSDevice32\Release\
+copy OrangeUIControl\Source\FMX\*.fmx OrangeUIDesign\DCU\FMX\D13\iOSDevice64\Release\
+copy OrangeUIControl\Source\FMX\*.fmx OrangeUIDesign\DCU\FMX\D13\iOSSimulator\Release\
+copy OrangeUIControl\Source\FMX\*.fmx OrangeUIDesign\DCU\FMX\D13\OSX32\Release\
+copy OrangeUIControl\Source\FMX\*.fmx OrangeUIDesign\DCU\FMX\D13\OSX64\Release\
+copy OrangeUIControl\Source\FMX\*.fmx OrangeUIDesign\DCU\FMX\D13\OSXARM64\Release\
 
 
 
@@ -262,48 +286,76 @@ CD ..
 
 
 
-copy OrangeUIControl\Source\Common\CommonFrames\*.fmx DCU\FMX\D10_3\Win32\Debug\
-copy OrangeUIControl\Source\Common\CommonFrames\*.fmx DCU\FMX\D10_3\Win32\Release\
-copy OrangeUIControl\Source\Common\CommonFrames\*.fmx DCU\FMX\D10_3\Win64\Release\
-copy OrangeUIControl\Source\Common\CommonFrames\*.fmx DCU\FMX\D10_3\Android\Release\
-copy OrangeUIControl\Source\Common\CommonFrames\*.fmx DCU\FMX\D10_3\Android64\Release\
-copy OrangeUIControl\Source\Common\CommonFrames\*.fmx DCU\FMX\D10_3\iOSDevice32\Release\
-copy OrangeUIControl\Source\Common\CommonFrames\*.fmx DCU\FMX\D10_3\iOSDevice64\Release\
-copy OrangeUIControl\Source\Common\CommonFrames\*.fmx DCU\FMX\D10_3\iOSSimulator\Release\
-copy OrangeUIControl\Source\Common\CommonFrames\*.fmx DCU\FMX\D10_3\OSX32\Release\
-copy OrangeUIControl\Source\Common\CommonFrames\*.fmx DCU\FMX\D10_3\OSX64\Release\
-copy OrangeUIControl\Source\Common\CommonFrames\*.fmx DCU\FMX\D10_3\OSXARM64\Release\
+copy OrangeUIControl\Source\FMX\*.fmx DCU\FMX\D10_3\Win32\Debug\
+copy OrangeUIControl\Source\FMX\*.fmx DCU\FMX\D10_3\Win32\Release\
+copy OrangeUIControl\Source\FMX\*.fmx DCU\FMX\D10_3\Win64\Release\
+copy OrangeUIControl\Source\FMX\*.fmx DCU\FMX\D10_3\Android\Release\
+copy OrangeUIControl\Source\FMX\*.fmx DCU\FMX\D10_3\Android64\Release\
+copy OrangeUIControl\Source\FMX\*.fmx DCU\FMX\D10_3\iOSDevice32\Release\
+copy OrangeUIControl\Source\FMX\*.fmx DCU\FMX\D10_3\iOSDevice64\Release\
+copy OrangeUIControl\Source\FMX\*.fmx DCU\FMX\D10_3\iOSSimulator\Release\
+copy OrangeUIControl\Source\FMX\*.fmx DCU\FMX\D10_3\OSX32\Release\
+copy OrangeUIControl\Source\FMX\*.fmx DCU\FMX\D10_3\OSX64\Release\
+copy OrangeUIControl\Source\FMX\*.fmx DCU\FMX\D10_3\OSXARM64\Release\
 
 
 
 
 
-copy OrangeUIControl\Source\Common\CommonFrames\*.fmx DCU\FMX\D10_4\Win32\Debug\
-copy OrangeUIControl\Source\Common\CommonFrames\*.fmx DCU\FMX\D10_4\Win32\Release\
-copy OrangeUIControl\Source\Common\CommonFrames\*.fmx DCU\FMX\D10_4\Win64\Release\
-copy OrangeUIControl\Source\Common\CommonFrames\*.fmx DCU\FMX\D10_4\Android\Release\
-copy OrangeUIControl\Source\Common\CommonFrames\*.fmx DCU\FMX\D10_4\Android64\Release\
-copy OrangeUIControl\Source\Common\CommonFrames\*.fmx DCU\FMX\D10_4\iOSDevice32\Release\
-copy OrangeUIControl\Source\Common\CommonFrames\*.fmx DCU\FMX\D10_4\iOSDevice64\Release\
-copy OrangeUIControl\Source\Common\CommonFrames\*.fmx DCU\FMX\D10_4\iOSSimulator\Release\
-copy OrangeUIControl\Source\Common\CommonFrames\*.fmx DCU\FMX\D10_4\OSX32\Release\
-copy OrangeUIControl\Source\Common\CommonFrames\*.fmx DCU\FMX\D10_4\OSX64\Release\
-copy OrangeUIControl\Source\Common\CommonFrames\*.fmx DCU\FMX\D10_4\OSXARM64\Release\
+copy OrangeUIControl\Source\FMX\*.fmx DCU\FMX\D10_4\Win32\Debug\
+copy OrangeUIControl\Source\FMX\*.fmx DCU\FMX\D10_4\Win32\Release\
+copy OrangeUIControl\Source\FMX\*.fmx DCU\FMX\D10_4\Win64\Release\
+copy OrangeUIControl\Source\FMX\*.fmx DCU\FMX\D10_4\Android\Release\
+copy OrangeUIControl\Source\FMX\*.fmx DCU\FMX\D10_4\Android64\Release\
+copy OrangeUIControl\Source\FMX\*.fmx DCU\FMX\D10_4\iOSDevice32\Release\
+copy OrangeUIControl\Source\FMX\*.fmx DCU\FMX\D10_4\iOSDevice64\Release\
+copy OrangeUIControl\Source\FMX\*.fmx DCU\FMX\D10_4\iOSSimulator\Release\
+copy OrangeUIControl\Source\FMX\*.fmx DCU\FMX\D10_4\OSX32\Release\
+copy OrangeUIControl\Source\FMX\*.fmx DCU\FMX\D10_4\OSX64\Release\
+copy OrangeUIControl\Source\FMX\*.fmx DCU\FMX\D10_4\OSXARM64\Release\
 
 
 
 
-copy OrangeUIControl\Source\Common\CommonFrames\*.fmx DCU\FMX\D11\Win32\Debug\
-copy OrangeUIControl\Source\Common\CommonFrames\*.fmx DCU\FMX\D11\Win32\Release\
-copy OrangeUIControl\Source\Common\CommonFrames\*.fmx DCU\FMX\D11\Win64\Release\
-copy OrangeUIControl\Source\Common\CommonFrames\*.fmx DCU\FMX\D11\Android\Release\
-copy OrangeUIControl\Source\Common\CommonFrames\*.fmx DCU\FMX\D11\Android64\Release\
-copy OrangeUIControl\Source\Common\CommonFrames\*.fmx DCU\FMX\D11\iOSDevice32\Release\
-copy OrangeUIControl\Source\Common\CommonFrames\*.fmx DCU\FMX\D11\iOSDevice64\Release\
-copy OrangeUIControl\Source\Common\CommonFrames\*.fmx DCU\FMX\D11\iOSSimulator\Release\
-copy OrangeUIControl\Source\Common\CommonFrames\*.fmx DCU\FMX\D11\OSX32\Release\
-copy OrangeUIControl\Source\Common\CommonFrames\*.fmx DCU\FMX\D11\OSX64\Release\
-copy OrangeUIControl\Source\Common\CommonFrames\*.fmx DCU\FMX\D11\OSXARM64\Release\
+copy OrangeUIControl\Source\FMX\*.fmx DCU\FMX\D11\Win32\Debug\
+copy OrangeUIControl\Source\FMX\*.fmx DCU\FMX\D11\Win32\Release\
+copy OrangeUIControl\Source\FMX\*.fmx DCU\FMX\D11\Win64\Release\
+copy OrangeUIControl\Source\FMX\*.fmx DCU\FMX\D11\Android\Release\
+copy OrangeUIControl\Source\FMX\*.fmx DCU\FMX\D11\Android64\Release\
+copy OrangeUIControl\Source\FMX\*.fmx DCU\FMX\D11\iOSDevice32\Release\
+copy OrangeUIControl\Source\FMX\*.fmx DCU\FMX\D11\iOSDevice64\Release\
+copy OrangeUIControl\Source\FMX\*.fmx DCU\FMX\D11\iOSSimulator\Release\
+copy OrangeUIControl\Source\FMX\*.fmx DCU\FMX\D11\OSX32\Release\
+copy OrangeUIControl\Source\FMX\*.fmx DCU\FMX\D11\OSX64\Release\
+copy OrangeUIControl\Source\FMX\*.fmx DCU\FMX\D11\OSXARM64\Release\
+
+
+
+copy OrangeUIControl\Source\FMX\*.fmx DCU\FMX\D12\Win32\Debug\
+copy OrangeUIControl\Source\FMX\*.fmx DCU\FMX\D12\Win32\Release\
+copy OrangeUIControl\Source\FMX\*.fmx DCU\FMX\D12\Win64\Release\
+copy OrangeUIControl\Source\FMX\*.fmx DCU\FMX\D12\Android\Release\
+copy OrangeUIControl\Source\FMX\*.fmx DCU\FMX\D12\Android64\Release\
+copy OrangeUIControl\Source\FMX\*.fmx DCU\FMX\D12\iOSDevice32\Release\
+copy OrangeUIControl\Source\FMX\*.fmx DCU\FMX\D12\iOSDevice64\Release\
+copy OrangeUIControl\Source\FMX\*.fmx DCU\FMX\D12\iOSSimulator\Release\
+copy OrangeUIControl\Source\FMX\*.fmx DCU\FMX\D12\OSX32\Release\
+copy OrangeUIControl\Source\FMX\*.fmx DCU\FMX\D12\OSX64\Release\
+copy OrangeUIControl\Source\FMX\*.fmx DCU\FMX\D12\OSXARM64\Release\
+
+
+
+copy OrangeUIControl\Source\FMX\*.fmx DCU\FMX\D13\Win32\Debug\
+copy OrangeUIControl\Source\FMX\*.fmx DCU\FMX\D13\Win32\Release\
+copy OrangeUIControl\Source\FMX\*.fmx DCU\FMX\D13\Win64\Release\
+copy OrangeUIControl\Source\FMX\*.fmx DCU\FMX\D13\Android\Release\
+copy OrangeUIControl\Source\FMX\*.fmx DCU\FMX\D13\Android64\Release\
+copy OrangeUIControl\Source\FMX\*.fmx DCU\FMX\D13\iOSDevice32\Release\
+copy OrangeUIControl\Source\FMX\*.fmx DCU\FMX\D13\iOSDevice64\Release\
+copy OrangeUIControl\Source\FMX\*.fmx DCU\FMX\D13\iOSSimulator\Release\
+copy OrangeUIControl\Source\FMX\*.fmx DCU\FMX\D13\OSX32\Release\
+copy OrangeUIControl\Source\FMX\*.fmx DCU\FMX\D13\OSX64\Release\
+copy OrangeUIControl\Source\FMX\*.fmx DCU\FMX\D13\OSXARM64\Release\
 
 
 

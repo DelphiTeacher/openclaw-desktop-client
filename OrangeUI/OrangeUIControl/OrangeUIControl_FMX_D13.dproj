@@ -3,7 +3,7 @@
         <ProjectGuid>{B39B5CD5-2748-4738-A445-B4559F086914}</ProjectGuid>
         <MainSource>OrangeUIControl_FMX_D13.dpk</MainSource>
         <Base>True</Base>
-        <Config Condition="'$(Config)'==''">Release</Config>
+        <Config Condition="'$(Config)'==''">Debug</Config>
         <TargetedPlatforms>693395</TargetedPlatforms>
         <AppType>Package</AppType>
         <FrameworkType>FMX</FrameworkType>
