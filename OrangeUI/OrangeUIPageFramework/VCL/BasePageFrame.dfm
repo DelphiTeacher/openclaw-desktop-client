@@ -1,0 +1,57 @@
+object FrameBasePage: TFrameBasePage
+  Left = 0
+  Top = 0
+  Width = 574
+  Height = 392
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  Padding.Left = 1
+  Padding.Top = 1
+  Padding.Right = 1
+  Padding.Bottom = 1
+  ParentFont = False
+  TabOrder = 0
+  OnResize = FrameResize
+  object pnlToolbar: TPanel
+    Left = 1
+    Top = 1
+    Width = 572
+    Height = 44
+    Align = alTop
+    BevelOuter = bvNone
+    Padding.Left = 2
+    Padding.Top = 2
+    Padding.Bottom = 2
+    TabOrder = 0
+    Visible = False
+  end
+  object pnlBottombar: TPanel
+    Left = 1
+    Top = 347
+    Width = 572
+    Height = 44
+    Align = alBottom
+    BevelOuter = bvNone
+    Padding.Left = 2
+    Padding.Top = 2
+    Padding.Bottom = 2
+    TabOrder = 1
+  end
+  object pnlClient: TPanel
+    Left = 1
+    Top = 45
+    Width = 572
+    Height = 302
+    Align = alClient
+    BevelOuter = bvNone
+    Color = clWindow
+    Padding.Left = 2
+    Padding.Top = 2
+    Padding.Bottom = 2
+    ParentBackground = False
+    TabOrder = 2
+  end
+end

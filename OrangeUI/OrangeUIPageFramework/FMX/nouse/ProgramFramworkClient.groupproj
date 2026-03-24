@@ -1,0 +1,48 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{10F01F89-60D5-4F1F-9592-29EF5EA60C75}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="..\OpenPlatform\TableCommonRestCenter\Test\TestTableCommonRest_Interface.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="Server框架Test\TestProgramFramworkInterface.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="TestTableCommonRest_Interface">
+        <MSBuild Projects="..\OpenPlatform\TableCommonRestCenter\Test\TestTableCommonRest_Interface.dproj"/>
+    </Target>
+    <Target Name="TestTableCommonRest_Interface:Clean">
+        <MSBuild Projects="..\OpenPlatform\TableCommonRestCenter\Test\TestTableCommonRest_Interface.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="TestTableCommonRest_Interface:Make">
+        <MSBuild Projects="..\OpenPlatform\TableCommonRestCenter\Test\TestTableCommonRest_Interface.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="TestProgramFramworkInterface">
+        <MSBuild Projects="Server框架Test\TestProgramFramworkInterface.dproj"/>
+    </Target>
+    <Target Name="TestProgramFramworkInterface:Clean">
+        <MSBuild Projects="Server框架Test\TestProgramFramworkInterface.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="TestProgramFramworkInterface:Make">
+        <MSBuild Projects="Server框架Test\TestProgramFramworkInterface.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="TestTableCommonRest_Interface;TestProgramFramworkInterface"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="TestTableCommonRest_Interface:Clean;TestProgramFramworkInterface:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="TestTableCommonRest_Interface:Make;TestProgramFramworkInterface:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>

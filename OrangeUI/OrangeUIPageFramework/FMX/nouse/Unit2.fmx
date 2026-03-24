@@ -1,0 +1,94 @@
+object Form2: TForm2
+  Left = 0
+  Top = 0
+  Caption = 'Form2'
+  ClientHeight = 480
+  ClientWidth = 486
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  DesignerMasterStyle = 0
+  object Button1: TButton
+    Position.X = 40.000000000000000000
+    Position.Y = 57.000000000000000000
+    Size.Width = 153.000000000000000000
+    Size.Height = 24.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 0
+    Text = #20445#23384'DrawParam'
+    OnClick = Button1Click
+  end
+  object Memo1: TMemo
+    Touch.InteractiveGestures = [Pan, LongTap, DoubleTap]
+    DataDetectorTypes = []
+    TextSettings.WordWrap = True
+    Position.X = 32.000000000000000000
+    Position.Y = 200.000000000000000000
+    Size.Width = 409.000000000000000000
+    Size.Height = 257.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 2
+    Viewport.Width = 405.000000000000000000
+    Viewport.Height = 253.000000000000000000
+  end
+  object Button2: TButton
+    Position.X = 40.000000000000000000
+    Position.Y = 24.000000000000000000
+    Size.Width = 153.000000000000000000
+    Size.Height = 22.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 3
+    Text = #27979#35797'Json'
+    OnClick = Button2Click
+  end
+  object Button3: TButton
+    Position.X = 40.000000000000000000
+    Position.Y = 93.000000000000000000
+    Size.Width = 153.000000000000000000
+    Size.Height = 22.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 4
+    Text = #20445#23384'DrawTextParam'
+    OnClick = Button3Click
+  end
+  object Button4: TButton
+    Position.X = 40.000000000000000000
+    Position.Y = 128.000000000000000000
+    Size.Width = 153.000000000000000000
+    Size.Height = 22.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 5
+    Text = #20445#23384'DrawPictureParam'
+    OnClick = Button4Click
+  end
+  object Button5: TButton
+    Position.X = 40.000000000000000000
+    Position.Y = 160.000000000000000000
+    Size.Width = 153.000000000000000000
+    Size.Height = 22.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 6
+    Text = #20445#23384'DrawRectParam'
+    OnClick = Button5Click
+  end
+  object Button6: TButton
+    Position.X = 208.000000000000000000
+    Position.Y = 24.000000000000000000
+    Size.Width = 137.000000000000000000
+    Size.Height = 22.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 7
+    Text = #20445#23384'DrawLineParam'
+    OnClick = Button6Click
+  end
+  object Button7: TButton
+    Position.X = 208.000000000000000000
+    Position.Y = 57.000000000000000000
+    Size.Width = 137.000000000000000000
+    Size.Height = 22.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 8
+    Text = #20445#23384'DrawPathParam'
+    OnClick = Button7Click
+  end
+end
