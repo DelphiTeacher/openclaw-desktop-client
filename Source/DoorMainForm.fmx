@@ -1,0 +1,18 @@
+inherited frmDoorManageMain: TfrmDoorManageMain
+  Left = 1120
+  Top = 270
+  Caption = 'frmDoorMain'
+  ClientHeight = 768
+  ClientWidth = 1024
+  OnKeyDown = FormKeyDown
+  Left = 1120
+  Top = 270
+  DesignerMasterStyle = 0
+  object DrawCanvasSetting1: TDrawCanvasSetting
+    IsUseDefaultFontFamily = False
+    IsDrawDesigningRect = True
+    IsDrawDesigningName = False
+    Left = 208
+    Top = 56
+  end
+end

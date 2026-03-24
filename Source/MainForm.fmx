@@ -1,0 +1,144 @@
+object frmMain: TfrmMain
+  Left = 0
+  Top = 0
+  Caption = 'APP'#24179#21488
+  ClientHeight = 537
+  ClientWidth = 320
+  Fill.Kind = Solid
+  Position = ScreenCenter
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  OnCreate = FormCreate
+  OnDestroy = FormDestroy
+  OnKeyUp = FormKeyUp
+  OnShow = FormShow
+  OnVirtualKeyboardShown = FormVirtualKeyboardShown
+  OnVirtualKeyboardHidden = FormVirtualKeyboardHidden
+  Touch.InteractiveGestures = [Zoom, DoubleTap]
+  OnGesture = FormGesture
+  OnTouch = FormTouch
+  DesignerMasterStyle = 0
+  object tmrTestGPSLocation: TTimer
+    Enabled = False
+    OnTimer = tmrTestGPSLocationTimer
+    Left = 128
+    Top = 176
+  end
+  object tmrStartLocation: TTimer
+    Enabled = False
+    Interval = 500
+    OnTimer = tmrStartLocationTimer
+    Left = 128
+    Top = 104
+  end
+  object tmrSaveTranslate: TTimer
+    Interval = 10000
+    OnTimer = tmrSaveTranslateTimer
+    Left = 224
+    Top = 152
+  end
+  object MediaPlayerMain: TMediaPlayer
+    Left = 96
+    Top = 264
+  end
+  object tmrAutoLogin: TTimer
+    Enabled = False
+    Interval = 100
+    OnTimer = tmrAutoLoginTimer
+    Left = 128
+    Top = 424
+  end
+  object tmrSyncBadge: TTimer
+    Enabled = False
+    Interval = 5000
+    OnTimer = tmrSyncBadgeTimer
+    Left = 216
+    Top = 344
+  end
+  object tmrSetStatusBarLight: TTimer
+    OnTimer = tmrSetStatusBarLightTimer
+    Left = 128
+    Top = 480
+  end
+  object lblGPSLocation: TSkinFMXLabel
+    ParentMouseEvent = False
+    DirectUIVisible = False
+    ComponentTypeUseKind = ctukDefault
+    MaterialUseKind = mukSelfOwn
+    KeepSelfOwnMaterial = True
+    SelfOwnMaterial.BackColor.Color = claWhite
+    SelfOwnMaterial.DrawCaptionParam.FontTrimming = fttNone
+    SelfOwnMaterial.DrawCaptionParam.FontHorzAlign = fhaLeft
+    SelfOwnMaterial.DrawCaptionParam.FontVertAlign = fvaTop
+    Align = Bottom
+    Position.Y = 642.000000000000000000
+    Size.Width = 320.000000000000000000
+    Size.Height = 22.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 9
+    Visible = False
+    Properties.AutoSize = False
+  end
+  object Panel1: TPanel
+    Align = Bottom
+    Position.Y = 664.000000000000000000
+    Size.Width = 320.000000000000000000
+    Size.Height = 42.000000000000000000
+    Size.PlatformDefault = False
+    Visible = False
+    TabOrder = 0
+    object lblDistance: TLabel
+      Position.X = 273.000000000000000000
+      Position.Y = -3.000000000000000000
+      Size.Width = 120.000000000000000000
+      Size.Height = 40.000000000000000000
+      Size.PlatformDefault = False
+      Text = 'lblDistance'
+      TabOrder = 6
+    end
+    object Label3: TLabel
+      Position.Y = -3.000000000000000000
+      Size.Width = 72.000000000000000000
+      Size.Height = 40.000000000000000000
+      Size.PlatformDefault = False
+      Text = #27599#31186#36317#31163
+      TabOrder = 7
+    end
+    object tbDistance: TTrackBar
+      CanParentFocus = True
+      Max = 40.000000000000000000
+      Min = 1.000000000000000000
+      Orientation = Horizontal
+      Position.X = 80.000000000000000000
+      Position.Y = 8.000000000000000000
+      Size.Width = 185.000000000000000000
+      Size.Height = 19.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 2
+      Value = 1.000000000000000000
+      OnChange = tbDistanceChange
+    end
+  end
+  object tteGetApp: TTimerTaskEvent
+    TaskID = 0
+    TaskTag = 0
+    OnExecute = tteGetAppExecute
+    OnExecuteEnd = tteGetAppExecuteEnd
+    Left = 128
+    Top = 344
+  end
+  object NotificationCenter1: TNotificationCenter
+    OnReceiveLocalNotification = NotificationCenter1ReceiveLocalNotification
+    Left = 216
+    Top = 264
+  end
+  object ActionList1: TActionList
+    Left = 200
+    Top = 32
+    object TakePhotoFromCameraAction1: TTakePhotoFromCameraAction
+      Category = 'Media Library'
+      OnDidFinishTaking = TakePhotoFromCameraAction1DidFinishTaking
+    end
+  end
+end

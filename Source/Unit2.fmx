@@ -1,0 +1,18 @@
+object Form2: TForm2
+  Left = 0
+  Top = 0
+  Caption = 'Form2'
+  ClientHeight = 610
+  ClientWidth = 834
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  DesignerMasterStyle = 0
+  object WebBrowser1: TWebBrowser
+    Align = Client
+    Size.Width = 834.000000000000000000
+    Size.Height = 610.000000000000000000
+    Size.PlatformDefault = False
+    WindowsEngine = IEOnly
+  end
+end

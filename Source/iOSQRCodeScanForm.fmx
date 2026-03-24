@@ -1,0 +1,61 @@
+object frmiOSQRCodeScan: TfrmiOSQRCodeScan
+  Left = 0
+  Top = 0
+  Caption = 'Form2'
+  ClientHeight = 545
+  ClientWidth = 383
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  DesignerMasterStyle = 0
+  object pnlToolBar: TSkinFMXPanel
+    ParentMouseEvent = True
+    ComponentTypeUseKind = ctukDefault
+    MaterialUseKind = mukRef
+    KeepSelfOwnMaterial = False
+    RefMaterial = dmEasyServiceCommonMaterial.pnlToolBarMaterial
+    MouseDownFocus = False
+    Align = Top
+    ClipChildren = True
+    Size.Width = 383.000000000000000000
+    Size.Height = 50.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 0
+    Caption = #20108#32500#30721#25195#25551
+    Text = #20108#32500#30721#25195#25551
+    Properties.IsToolBar = True
+    object btnReturn: TSkinFMXButton
+      ParentMouseEvent = False
+      ComponentTypeUseKind = ctukDefault
+      MaterialUseKind = mukRef
+      KeepSelfOwnMaterial = False
+      RefMaterial = dmEasyServiceCommonMaterial.bdmReturnButton
+      MouseDownFocus = False
+      Align = Left
+      ClipChildren = True
+      Size.Width = 80.000000000000000000
+      Size.Height = 50.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 0
+      OnClick = btnReturnClick
+      Properties.AutoSize = False
+      Properties.IsAutoPush = False
+      Properties.IsPushed = False
+      Properties.Icon.IsClipRound = False
+      Properties.PushedIcon.IsClipRound = False
+      Properties.ButtonIndex = -1
+      Properties.PushedGroupIndex = 0
+    end
+  end
+  object pnlClient: TPanel
+    Align = Client
+    Size.Width = 383.000000000000000000
+    Size.Height = 495.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 2
+  end
+  object MediaPlayer1: TMediaPlayer
+    Left = 176
+    Top = 266
+  end
+end
