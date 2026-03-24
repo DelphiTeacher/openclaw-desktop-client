@@ -1,0 +1,10 @@
+[
+    { key: 36, text: 'DeepSeek', value: 36, color: 'black' },
+    { key: 17, text: '阿里通义千问', value: 17, color: 'orange' },
+    { key: 40, text: '字节跳动豆包', value: 40, color: 'blue' },
+    { key: 18, text: '讯飞星火认知', value: 18, color: 'blue' },
+    { key: 16, text: '智谱 ChatGLM', value: 16, color: 'violet' },
+    { key: 26, text: '百川大模型', value: 26, color: 'orange' },
+    { key: 32, text: '阶跃星辰', value: 32, color: 'blue' },
+    { key: 15, text: '百度文心千帆', value: 15, color: 'blue' }
+]
