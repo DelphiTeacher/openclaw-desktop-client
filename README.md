@@ -1,4 +1,5 @@
 这是一个OpenClaw的桌面客户端应用程序，可以直接安装运行来使用Openclaw。    
+![Demo](screen1.png)    
 
 <p align="center">
   <a href="./README_en.md">English</a> |
