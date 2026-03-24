@@ -18,5 +18,9 @@
 5.将绿色版node放在客户端\Win32\Debug\node目录    
 6.运行客户端即可
 
-
+# 使用步骤    
+1.第一次运行会检测是否配置过openclaw，如果没有配置过，会有一个基本的模型配置页面    
+![Demo](screen2.png)    
+2.配置过的话，会直接进入openclaw页面    
+![Demo](screen1.png)    
 
