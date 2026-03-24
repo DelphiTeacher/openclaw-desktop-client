@@ -240,8 +240,8 @@ function GetStringListNameArray(AStringList:TStringList):TStringDynArray;
 function GetStringListValueArray(AStringList:TStringList):TStringDynArray;
 //释放绑在StringList中的对象
 procedure FreeStringListObjects(AStringList:TStringList);
-function SplitString(AStr:String;ADelimiterChar:Char=','):TStringList;overload;
-function SplitString(AStr:String;ADelimiterChar:Char=','):TStringDynArray;overload;
+function SplitString(AStr:String;ADelimiterChar:Char=','):TStringList;
+function SplitString2(AStr:String;ADelimiterChar:Char=','):TStringDynArray;
 function QuotedStringList(AStringList:TStringList):String;
 
 
@@ -705,7 +705,7 @@ begin
   Result.DelimitedText:=AStr;
 end;
 
-function SplitString(AStr:String;ADelimiterChar:Char=','):TStringDynArray;
+function SplitString2(AStr:String;ADelimiterChar:Char=','):TStringDynArray;
 var
   I:Integer;
   AList:TStringList;
