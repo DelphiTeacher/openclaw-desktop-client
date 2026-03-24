@@ -1,5 +1,5 @@
 这是一个OpenClaw的桌面客户端应用程序，你可以打包一键安装包，可以直接安装运行来使用Openclaw，不需要使用官方的安装命令。    
-![Demo](screen1.png)    
+![Demo](screen0.png)    
 
 <p align="center">
   <a href="./README_en.md">English</a> |
