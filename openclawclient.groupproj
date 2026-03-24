@@ -1,0 +1,60 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{E01E2BA8-2B19-4D08-96F1-6CA0DA5A6105}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="OrangeUI\OrangeUIDesign\OrangeUIDesign_FMX_D13.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="OrangeUI\OrangeUIStyles\OrangeUIStyles_FMX_D13.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="Source\OpenClawDesktop.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="OrangeUIDesign_FMX_D13">
+        <MSBuild Projects="OrangeUI\OrangeUIDesign\OrangeUIDesign_FMX_D13.dproj"/>
+    </Target>
+    <Target Name="OrangeUIDesign_FMX_D13:Clean">
+        <MSBuild Projects="OrangeUI\OrangeUIDesign\OrangeUIDesign_FMX_D13.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="OrangeUIDesign_FMX_D13:Make">
+        <MSBuild Projects="OrangeUI\OrangeUIDesign\OrangeUIDesign_FMX_D13.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="OrangeUIStyles_FMX_D13">
+        <MSBuild Projects="OrangeUI\OrangeUIStyles\OrangeUIStyles_FMX_D13.dproj"/>
+    </Target>
+    <Target Name="OrangeUIStyles_FMX_D13:Clean">
+        <MSBuild Projects="OrangeUI\OrangeUIStyles\OrangeUIStyles_FMX_D13.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="OrangeUIStyles_FMX_D13:Make">
+        <MSBuild Projects="OrangeUI\OrangeUIStyles\OrangeUIStyles_FMX_D13.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="OpenClawDesktop">
+        <MSBuild Projects="Source\OpenClawDesktop.dproj"/>
+    </Target>
+    <Target Name="OpenClawDesktop:Clean">
+        <MSBuild Projects="Source\OpenClawDesktop.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="OpenClawDesktop:Make">
+        <MSBuild Projects="Source\OpenClawDesktop.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="OrangeUIDesign_FMX_D13;OrangeUIStyles_FMX_D13;OpenClawDesktop"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="OrangeUIDesign_FMX_D13:Clean;OrangeUIStyles_FMX_D13:Clean;OpenClawDesktop:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="OrangeUIDesign_FMX_D13:Make;OrangeUIStyles_FMX_D13:Make;OpenClawDesktop:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>
