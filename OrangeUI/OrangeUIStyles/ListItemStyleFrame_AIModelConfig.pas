@@ -15,7 +15,7 @@ uses
   uSkinFireMonkeyItemDesignerPanel, uSkinLabelType, uSkinFireMonkeyLabel,
   uSkinMultiColorLabelType, uSkinFireMonkeyMultiColorLabel, uSkinImageType,
   uSkinFireMonkeyImage, uSkinPanelType, uSkinFireMonkeyPanel, uSkinButtonType,
-  uSkinNotifyNumberIconType, uSkinFireMonkeyNotifyNumberIcon;
+  uSkinNotifyNumberIconType, uSkinFireMonkeyNotifyNumberIcon, uSkinCheckBoxType;
 
 
 type
@@ -25,8 +25,20 @@ type
     imgItemIcon: TSkinFMXImage;
     lblItemCaption: TSkinFMXLabel;
     lblItemDetail: TSkinFMXLabel;
-    nniNumber: TSkinFMXNotifyNumberIcon;
     SkinFMXPanel1: TSkinFMXPanel;
+    SkinFMXPanel2: TSkinFMXPanel;
+    SkinFMXPanel3: TSkinFMXPanel;
+    SkinFMXPanel4: TSkinFMXPanel;
+    lblContextSize: TSkinFMXLabel;
+    SkinFMXLabel2: TSkinFMXLabel;
+    lblToolCall: TSkinFMXLabel;
+    SkinFMXLabel4: TSkinFMXLabel;
+    lblVisual: TSkinFMXLabel;
+    SkinFMXLabel6: TSkinFMXLabel;
+    SkinCheckBox1: TSkinCheckBox;
+    btnTest: TSkinButton;
+    btnConfig: TSkinButton;
+    procedure SkinFMXPanel1Resize(Sender: TObject);
   private
     { Private declarations }
   public
@@ -61,6 +73,13 @@ end;
 
 
 
+
+procedure TFrameListItemStyle_AIModelConfig.SkinFMXPanel1Resize(
+  Sender: TObject);
+begin
+  Self.btnTest.Position.Y:=(Self.SkinFMXPanel1.Height-Self.btnTest.Height) / 2;
+  Self.btnConfig.Position.Y:=(Self.SkinFMXPanel1.Height-Self.btnConfig.Height) / 2;
+end;
 
 initialization
   RegisterListItemStyle('AIModelConfig',TFrameListItemStyle_AIModelConfig);
