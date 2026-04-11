@@ -16,7 +16,6 @@ type
     imgHeadList: TSkinImageList;
     imglistProduct: TSkinImageList;
     imglistViewType: TSkinImageList;
-    SkinTheme1: TSkinTheme;
   private
     { Private declarations }
   public

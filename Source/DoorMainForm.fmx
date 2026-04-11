@@ -8,6 +8,10 @@ inherited frmDoorManageMain: TfrmDoorManageMain
   Left = 1120
   Top = 270
   DesignerMasterStyle = 0
+  inherited SkinTheme1: TSkinTheme
+    FilePictureSearchPaths.Strings = (
+      'D:\OpenClawCode\desktopclient\Source\Win32\Debug\icons\')
+  end
   object DrawCanvasSetting1: TDrawCanvasSetting
     IsUseDefaultFontFamily = False
     IsDrawDesigningRect = True

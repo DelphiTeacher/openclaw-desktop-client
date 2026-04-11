@@ -90,7 +90,6 @@ uses
   ListItemStyleFrame_IconTopCenter_CaptionBottomCenterBlack_Notify in '..\OrangeUI\OrangeUIStyles\ListItemStyleFrame_IconTopCenter_CaptionBottomCenterBlack_Notify.pas',
   uSelectMediaDialog in '..\OrangeUI\OrangeProjectCommon\uSelectMediaDialog.pas',
   uDataInterface in '..\OrangeUI\OrangeProjectCommon\uDataInterface.pas',
-//  ListItemStyleFrame_SelectCompanyCheckBox in '..\OrangeUI\OrangeUIStylesPro\MgrPlus\ListItemStyleFrame_SelectCompanyCheckBox.pas',
   ListItemStyleFrame_CaptionTopDetailBottom_SelectedBorder in '..\OrangeUI\OrangeUIStyles\ListItemStyleFrame_CaptionTopDetailBottom_SelectedBorder.pas',
   ListItemStyleFrame_CaptionTop_DetailBottom_Detail1Button in '..\OrangeUI\OrangeUIStyles\ListItemStyleFrame_CaptionTop_DetailBottom_Detail1Button.pas',
   ListItemStyleFrame_CaptionBottomDetailTop in '..\OrangeUI\OrangeUIStyles\ListItemStyleFrame_CaptionBottomDetailTop.pas',
@@ -100,7 +99,6 @@ uses
   uPhotoManager.iOS in '..\OrangeUI\OrangeProjectCommon\MultiSelectPhotos\uPhotoManager.iOS.pas',
   uPhotoManager in '..\OrangeUI\OrangeProjectCommon\MultiSelectPhotos\uPhotoManager.pas',
   uPhotoManager.Windows in '..\OrangeUI\OrangeProjectCommon\MultiSelectPhotos\uPhotoManager.Windows.pas',
-//  ListItemStyleFrame_Product in '..\OrangeUI\OrangeUIStylesPro\MgrPlus\ListItemStyleFrame_Product.pas',
   uRestIntfMemTable in '..\OrangeUI\OrangeProjectCommon\RestIntfMemTable\uRestIntfMemTable.pas',
   uFMXSVGSupport in '..\OrangeUI\OrangeProjectCommon\uFMXSVGSupport.pas',
   ListItemStyleFrame_IconTopCenterBackColor_CaptionBottomCenterBlack in '..\OrangeUI\OrangeUIStyles\ListItemStyleFrame_IconTopCenterBackColor_CaptionBottomCenterBlack.pas',
@@ -128,10 +126,22 @@ uses
   uServiceManage in 'uServiceManage.pas',
   DoorMainForm in 'DoorMainForm.pas' {frmDoorManageMain},
   ConfigFrame in 'ConfigFrame.pas' {FrameConfig: TFrame},
-  uOpenClawHelper in 'uOpenClawHelper.pas',
+  uLocalOpenClawHelper in 'uLocalOpenClawHelper.pas',
   CustomAIModelSettingFrame in 'CustomAIModelSettingFrame.pas' {FrameCustomAIModelSetting: TFrame},
   InstallDaemonFrame in 'InstallDaemonFrame.pas' {FrameInstallDaemon: TFrame},
-  CommonImageDataMoudle in 'CommonImageDataMoudle.pas' {dmCommonImageDataMoudle: TDataModule};
+  CommonImageDataMoudle in 'CommonImageDataMoudle.pas' {dmCommonImageDataMoudle: TDataModule},
+  OpenClawGateway in 'OpenClawGateway.pas',
+  OpenClawDeviceIdentity in 'OpenClawDeviceIdentity.pas',
+  OpenClawDeviceAuth in 'OpenClawDeviceAuth.pas',
+  ED25519 in 'ED25519.pas',
+  ListItemStyleFrame_AIModelConfig in '..\OrangeUI\OrangeUIStyles\ListItemStyleFrame_AIModelConfig.pas',
+  AIModels in 'AIModels.pas',
+  ConfigAIModelListFrame in 'ConfigAIModelListFrame.pas' {FrameConfigAIModelList: TFrame},
+  SkillFrame in 'SkillFrame.pas' {FrameSkill: TFrame},
+  LoginFrame in 'LoginFrame.pas' {FrameLogin: TFrame},
+  DatasetManageFrame in 'DatasetManageFrame.pas' {FrameDatasetManage: TFrame},
+  OpenclawChatFrame in 'OpenclawChatFrame.pas' {FrameOpenclawChat: TFrame},
+  ListItemStyleFrame_RagDataset in '..\OrangeUI\OrangeUIStyles\ListItemStyleFrame_RagDataset.pas';
 
 {$R *.res}
 

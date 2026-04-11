@@ -558,95 +558,95 @@ Type
 
 
 
-  TDrawTextParamSetting=class(TDrawParamSetting)
-  private
-    function IsMouseDownFontColorChangeStored: Boolean;
-    function IsMouseDownFontColorStored: Boolean;
-    function IsMouseDownFontSizeChangeStored: Boolean;
-    function IsMouseDownFontSizeStored: Boolean;
-    function IsMouseDownFontStyleChangeStored: Boolean;
-    function IsMouseDownFontStyleStored: Boolean;
-    function IsMouseOverFontColorChangeStored: Boolean;
-    function IsMouseOverFontColorStored: Boolean;
-    function IsMouseOverFontSizeChangeStored: Boolean;
-    function IsMouseOverFontSizeStored: Boolean;
-    function IsMouseOverFontStyleChangeStored: Boolean;
-    function IsMouseOverFontStyleStored: Boolean;
-    function IsPushedFontColorChangeStored: Boolean;
-    function IsPushedFontColorStored: Boolean;
-    function IsPushedFontSizeChangeStored: Boolean;
-    function IsPushedFontSizeStored: Boolean;
-    function IsPushedFontStyleChangeStored: Boolean;
-    function IsPushedFontStyleStored: Boolean;
-  protected
-    FDrawTextParam:TDrawTextParam;
-
-    function GetMouseDownFontColor: TDelphiColor;
-    function GetMouseDownFontColorChange: Boolean;
-    function GetMouseOverFontColor: TDelphiColor;
-    function GetMouseOverFontColorChange: Boolean;
-    function GetPushedFontColor: TDelphiColor;
-    function GetPushedFontColorChange: Boolean;
-
-    function GetMouseDownFontSize: TControlSize;
-    function GetMouseDownFontSizeChange: Boolean;
-    function GetMouseOverFontSize: TControlSize;
-    function GetMouseOverFontSizeChange: Boolean;
-    function GetPushedFontSize: TControlSize;
-    function GetPushedFontSizeChange: Boolean;
-
-    function GetMouseDownFontStyle: TFontStyles;
-    function GetMouseDownFontStyleChange: Boolean;
-    function GetMouseOverFontStyle: TFontStyles;
-    function GetMouseOverFontStyleChange: Boolean;
-    function GetPushedFontStyle: TFontStyles;
-    function GetPushedFontStyleChange: Boolean;
-
-    procedure SetMouseDownFontStyle(const Value: TFontStyles);
-    procedure SetMouseDownFontStyleChange(const Value: Boolean);
-    procedure SetMouseOverFontStyle(const Value: TFontStyles);
-    procedure SetMouseOverFontStyleChange(const Value: Boolean);
-    procedure SetPushedFontStyle(const Value: TFontStyles);
-    procedure SetPushedFontStyleChange(const Value: Boolean);
-
-    procedure SetMouseDownFontSize(const Value: TControlSize);
-    procedure SetMouseDownFontSizeChange(const Value: Boolean);
-    procedure SetMouseOverFontSize(const Value: TControlSize);
-    procedure SetMouseOverFontSizeChange(const Value: Boolean);
-    procedure SetPushedFontSize(const Value: TControlSize);
-    procedure SetPushedFontSizeChange(const Value: Boolean);
-
-    procedure SetMouseDownFontColor(const Value: TDelphiColor);
-    procedure SetMouseDownFontColorChange(const Value: Boolean);
-    procedure SetMouseOverFontColor(const Value: TDelphiColor);
-    procedure SetMouseOverFontColorChange(const Value: Boolean);
-    procedure SetPushedFontColor(const Value: TDelphiColor);
-    procedure SetPushedFontColorChange(const Value: Boolean);
-  public
-    constructor Create(ADrawParam:TDrawParam);override;
-  published
-    property MouseDownFontColor:TDelphiColor read GetMouseDownFontColor write SetMouseDownFontColor stored IsMouseDownFontColorStored;
-    property MouseDownFontColorChange:Boolean read GetMouseDownFontColorChange write SetMouseDownFontColorChange stored IsMouseDownFontColorChangeStored;
-    property MouseDownFontSize:TControlSize read GetMouseDownFontSize write SetMouseDownFontSize stored IsMouseDownFontSizeStored;
-    property MouseDownFontSizeChange:Boolean read GetMouseDownFontSizeChange write SetMouseDownFontSizeChange stored IsMouseDownFontSizeChangeStored;
-    property MouseDownFontStyle:TFontStyles read GetMouseDownFontStyle write SetMouseDownFontStyle stored IsMouseDownFontStyleStored;
-    property MouseDownFontStyleChange:Boolean read GetMouseDownFontStyleChange write SetMouseDownFontStyleChange stored IsMouseDownFontStyleChangeStored;
-
-    property MouseOverFontColor:TDelphiColor read GetMouseOverFontColor write SetMouseOverFontColor stored IsMouseOverFontColorStored;
-    property MouseOverFontColorChange:Boolean read GetMouseOverFontColorChange write SetMouseOverFontColorChange stored IsMouseOverFontColorChangeStored;
-    property MouseOverFontSize:TControlSize read GetMouseOverFontSize write SetMouseOverFontSize stored IsMouseOverFontSizeStored;
-    property MouseOverFontSizeChange:Boolean read GetMouseOverFontSizeChange write SetMouseOverFontSizeChange stored IsMouseOverFontSizeChangeStored;
-    property MouseOverFontStyle:TFontStyles read GetMouseOverFontStyle write SetMouseOverFontStyle stored IsMouseOverFontStyleStored;
-    property MouseOverFontStyleChange:Boolean read GetMouseOverFontStyleChange write SetMouseOverFontStyleChange stored IsMouseOverFontStyleChangeStored;
-
-    property PushedFontColor:TDelphiColor read GetPushedFontColor write SetPushedFontColor stored IsPushedFontColorStored;
-    property PushedFontColorChange:Boolean read GetPushedFontColorChange write SetPushedFontColorChange stored IsPushedFontColorChangeStored;
-    property PushedFontSize:TControlSize read GetPushedFontSize write SetPushedFontSize stored IsPushedFontSizeStored;
-    property PushedFontSizeChange:Boolean read GetPushedFontSizeChange write SetPushedFontSizeChange stored IsPushedFontSizeChangeStored;
-    property PushedFontStyle:TFontStyles read GetPushedFontStyle write SetPushedFontStyle stored IsPushedFontStyleStored;
-    property PushedFontStyleChange:Boolean read GetPushedFontStyleChange write SetPushedFontStyleChange stored IsPushedFontStyleChangeStored;
-
-  end;
+//  TDrawTextParamSetting=class(TDrawParamSetting)
+//  private
+//    function IsMouseDownFontColorChangeStored: Boolean;
+//    function IsMouseDownFontColorStored: Boolean;
+//    function IsMouseDownFontSizeChangeStored: Boolean;
+//    function IsMouseDownFontSizeStored: Boolean;
+//    function IsMouseDownFontStyleChangeStored: Boolean;
+//    function IsMouseDownFontStyleStored: Boolean;
+//    function IsMouseOverFontColorChangeStored: Boolean;
+//    function IsMouseOverFontColorStored: Boolean;
+//    function IsMouseOverFontSizeChangeStored: Boolean;
+//    function IsMouseOverFontSizeStored: Boolean;
+//    function IsMouseOverFontStyleChangeStored: Boolean;
+//    function IsMouseOverFontStyleStored: Boolean;
+//    function IsPushedFontColorChangeStored: Boolean;
+//    function IsPushedFontColorStored: Boolean;
+//    function IsPushedFontSizeChangeStored: Boolean;
+//    function IsPushedFontSizeStored: Boolean;
+//    function IsPushedFontStyleChangeStored: Boolean;
+//    function IsPushedFontStyleStored: Boolean;
+//  protected
+//    FDrawTextParam:TDrawTextParam;
+//
+//    function GetMouseDownFontColor: TDelphiColor;
+//    function GetMouseDownFontColorChange: Boolean;
+//    function GetMouseOverFontColor: TDelphiColor;
+//    function GetMouseOverFontColorChange: Boolean;
+//    function GetPushedFontColor: TDelphiColor;
+//    function GetPushedFontColorChange: Boolean;
+//
+//    function GetMouseDownFontSize: TControlSize;
+//    function GetMouseDownFontSizeChange: Boolean;
+//    function GetMouseOverFontSize: TControlSize;
+//    function GetMouseOverFontSizeChange: Boolean;
+//    function GetPushedFontSize: TControlSize;
+//    function GetPushedFontSizeChange: Boolean;
+//
+//    function GetMouseDownFontStyle: TFontStyles;
+//    function GetMouseDownFontStyleChange: Boolean;
+//    function GetMouseOverFontStyle: TFontStyles;
+//    function GetMouseOverFontStyleChange: Boolean;
+//    function GetPushedFontStyle: TFontStyles;
+//    function GetPushedFontStyleChange: Boolean;
+//
+//    procedure SetMouseDownFontStyle(const Value: TFontStyles);
+//    procedure SetMouseDownFontStyleChange(const Value: Boolean);
+//    procedure SetMouseOverFontStyle(const Value: TFontStyles);
+//    procedure SetMouseOverFontStyleChange(const Value: Boolean);
+//    procedure SetPushedFontStyle(const Value: TFontStyles);
+//    procedure SetPushedFontStyleChange(const Value: Boolean);
+//
+//    procedure SetMouseDownFontSize(const Value: TControlSize);
+//    procedure SetMouseDownFontSizeChange(const Value: Boolean);
+//    procedure SetMouseOverFontSize(const Value: TControlSize);
+//    procedure SetMouseOverFontSizeChange(const Value: Boolean);
+//    procedure SetPushedFontSize(const Value: TControlSize);
+//    procedure SetPushedFontSizeChange(const Value: Boolean);
+//
+//    procedure SetMouseDownFontColor(const Value: TDelphiColor);
+//    procedure SetMouseDownFontColorChange(const Value: Boolean);
+//    procedure SetMouseOverFontColor(const Value: TDelphiColor);
+//    procedure SetMouseOverFontColorChange(const Value: Boolean);
+//    procedure SetPushedFontColor(const Value: TDelphiColor);
+//    procedure SetPushedFontColorChange(const Value: Boolean);
+//  public
+//    constructor Create(ADrawParam:TDrawParam);override;
+//  published
+//    property MouseDownFontColor:TDelphiColor read GetMouseDownFontColor write SetMouseDownFontColor stored IsMouseDownFontColorStored;
+//    property MouseDownFontColorChange:Boolean read GetMouseDownFontColorChange write SetMouseDownFontColorChange stored IsMouseDownFontColorChangeStored;
+//    property MouseDownFontSize:TControlSize read GetMouseDownFontSize write SetMouseDownFontSize stored IsMouseDownFontSizeStored;
+//    property MouseDownFontSizeChange:Boolean read GetMouseDownFontSizeChange write SetMouseDownFontSizeChange stored IsMouseDownFontSizeChangeStored;
+//    property MouseDownFontStyle:TFontStyles read GetMouseDownFontStyle write SetMouseDownFontStyle stored IsMouseDownFontStyleStored;
+//    property MouseDownFontStyleChange:Boolean read GetMouseDownFontStyleChange write SetMouseDownFontStyleChange stored IsMouseDownFontStyleChangeStored;
+//
+//    property MouseOverFontColor:TDelphiColor read GetMouseOverFontColor write SetMouseOverFontColor stored IsMouseOverFontColorStored;
+//    property MouseOverFontColorChange:Boolean read GetMouseOverFontColorChange write SetMouseOverFontColorChange stored IsMouseOverFontColorChangeStored;
+//    property MouseOverFontSize:TControlSize read GetMouseOverFontSize write SetMouseOverFontSize stored IsMouseOverFontSizeStored;
+//    property MouseOverFontSizeChange:Boolean read GetMouseOverFontSizeChange write SetMouseOverFontSizeChange stored IsMouseOverFontSizeChangeStored;
+//    property MouseOverFontStyle:TFontStyles read GetMouseOverFontStyle write SetMouseOverFontStyle stored IsMouseOverFontStyleStored;
+//    property MouseOverFontStyleChange:Boolean read GetMouseOverFontStyleChange write SetMouseOverFontStyleChange stored IsMouseOverFontStyleChangeStored;
+//
+//    property PushedFontColor:TDelphiColor read GetPushedFontColor write SetPushedFontColor stored IsPushedFontColorStored;
+//    property PushedFontColorChange:Boolean read GetPushedFontColorChange write SetPushedFontColorChange stored IsPushedFontColorChangeStored;
+//    property PushedFontSize:TControlSize read GetPushedFontSize write SetPushedFontSize stored IsPushedFontSizeStored;
+//    property PushedFontSizeChange:Boolean read GetPushedFontSizeChange write SetPushedFontSizeChange stored IsPushedFontSizeChangeStored;
+//    property PushedFontStyle:TFontStyles read GetPushedFontStyle write SetPushedFontStyle stored IsPushedFontStyleStored;
+//    property PushedFontStyleChange:Boolean read GetPushedFontStyleChange write SetPushedFontStyleChange stored IsPushedFontStyleChangeStored;
+//
+//  end;
 
 
 
@@ -722,7 +722,7 @@ Type
     ///   </para>
     /// </summary>
     function GetDrawEffectSettingClass:TDrawEffectSettingClass;override;
-    function GetDrawParamSettingClass:TDrawParamSettingClass;override;
+//    function GetDrawParamSettingClass:TDrawParamSettingClass;override;
     /// <summary>
     ///   <para>
     ///     复制
@@ -1702,10 +1702,10 @@ begin
   Result:=TDrawTextEffectSetting;
 end;
 
-function TBaseDrawTextParam.GetDrawParamSettingClass: TDrawParamSettingClass;
-begin
-  Result:=TDrawTextParamSetting;
-end;
+//function TBaseDrawTextParam.GetDrawParamSettingClass: TDrawParamSettingClass;
+//begin
+//  Result:=TDrawTextParamSetting;
+//end;
 
 function TBaseDrawTextParam.GetFontColor: TDelphiColor;
 begin
@@ -2560,399 +2560,399 @@ end;
 
 
 
-
-{ TDrawTextParamSetting }
-
-
-
-constructor TDrawTextParamSetting.Create(ADrawParam: TDrawParam);
-begin
-  inherited;
-  FDrawTextParam:=TDrawTextParam(ADrawParam);
-end;
-
-function TDrawTextParamSetting.GetMouseDownFontColor: TDelphiColor;
-begin
-  Result:=FDrawTextParam.DrawEffectSetting.MouseDownEffect.FFontColor.Color;
-end;
-
-function TDrawTextParamSetting.GetMouseDownFontColorChange: Boolean;
-begin
-  Result:=dtpetFontColorChange in FDrawTextParam.DrawEffectSetting.MouseDownEffect.FEffectTypes;
-end;
-
-function TDrawTextParamSetting.GetMouseOverFontColor: TDelphiColor;
-begin
-  Result:=FDrawTextParam.DrawEffectSetting.MouseOverEffect.FFontColor.Color;
-
-end;
-
-function TDrawTextParamSetting.GetMouseOverFontColorChange: Boolean;
-begin
-  Result:=dtpetFontColorChange in FDrawTextParam.DrawEffectSetting.MouseOverEffect.FEffectTypes;
-
-end;
-
-function TDrawTextParamSetting.GetPushedFontColor: TDelphiColor;
-begin
-  Result:=FDrawTextParam.DrawEffectSetting.PushedEffect.FFontColor.Color;
-
-end;
-
-function TDrawTextParamSetting.GetPushedFontColorChange: Boolean;
-begin
-  Result:=dtpetFontColorChange in FDrawTextParam.DrawEffectSetting.PushedEffect.FEffectTypes;
-
-end;
-
-
-
-procedure TDrawTextParamSetting.SetMouseDownFontColor(const Value: TDelphiColor);
-begin
-  FDrawTextParam.DrawEffectSetting.MouseDownEffect.FontColor.Color:=Value;
-
-end;
-
-procedure TDrawTextParamSetting.SetMouseDownFontColorChange(const Value: Boolean);
-begin
-  if Value then
-  begin
-    FDrawTextParam.DrawEffectSetting.MouseDownEffect.EffectTypes:=
-      FDrawTextParam.DrawEffectSetting.MouseDownEffect.EffectTypes+[dtpetFontColorChange];
-  end
-  else
-  begin
-    FDrawTextParam.DrawEffectSetting.MouseDownEffect.EffectTypes:=
-      FDrawTextParam.DrawEffectSetting.MouseDownEffect.EffectTypes-[dtpetFontColorChange];
-  end;
-end;
-
-procedure TDrawTextParamSetting.SetMouseOverFontColor(const Value: TDelphiColor);
-begin
-  FDrawTextParam.DrawEffectSetting.MouseOverEffect.FontColor.Color:=Value;
-
-end;
-
-procedure TDrawTextParamSetting.SetMouseOverFontColorChange(const Value: Boolean);
-begin
-  if Value then
-  begin
-    FDrawTextParam.DrawEffectSetting.MouseOverEffect.EffectTypes:=
-      FDrawTextParam.DrawEffectSetting.MouseOverEffect.EffectTypes+[dtpetFontColorChange];
-  end
-  else
-  begin
-    FDrawTextParam.DrawEffectSetting.MouseOverEffect.EffectTypes:=
-      FDrawTextParam.DrawEffectSetting.MouseOverEffect.EffectTypes-[dtpetFontColorChange];
-  end;
-end;
-
-procedure TDrawTextParamSetting.SetPushedFontColor(const Value: TDelphiColor);
-begin
-  FDrawTextParam.DrawEffectSetting.PushedEffect.FontColor.Color:=Value;
-
-end;
-
-procedure TDrawTextParamSetting.SetPushedFontColorChange(const Value: Boolean);
-begin
-  if Value then
-  begin
-    FDrawTextParam.DrawEffectSetting.PushedEffect.EffectTypes:=
-      FDrawTextParam.DrawEffectSetting.PushedEffect.EffectTypes+[dtpetFontColorChange];
-  end
-  else
-  begin
-    FDrawTextParam.DrawEffectSetting.PushedEffect.EffectTypes:=
-      FDrawTextParam.DrawEffectSetting.PushedEffect.EffectTypes-[dtpetFontColorChange];
-  end;
-end;
-
-
-
-
-
-function TDrawTextParamSetting.GetMouseDownFontSize: TControlSize;
-begin
-  Result:=FDrawTextParam.DrawEffectSetting.MouseDownEffect.FontSize;
-end;
-
-function TDrawTextParamSetting.GetMouseDownFontSizeChange: Boolean;
-begin
-  Result:=dtpetFontSizeChange in FDrawTextParam.DrawEffectSetting.MouseDownEffect.FEffectTypes;
-end;
-
-function TDrawTextParamSetting.GetMouseOverFontSize: TControlSize;
-begin
-  Result:=FDrawTextParam.DrawEffectSetting.MouseOverEffect.FontSize;
-
-end;
-
-function TDrawTextParamSetting.GetMouseOverFontSizeChange: Boolean;
-begin
-  Result:=dtpetFontSizeChange in FDrawTextParam.DrawEffectSetting.MouseOverEffect.FEffectTypes;
-
-end;
-
-function TDrawTextParamSetting.GetPushedFontSize: TControlSize;
-begin
-  Result:=FDrawTextParam.DrawEffectSetting.PushedEffect.FontSize;
-
-end;
-
-function TDrawTextParamSetting.GetPushedFontSizeChange: Boolean;
-begin
-  Result:=dtpetFontSizeChange in FDrawTextParam.DrawEffectSetting.PushedEffect.FEffectTypes;
-
-end;
-
-
-
-procedure TDrawTextParamSetting.SetMouseDownFontSize(const Value: TControlSize);
-begin
-  FDrawTextParam.DrawEffectSetting.MouseDownEffect.FontSize:=Value;
-
-end;
-
-procedure TDrawTextParamSetting.SetMouseDownFontSizeChange(const Value: Boolean);
-begin
-  if Value then
-  begin
-    FDrawTextParam.DrawEffectSetting.MouseDownEffect.EffectTypes:=
-      FDrawTextParam.DrawEffectSetting.MouseDownEffect.EffectTypes+[dtpetFontSizeChange];
-  end
-  else
-  begin
-    FDrawTextParam.DrawEffectSetting.MouseDownEffect.EffectTypes:=
-      FDrawTextParam.DrawEffectSetting.MouseDownEffect.EffectTypes-[dtpetFontSizeChange];
-  end;
-end;
-
-procedure TDrawTextParamSetting.SetMouseOverFontSize(const Value: TControlSize);
-begin
-  FDrawTextParam.DrawEffectSetting.MouseOverEffect.FontSize:=Value;
-
-end;
-
-procedure TDrawTextParamSetting.SetMouseOverFontSizeChange(const Value: Boolean);
-begin
-  if Value then
-  begin
-    FDrawTextParam.DrawEffectSetting.MouseOverEffect.EffectTypes:=
-      FDrawTextParam.DrawEffectSetting.MouseOverEffect.EffectTypes+[dtpetFontSizeChange];
-  end
-  else
-  begin
-    FDrawTextParam.DrawEffectSetting.MouseOverEffect.EffectTypes:=
-      FDrawTextParam.DrawEffectSetting.MouseOverEffect.EffectTypes-[dtpetFontSizeChange];
-  end;
-end;
-
-procedure TDrawTextParamSetting.SetPushedFontSize(const Value: TControlSize);
-begin
-  FDrawTextParam.DrawEffectSetting.PushedEffect.FontSize:=Value;
-
-end;
-
-procedure TDrawTextParamSetting.SetPushedFontSizeChange(const Value: Boolean);
-begin
-  if Value then
-  begin
-    FDrawTextParam.DrawEffectSetting.PushedEffect.EffectTypes:=
-      FDrawTextParam.DrawEffectSetting.PushedEffect.EffectTypes+[dtpetFontSizeChange];
-  end
-  else
-  begin
-    FDrawTextParam.DrawEffectSetting.PushedEffect.EffectTypes:=
-      FDrawTextParam.DrawEffectSetting.PushedEffect.EffectTypes-[dtpetFontSizeChange];
-  end;
-end;
-
-
-
-function TDrawTextParamSetting.GetMouseDownFontStyle: TFontStyles;
-begin
-  Result:=FDrawTextParam.DrawEffectSetting.MouseDownEffect.FontStyle;
-end;
-
-function TDrawTextParamSetting.GetMouseDownFontStyleChange: Boolean;
-begin
-  Result:=dtpetFontStyleChange in FDrawTextParam.DrawEffectSetting.MouseDownEffect.FEffectTypes;
-end;
-
-function TDrawTextParamSetting.GetMouseOverFontStyle: TFontStyles;
-begin
-  Result:=FDrawTextParam.DrawEffectSetting.MouseOverEffect.FontStyle;
-end;
-
-function TDrawTextParamSetting.GetMouseOverFontStyleChange: Boolean;
-begin
-  Result:=dtpetFontStyleChange in FDrawTextParam.DrawEffectSetting.MouseOverEffect.FEffectTypes;
-end;
-
-function TDrawTextParamSetting.GetPushedFontStyle: TFontStyles;
-begin
-  Result:=FDrawTextParam.DrawEffectSetting.PushedEffect.FontStyle;
-end;
-
-function TDrawTextParamSetting.GetPushedFontStyleChange: Boolean;
-begin
-  Result:=dtpetFontStyleChange in FDrawTextParam.DrawEffectSetting.PushedEffect.FEffectTypes;
-end;
-
-
-
-function TDrawTextParamSetting.IsMouseDownFontColorChangeStored: Boolean;
-begin
-  Result:=dtpetFontColorChange in FDrawTextParam.DrawEffectSetting.MouseDownEffect.FEffectTypes;
-end;
-
-function TDrawTextParamSetting.IsMouseDownFontColorStored: Boolean;
-begin
-  Result:=FDrawTextParam.DrawEffectSetting.MouseDownEffect.FFontColor.Color<>Const_DefaultColor;
-end;
-
-function TDrawTextParamSetting.IsMouseDownFontSizeChangeStored: Boolean;
-begin
-  Result:=dtpetFontSizeChange in FDrawTextParam.DrawEffectSetting.MouseDownEffect.FEffectTypes;
-end;
-
-function TDrawTextParamSetting.IsMouseDownFontSizeStored: Boolean;
-begin
-  Result:=NotEqualDouble(FDrawTextParam.DrawEffectSetting.MouseDownEffect.FFontSize,
-                        Const_DefaultFontSize);
-end;
-
-function TDrawTextParamSetting.IsMouseDownFontStyleChangeStored: Boolean;
-begin
-  Result:=dtpetFontStyleChange in FDrawTextParam.DrawEffectSetting.MouseDownEffect.FEffectTypes;
-end;
-
-function TDrawTextParamSetting.IsMouseDownFontStyleStored: Boolean;
-begin
-  Result:=FDrawTextParam.DrawEffectSetting.MouseDownEffect.FFontStyle<>[];
-end;
-
-function TDrawTextParamSetting.IsMouseOverFontColorChangeStored: Boolean;
-begin
-  Result:=dtpetFontColorChange in FDrawTextParam.DrawEffectSetting.MouseOverEffect.FEffectTypes;
-end;
-
-function TDrawTextParamSetting.IsMouseOverFontColorStored: Boolean;
-begin
-  Result:=FDrawTextParam.DrawEffectSetting.MouseOverEffect.FFontColor.Color<>Const_DefaultColor;
-end;
-
-function TDrawTextParamSetting.IsMouseOverFontSizeChangeStored: Boolean;
-begin
-  Result:=dtpetFontSizeChange in FDrawTextParam.DrawEffectSetting.MouseOverEffect.FEffectTypes;
-end;
-
-function TDrawTextParamSetting.IsMouseOverFontSizeStored: Boolean;
-begin
-  Result:=NotEqualDouble(FDrawTextParam.DrawEffectSetting.MouseOverEffect.FFontSize,
-                        Const_DefaultFontSize);
-end;
-
-function TDrawTextParamSetting.IsMouseOverFontStyleChangeStored: Boolean;
-begin
-  Result:=dtpetFontStyleChange in FDrawTextParam.DrawEffectSetting.MouseOverEffect.FEffectTypes;
-end;
-
-function TDrawTextParamSetting.IsMouseOverFontStyleStored: Boolean;
-begin
-  Result:=FDrawTextParam.DrawEffectSetting.MouseOverEffect.FFontStyle<>[];
-end;
-
-function TDrawTextParamSetting.IsPushedFontColorChangeStored: Boolean;
-begin
-  Result:=dtpetFontColorChange in FDrawTextParam.DrawEffectSetting.PushedEffect.FEffectTypes;
-end;
-
-function TDrawTextParamSetting.IsPushedFontColorStored: Boolean;
-begin
-  Result:=FDrawTextParam.DrawEffectSetting.PushedEffect.FFontColor.Color<>Const_DefaultColor;
-end;
-
-function TDrawTextParamSetting.IsPushedFontSizeChangeStored: Boolean;
-begin
-  Result:=dtpetFontSizeChange in FDrawTextParam.DrawEffectSetting.PushedEffect.FEffectTypes;
-end;
-
-function TDrawTextParamSetting.IsPushedFontSizeStored: Boolean;
-begin
-  Result:=NotEqualDouble(FDrawTextParam.DrawEffectSetting.PushedEffect.FFontSize,
-                          Const_DefaultFontSize);
-end;
-
-function TDrawTextParamSetting.IsPushedFontStyleChangeStored: Boolean;
-begin
-  Result:=dtpetFontStyleChange in FDrawTextParam.DrawEffectSetting.PushedEffect.FEffectTypes;
-end;
-
-function TDrawTextParamSetting.IsPushedFontStyleStored: Boolean;
-begin
-  Result:=FDrawTextParam.DrawEffectSetting.PushedEffect.FFontStyle<>[];
-end;
-
-procedure TDrawTextParamSetting.SetMouseDownFontStyle(const Value: TFontStyles);
-begin
-  FDrawTextParam.DrawEffectSetting.MouseDownEffect.FontStyle:=Value;
-
-end;
-
-procedure TDrawTextParamSetting.SetMouseDownFontStyleChange(const Value: Boolean);
-begin
-  if Value then
-  begin
-    FDrawTextParam.DrawEffectSetting.MouseDownEffect.EffectTypes:=
-      FDrawTextParam.DrawEffectSetting.MouseDownEffect.EffectTypes+[dtpetFontStyleChange];
-  end
-  else
-  begin
-    FDrawTextParam.DrawEffectSetting.MouseDownEffect.EffectTypes:=
-      FDrawTextParam.DrawEffectSetting.MouseDownEffect.EffectTypes-[dtpetFontStyleChange];
-  end;
-end;
-
-procedure TDrawTextParamSetting.SetMouseOverFontStyle(const Value: TFontStyles);
-begin
-  FDrawTextParam.DrawEffectSetting.MouseOverEffect.FontStyle:=Value;
-
-end;
-
-procedure TDrawTextParamSetting.SetMouseOverFontStyleChange(const Value: Boolean);
-begin
-  if Value then
-  begin
-    FDrawTextParam.DrawEffectSetting.MouseOverEffect.EffectTypes:=
-      FDrawTextParam.DrawEffectSetting.MouseOverEffect.EffectTypes+[dtpetFontStyleChange];
-  end
-  else
-  begin
-    FDrawTextParam.DrawEffectSetting.MouseOverEffect.EffectTypes:=
-      FDrawTextParam.DrawEffectSetting.MouseOverEffect.EffectTypes-[dtpetFontStyleChange];
-  end;
-end;
-
-procedure TDrawTextParamSetting.SetPushedFontStyle(const Value: TFontStyles);
-begin
-  FDrawTextParam.DrawEffectSetting.PushedEffect.FontStyle:=Value;
-
-end;
-
-procedure TDrawTextParamSetting.SetPushedFontStyleChange(const Value: Boolean);
-begin
-  if Value then
-  begin
-    FDrawTextParam.DrawEffectSetting.PushedEffect.EffectTypes:=
-      FDrawTextParam.DrawEffectSetting.PushedEffect.EffectTypes+[dtpetFontStyleChange];
-  end
-  else
-  begin
-    FDrawTextParam.DrawEffectSetting.PushedEffect.EffectTypes:=
-      FDrawTextParam.DrawEffectSetting.PushedEffect.EffectTypes-[dtpetFontStyleChange];
-  end;
-end;
+//
+//{ TDrawTextParamSetting }
+//
+//
+//
+//constructor TDrawTextParamSetting.Create(ADrawParam: TDrawParam);
+//begin
+//  inherited;
+//  FDrawTextParam:=TDrawTextParam(ADrawParam);
+//end;
+//
+//function TDrawTextParamSetting.GetMouseDownFontColor: TDelphiColor;
+//begin
+//  Result:=FDrawTextParam.DrawEffectSetting.MouseDownEffect.FFontColor.Color;
+//end;
+//
+//function TDrawTextParamSetting.GetMouseDownFontColorChange: Boolean;
+//begin
+//  Result:=dtpetFontColorChange in FDrawTextParam.DrawEffectSetting.MouseDownEffect.FEffectTypes;
+//end;
+//
+//function TDrawTextParamSetting.GetMouseOverFontColor: TDelphiColor;
+//begin
+//  Result:=FDrawTextParam.DrawEffectSetting.MouseOverEffect.FFontColor.Color;
+//
+//end;
+//
+//function TDrawTextParamSetting.GetMouseOverFontColorChange: Boolean;
+//begin
+//  Result:=dtpetFontColorChange in FDrawTextParam.DrawEffectSetting.MouseOverEffect.FEffectTypes;
+//
+//end;
+//
+//function TDrawTextParamSetting.GetPushedFontColor: TDelphiColor;
+//begin
+//  Result:=FDrawTextParam.DrawEffectSetting.PushedEffect.FFontColor.Color;
+//
+//end;
+//
+//function TDrawTextParamSetting.GetPushedFontColorChange: Boolean;
+//begin
+//  Result:=dtpetFontColorChange in FDrawTextParam.DrawEffectSetting.PushedEffect.FEffectTypes;
+//
+//end;
+//
+//
+//
+//procedure TDrawTextParamSetting.SetMouseDownFontColor(const Value: TDelphiColor);
+//begin
+//  FDrawTextParam.DrawEffectSetting.MouseDownEffect.FontColor.Color:=Value;
+//
+//end;
+//
+//procedure TDrawTextParamSetting.SetMouseDownFontColorChange(const Value: Boolean);
+//begin
+//  if Value then
+//  begin
+//    FDrawTextParam.DrawEffectSetting.MouseDownEffect.EffectTypes:=
+//      FDrawTextParam.DrawEffectSetting.MouseDownEffect.EffectTypes+[dtpetFontColorChange];
+//  end
+//  else
+//  begin
+//    FDrawTextParam.DrawEffectSetting.MouseDownEffect.EffectTypes:=
+//      FDrawTextParam.DrawEffectSetting.MouseDownEffect.EffectTypes-[dtpetFontColorChange];
+//  end;
+//end;
+//
+//procedure TDrawTextParamSetting.SetMouseOverFontColor(const Value: TDelphiColor);
+//begin
+//  FDrawTextParam.DrawEffectSetting.MouseOverEffect.FontColor.Color:=Value;
+//
+//end;
+//
+//procedure TDrawTextParamSetting.SetMouseOverFontColorChange(const Value: Boolean);
+//begin
+//  if Value then
+//  begin
+//    FDrawTextParam.DrawEffectSetting.MouseOverEffect.EffectTypes:=
+//      FDrawTextParam.DrawEffectSetting.MouseOverEffect.EffectTypes+[dtpetFontColorChange];
+//  end
+//  else
+//  begin
+//    FDrawTextParam.DrawEffectSetting.MouseOverEffect.EffectTypes:=
+//      FDrawTextParam.DrawEffectSetting.MouseOverEffect.EffectTypes-[dtpetFontColorChange];
+//  end;
+//end;
+//
+//procedure TDrawTextParamSetting.SetPushedFontColor(const Value: TDelphiColor);
+//begin
+//  FDrawTextParam.DrawEffectSetting.PushedEffect.FontColor.Color:=Value;
+//
+//end;
+//
+//procedure TDrawTextParamSetting.SetPushedFontColorChange(const Value: Boolean);
+//begin
+//  if Value then
+//  begin
+//    FDrawTextParam.DrawEffectSetting.PushedEffect.EffectTypes:=
+//      FDrawTextParam.DrawEffectSetting.PushedEffect.EffectTypes+[dtpetFontColorChange];
+//  end
+//  else
+//  begin
+//    FDrawTextParam.DrawEffectSetting.PushedEffect.EffectTypes:=
+//      FDrawTextParam.DrawEffectSetting.PushedEffect.EffectTypes-[dtpetFontColorChange];
+//  end;
+//end;
+//
+//
+//
+//
+//
+//function TDrawTextParamSetting.GetMouseDownFontSize: TControlSize;
+//begin
+//  Result:=FDrawTextParam.DrawEffectSetting.MouseDownEffect.FontSize;
+//end;
+//
+//function TDrawTextParamSetting.GetMouseDownFontSizeChange: Boolean;
+//begin
+//  Result:=dtpetFontSizeChange in FDrawTextParam.DrawEffectSetting.MouseDownEffect.FEffectTypes;
+//end;
+//
+//function TDrawTextParamSetting.GetMouseOverFontSize: TControlSize;
+//begin
+//  Result:=FDrawTextParam.DrawEffectSetting.MouseOverEffect.FontSize;
+//
+//end;
+//
+//function TDrawTextParamSetting.GetMouseOverFontSizeChange: Boolean;
+//begin
+//  Result:=dtpetFontSizeChange in FDrawTextParam.DrawEffectSetting.MouseOverEffect.FEffectTypes;
+//
+//end;
+//
+//function TDrawTextParamSetting.GetPushedFontSize: TControlSize;
+//begin
+//  Result:=FDrawTextParam.DrawEffectSetting.PushedEffect.FontSize;
+//
+//end;
+//
+//function TDrawTextParamSetting.GetPushedFontSizeChange: Boolean;
+//begin
+//  Result:=dtpetFontSizeChange in FDrawTextParam.DrawEffectSetting.PushedEffect.FEffectTypes;
+//
+//end;
+//
+//
+//
+//procedure TDrawTextParamSetting.SetMouseDownFontSize(const Value: TControlSize);
+//begin
+//  FDrawTextParam.DrawEffectSetting.MouseDownEffect.FontSize:=Value;
+//
+//end;
+//
+//procedure TDrawTextParamSetting.SetMouseDownFontSizeChange(const Value: Boolean);
+//begin
+//  if Value then
+//  begin
+//    FDrawTextParam.DrawEffectSetting.MouseDownEffect.EffectTypes:=
+//      FDrawTextParam.DrawEffectSetting.MouseDownEffect.EffectTypes+[dtpetFontSizeChange];
+//  end
+//  else
+//  begin
+//    FDrawTextParam.DrawEffectSetting.MouseDownEffect.EffectTypes:=
+//      FDrawTextParam.DrawEffectSetting.MouseDownEffect.EffectTypes-[dtpetFontSizeChange];
+//  end;
+//end;
+//
+//procedure TDrawTextParamSetting.SetMouseOverFontSize(const Value: TControlSize);
+//begin
+//  FDrawTextParam.DrawEffectSetting.MouseOverEffect.FontSize:=Value;
+//
+//end;
+//
+//procedure TDrawTextParamSetting.SetMouseOverFontSizeChange(const Value: Boolean);
+//begin
+//  if Value then
+//  begin
+//    FDrawTextParam.DrawEffectSetting.MouseOverEffect.EffectTypes:=
+//      FDrawTextParam.DrawEffectSetting.MouseOverEffect.EffectTypes+[dtpetFontSizeChange];
+//  end
+//  else
+//  begin
+//    FDrawTextParam.DrawEffectSetting.MouseOverEffect.EffectTypes:=
+//      FDrawTextParam.DrawEffectSetting.MouseOverEffect.EffectTypes-[dtpetFontSizeChange];
+//  end;
+//end;
+//
+//procedure TDrawTextParamSetting.SetPushedFontSize(const Value: TControlSize);
+//begin
+//  FDrawTextParam.DrawEffectSetting.PushedEffect.FontSize:=Value;
+//
+//end;
+//
+//procedure TDrawTextParamSetting.SetPushedFontSizeChange(const Value: Boolean);
+//begin
+//  if Value then
+//  begin
+//    FDrawTextParam.DrawEffectSetting.PushedEffect.EffectTypes:=
+//      FDrawTextParam.DrawEffectSetting.PushedEffect.EffectTypes+[dtpetFontSizeChange];
+//  end
+//  else
+//  begin
+//    FDrawTextParam.DrawEffectSetting.PushedEffect.EffectTypes:=
+//      FDrawTextParam.DrawEffectSetting.PushedEffect.EffectTypes-[dtpetFontSizeChange];
+//  end;
+//end;
+//
+//
+//
+//function TDrawTextParamSetting.GetMouseDownFontStyle: TFontStyles;
+//begin
+//  Result:=FDrawTextParam.DrawEffectSetting.MouseDownEffect.FontStyle;
+//end;
+//
+//function TDrawTextParamSetting.GetMouseDownFontStyleChange: Boolean;
+//begin
+//  Result:=dtpetFontStyleChange in FDrawTextParam.DrawEffectSetting.MouseDownEffect.FEffectTypes;
+//end;
+//
+//function TDrawTextParamSetting.GetMouseOverFontStyle: TFontStyles;
+//begin
+//  Result:=FDrawTextParam.DrawEffectSetting.MouseOverEffect.FontStyle;
+//end;
+//
+//function TDrawTextParamSetting.GetMouseOverFontStyleChange: Boolean;
+//begin
+//  Result:=dtpetFontStyleChange in FDrawTextParam.DrawEffectSetting.MouseOverEffect.FEffectTypes;
+//end;
+//
+//function TDrawTextParamSetting.GetPushedFontStyle: TFontStyles;
+//begin
+//  Result:=FDrawTextParam.DrawEffectSetting.PushedEffect.FontStyle;
+//end;
+//
+//function TDrawTextParamSetting.GetPushedFontStyleChange: Boolean;
+//begin
+//  Result:=dtpetFontStyleChange in FDrawTextParam.DrawEffectSetting.PushedEffect.FEffectTypes;
+//end;
+//
+//
+//
+//function TDrawTextParamSetting.IsMouseDownFontColorChangeStored: Boolean;
+//begin
+//  Result:=dtpetFontColorChange in FDrawTextParam.DrawEffectSetting.MouseDownEffect.FEffectTypes;
+//end;
+//
+//function TDrawTextParamSetting.IsMouseDownFontColorStored: Boolean;
+//begin
+//  Result:=FDrawTextParam.DrawEffectSetting.MouseDownEffect.FFontColor.Color<>Const_DefaultColor;
+//end;
+//
+//function TDrawTextParamSetting.IsMouseDownFontSizeChangeStored: Boolean;
+//begin
+//  Result:=dtpetFontSizeChange in FDrawTextParam.DrawEffectSetting.MouseDownEffect.FEffectTypes;
+//end;
+//
+//function TDrawTextParamSetting.IsMouseDownFontSizeStored: Boolean;
+//begin
+//  Result:=NotEqualDouble(FDrawTextParam.DrawEffectSetting.MouseDownEffect.FFontSize,
+//                        Const_DefaultFontSize);
+//end;
+//
+//function TDrawTextParamSetting.IsMouseDownFontStyleChangeStored: Boolean;
+//begin
+//  Result:=dtpetFontStyleChange in FDrawTextParam.DrawEffectSetting.MouseDownEffect.FEffectTypes;
+//end;
+//
+//function TDrawTextParamSetting.IsMouseDownFontStyleStored: Boolean;
+//begin
+//  Result:=FDrawTextParam.DrawEffectSetting.MouseDownEffect.FFontStyle<>[];
+//end;
+//
+//function TDrawTextParamSetting.IsMouseOverFontColorChangeStored: Boolean;
+//begin
+//  Result:=dtpetFontColorChange in FDrawTextParam.DrawEffectSetting.MouseOverEffect.FEffectTypes;
+//end;
+//
+//function TDrawTextParamSetting.IsMouseOverFontColorStored: Boolean;
+//begin
+//  Result:=FDrawTextParam.DrawEffectSetting.MouseOverEffect.FFontColor.Color<>Const_DefaultColor;
+//end;
+//
+//function TDrawTextParamSetting.IsMouseOverFontSizeChangeStored: Boolean;
+//begin
+//  Result:=dtpetFontSizeChange in FDrawTextParam.DrawEffectSetting.MouseOverEffect.FEffectTypes;
+//end;
+//
+//function TDrawTextParamSetting.IsMouseOverFontSizeStored: Boolean;
+//begin
+//  Result:=NotEqualDouble(FDrawTextParam.DrawEffectSetting.MouseOverEffect.FFontSize,
+//                        Const_DefaultFontSize);
+//end;
+//
+//function TDrawTextParamSetting.IsMouseOverFontStyleChangeStored: Boolean;
+//begin
+//  Result:=dtpetFontStyleChange in FDrawTextParam.DrawEffectSetting.MouseOverEffect.FEffectTypes;
+//end;
+//
+//function TDrawTextParamSetting.IsMouseOverFontStyleStored: Boolean;
+//begin
+//  Result:=FDrawTextParam.DrawEffectSetting.MouseOverEffect.FFontStyle<>[];
+//end;
+//
+//function TDrawTextParamSetting.IsPushedFontColorChangeStored: Boolean;
+//begin
+//  Result:=dtpetFontColorChange in FDrawTextParam.DrawEffectSetting.PushedEffect.FEffectTypes;
+//end;
+//
+//function TDrawTextParamSetting.IsPushedFontColorStored: Boolean;
+//begin
+//  Result:=FDrawTextParam.DrawEffectSetting.PushedEffect.FFontColor.Color<>Const_DefaultColor;
+//end;
+//
+//function TDrawTextParamSetting.IsPushedFontSizeChangeStored: Boolean;
+//begin
+//  Result:=dtpetFontSizeChange in FDrawTextParam.DrawEffectSetting.PushedEffect.FEffectTypes;
+//end;
+//
+//function TDrawTextParamSetting.IsPushedFontSizeStored: Boolean;
+//begin
+//  Result:=NotEqualDouble(FDrawTextParam.DrawEffectSetting.PushedEffect.FFontSize,
+//                          Const_DefaultFontSize);
+//end;
+//
+//function TDrawTextParamSetting.IsPushedFontStyleChangeStored: Boolean;
+//begin
+//  Result:=dtpetFontStyleChange in FDrawTextParam.DrawEffectSetting.PushedEffect.FEffectTypes;
+//end;
+//
+//function TDrawTextParamSetting.IsPushedFontStyleStored: Boolean;
+//begin
+//  Result:=FDrawTextParam.DrawEffectSetting.PushedEffect.FFontStyle<>[];
+//end;
+//
+//procedure TDrawTextParamSetting.SetMouseDownFontStyle(const Value: TFontStyles);
+//begin
+//  FDrawTextParam.DrawEffectSetting.MouseDownEffect.FontStyle:=Value;
+//
+//end;
+//
+//procedure TDrawTextParamSetting.SetMouseDownFontStyleChange(const Value: Boolean);
+//begin
+//  if Value then
+//  begin
+//    FDrawTextParam.DrawEffectSetting.MouseDownEffect.EffectTypes:=
+//      FDrawTextParam.DrawEffectSetting.MouseDownEffect.EffectTypes+[dtpetFontStyleChange];
+//  end
+//  else
+//  begin
+//    FDrawTextParam.DrawEffectSetting.MouseDownEffect.EffectTypes:=
+//      FDrawTextParam.DrawEffectSetting.MouseDownEffect.EffectTypes-[dtpetFontStyleChange];
+//  end;
+//end;
+//
+//procedure TDrawTextParamSetting.SetMouseOverFontStyle(const Value: TFontStyles);
+//begin
+//  FDrawTextParam.DrawEffectSetting.MouseOverEffect.FontStyle:=Value;
+//
+//end;
+//
+//procedure TDrawTextParamSetting.SetMouseOverFontStyleChange(const Value: Boolean);
+//begin
+//  if Value then
+//  begin
+//    FDrawTextParam.DrawEffectSetting.MouseOverEffect.EffectTypes:=
+//      FDrawTextParam.DrawEffectSetting.MouseOverEffect.EffectTypes+[dtpetFontStyleChange];
+//  end
+//  else
+//  begin
+//    FDrawTextParam.DrawEffectSetting.MouseOverEffect.EffectTypes:=
+//      FDrawTextParam.DrawEffectSetting.MouseOverEffect.EffectTypes-[dtpetFontStyleChange];
+//  end;
+//end;
+//
+//procedure TDrawTextParamSetting.SetPushedFontStyle(const Value: TFontStyles);
+//begin
+//  FDrawTextParam.DrawEffectSetting.PushedEffect.FontStyle:=Value;
+//
+//end;
+//
+//procedure TDrawTextParamSetting.SetPushedFontStyleChange(const Value: Boolean);
+//begin
+//  if Value then
+//  begin
+//    FDrawTextParam.DrawEffectSetting.PushedEffect.EffectTypes:=
+//      FDrawTextParam.DrawEffectSetting.PushedEffect.EffectTypes+[dtpetFontStyleChange];
+//  end
+//  else
+//  begin
+//    FDrawTextParam.DrawEffectSetting.PushedEffect.EffectTypes:=
+//      FDrawTextParam.DrawEffectSetting.PushedEffect.EffectTypes-[dtpetFontStyleChange];
+//  end;
+//end;
 
 
 

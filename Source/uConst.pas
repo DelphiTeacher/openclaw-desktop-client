@@ -1,5 +1,4 @@
 ﻿//convert pas to utf8 by ¥
-//门业管理
 unit uConst;
 
 interface
@@ -18,32 +17,32 @@ const
 const
   //默认服务器地址
   //AppStore上架需要域名,暂时分离开,因为域名还没备案,先用我服务器
-  Const_Server_Host_IOS='www.orangeui.cn';//'127.0.0.1';//
+  Const_Server_Host_IOS='localhost';//'127.0.0.1';//
   //Android,Windows可以IP直连
-  Const_Server_Host_Other='www.orangeui.cn';//'127.0.0.1'
+  Const_Server_Host_Other='localhost';//'127.0.0.1'
 
   //默认端口
-  Const_Server_Port=10030;
+  Const_Server_Port=10022;
 
 
-  Const_Server_Host_IM='www.orangeui.cn';
-  //开放平台网页的根链接
-  Const_OpenWebRoot='http://www.orangeui.cn/open';//
+//  Const_Server_Host_IM='localhost';
+  //开放平台网页的根链接,隐私政策和注册协议
+  Const_OpenWebRoot='http://localhost/open';//
 
-  Const_AppUpdateINIUrl='http://www.orangeui.cn/open/apps/DoorManage/client/Version.ini';
-
-
-
+  Const_AppUpdateINIUrl='http://localhost/open/apps/DoorManage/client/Version.ini';
 
 
 
 
 
-  //授权中心的服务器,默认都是www.orangeui.cn:10020
-  Const_CenterServerHost='www.orangeui.cn';
-//  Const_CenterServerHost='127.0.0.1';//'www.orangeui.cn';
-  Const_CenterServerPort=10020;
-  //Const_CenterAppName='门业';
+
+
+//
+//  //授权中心的服务器,默认都是localhost:10020
+//  Const_CenterServerHost='localhost';
+////  Const_CenterServerHost='127.0.0.1';//'localhost';
+//  Const_CenterServerPort=10020;
+//  //Const_CenterAppName='门业';
 
 
 
@@ -62,7 +61,7 @@ const
   //登录方式,默认手机号+验证码
   Const_APPLoginType=Const_RegisterLoginType_PhoneNum_PassWord;
   //注册协议
-  Const_RegisterProtocolUrl='';//'http://www.orangeui.cn/open/apps/1000/ClientRegisterProtocol.html';
+  Const_RegisterProtocolUrl='';//'http://localhost/open/apps/1000/ClientRegisterProtocol.html';
   //关于页面的版权信息
   Const_CopyrightCompany='';//'金华市劲界信息技术有限公司';//'金华劲界信息技术有限公司';
   Const_CopyrightTime='';//'Copyright @2015-2020';
@@ -111,7 +110,7 @@ const
 //  Const_WeiXin_AppSecret='90ac476a3d8d3ad5d47d078002bc1260';
 //  Const_WeiXin_PartnerID='1519118881';
 //  Const_WeiXin_PartnerKey='13857563773wangnengdelphiteacher';
-//  Const_WeiXin_IOSUniversalLink='https://www.orangeui.cn/delphi/';
+//  Const_WeiXin_IOSUniversalLink='https://localhost/delphi/';
 
 
 
@@ -123,7 +122,7 @@ const
 
 const
   //暂时写死的客服电话
-  Const_ServiceEmp_Phone='13757961157';
+  Const_ServiceEmp_Phone='18957901025';
 
 
 const
@@ -131,12 +130,12 @@ const
 
 
 
-const
-  //旋风APP接口签名方式的私钥
-  Const_RestAPIAppSecret='B64A687070B5459AB5B7F979A5F3137A';//和tblapp中的密钥字段相对应的
-  //全局的加签方式
-  Const_RestAPISignType='md5';
-
+//const
+//  //旋风APP接口签名方式的私钥
+//  Const_RestAPIAppSecret='B64A687070B5459AB5B7F979A5F3137A';//和tblapp中的密钥字段相对应的
+//  //全局的加签方式
+//  Const_RestAPISignType='md5';
+//
 
 
 
@@ -205,16 +204,16 @@ initialization
 
 
 //  //授权中心的服务器,默认都是
-//  CenterServerHost:='www.orangeui.cn';
+//  CenterServerHost:='localhost';
 //  CenterServerPort:=10020;
 
 
-  //旋风APP接口签名方式的私钥
-  GlobalRestAPIAppSecret:=Const_RestAPIAppSecret;
-  //全局的加签方式
-  GlobalRestAPISignType:=Const_RestAPISignType;
-  //是否启用加签的接口调用
-  GlobalRestAPICheckSignIsEnable:=True;
+//  //旋风APP接口签名方式的私钥
+//  GlobalRestAPIAppSecret:=Const_RestAPIAppSecret;
+//  //全局的加签方式
+//  GlobalRestAPISignType:=Const_RestAPISignType;
+//  //是否启用加签的接口调用
+//  GlobalRestAPICheckSignIsEnable:=True;
 
 
 

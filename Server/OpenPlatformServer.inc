@@ -1,0 +1,14 @@
+
+
+//是否需要Fastmsg
+//{$DEFINE HAS_FASTMSG}
+
+
+//是否需要插入用户登录历史
+{$DEFINE NEED_USER_LOGIN_HISTORY}
+
+
+{$DEFINE HAS_WEB_FILE_SERVER}
+
+
+

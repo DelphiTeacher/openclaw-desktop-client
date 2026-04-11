@@ -476,7 +476,7 @@ begin
 
   //授权服务器
   //可以使用其他的服务器
-  CenterInterfaceUrl:='http://'+Const_CenterServerHost+':'+IntToStr(Const_CenterServerPort)+'/';
+//  CenterInterfaceUrl:='http://'+Const_CenterServerHost+':'+IntToStr(Const_CenterServerPort)+'/';
 //  //用户中心接口地址
 //  UserCenterInterfaceUrl:=ACenterInterfaceUrl+'usercenter/';
 //  //推送中心接口地址
@@ -486,8 +486,8 @@ begin
 
 
 
-  //门业管理APP统一从OrangeUI服务器下载
-  AppUpdateServerUrl:='http://'+Const_CenterServerHost+':'+IntToStr(Const_CenterServerPort+1)+'/';//'';//'http://'+'www.orangeui.cn:10011';
+//  //门业管理APP统一从OrangeUI服务器下载
+//  AppUpdateServerUrl:='http://'+Const_CenterServerHost+':'+IntToStr(Const_CenterServerPort+1)+'/';//'';//'http://'+'www.orangeui.cn:10011';
 
 
 

@@ -39,12 +39,14 @@ uses
   Winapi.ShellApi,
   Windows,
 
+  OpenClawGateway,
 
 
 //  uThumbCommon,
   uFuncCommon,
   uFileCommon,
   uBaseList,
+  uBaseLog,
 //  uDataSetToJson,
 
   XSuperObject,
@@ -126,6 +128,7 @@ type
     FWebHost:String;
     //Web服务的端口
     FWebPort:Integer;
+    FAuthToken:String;
     //全局配置
     function CustomLoadFromINI(AIniFile:TIniFile): Boolean;override;
     function CustomSaveToINI(AIniFile:TIniFile): Boolean;override;
@@ -134,6 +137,7 @@ type
     procedure CustomSaveToUserConfigINI(AIniFile:TIniFile);override;
   public
     constructor Create;override;
+    destructor Destroy;override;
     //加载本地搜索历史
     procedure LoadUserConfig;override;
     //保存本地搜索历史
@@ -146,14 +150,14 @@ type
 
     //AI渠道类型
     AIChannelArray:ISuperArray;
-    AIModelsJson:ISuperArray;
-    MyAIModelsJson:ISuperArray;
+    AIModelsArray:ISuperArray;
+    MyAIModelsArray:ISuperArray;
 
 
     // FOneAPIUrl:String;
     // FOneAPIAccessToken:String;
     //OneApi已经配置的AI渠道
-    FConfigedChannels:ISuperArray;
+//    FConfigedChannels:ISuperArray;
     // FExecuteOllamaListCommand:TExecuteCommand;
     // FIsInstalledOllama:Boolean;
 
@@ -167,7 +171,7 @@ type
     // FJetAIToken:String;
     // FJetAILoginResponseJson:ISuperObject;
     FJetAIUrl:String;
-
+    FOpenclawUrl:String;
 
 //    //加载已经配置的AI
 //    function LoadConfigedChannels(var ADesc:String):Boolean;
@@ -176,7 +180,40 @@ type
 
 //    //添加一个用户自定义模型
 //    procedure SaveCustomAIModel(AChannelJson:ISuperObject;AModleName:String);
+    procedure SaveMyModels;
+  public
+    //openclaw网关事件通知管理
+    FEventManager:TSkinObjectChangeManager;
 
+    //OpenClaw的WebSocket连接它的网关服务
+    // TOnHelloEvent - 连接成功回调函数类型
+    // 当与网关成功建立连接并收到 hello-ok 响应时调用
+    // @param Hello 包含服务器信息和认证状态的响应数据
+    procedure DoOpenlawGatewayHello(const Hello: TGatewayHelloOk);
+
+    // TOnEventEvent - 事件接收回调函数类型
+    // 当从网关收到异步事件通知时调用
+    // @param Event 收到的事件帧，包含事件名称、负载和序列号
+    procedure DoOpenlawGatewayEvent(const Event: TGatewayEventFrame);
+
+    // TOnCloseEvent - 连接关闭回调函数类型
+    // 当WebSocket连接被关闭时调用
+    // @param Code 关闭状态码
+    // @param Reason 关闭原因描述
+    // @param Error 错误信息（如果有）
+    procedure DoOpenlawGatewayClose(const Code: Integer; const Reason: string;
+      const Error: TGatewayErrorInfo);
+
+    // TOnGapEvent - 序列号间隙回调函数类型
+    // 当检测到消息序列号不连续时调用，提示可能丢失了消息
+    // @param Expected 期望的序列号
+    // @param Received 实际收到的序列号
+    procedure DoOpenlawGatewayGap(const Expected, Received: Integer);
+
+
+    //连接websockete服务
+    function ConnectGatewayServer:Boolean;
+    function DisconnectGatewayServer:Boolean;
   end;
 
 
@@ -371,7 +408,10 @@ begin
   //Web服务的端口
   FWebPort:=AIniFile.ReadInteger('','WebPort',Const_Node_Port);
 
-  FJetAIUrl:='';
+  FAuthToken:=AIniFile.ReadString('','AuthToken','sk-5c2de62c553f41bdafa7357c390a0079');
+
+  FJetAIUrl:=AIniFile.ReadString('','JetAIUrl', FJetAIUrl);
+  FOpenclawUrl:=AIniFile.ReadString('','OpenclawUrl', FOpenclawUrl);
 
 
 
@@ -387,25 +427,25 @@ begin
 
 
   //加载AI模型列表
-  // AIModelsJson:=SO(GetStringFromFile(GetApplicationPath+'models.json',TEncoding.UTF8));
-  AIModelsJson:=GetDefaultModelList();
+  // AIModelsArray:=SO(GetStringFromFile(GetApplicationPath+'models.json',TEncoding.UTF8));
+  AIModelsArray:=GetDefaultModelList();
 
-  // if FileExists(GetApplicationPath+'my_models.json') then
-  // begin
-  //   //用户自己添加的模型
-  //   MyAIModelsJson:=SO(GetStringFromFile(GetApplicationPath+'my_models.json',TEncoding.UTF8));
-  // end
-  // else
-  // begin
-  //   MyAIModelsJson:=SO();
-  // end;
+   if FileExists(GetApplicationPath+'my_models.json') then
+   begin
+     //用户自己添加的模型
+     MyAIModelsArray:=SA(GetStringFromFile(GetApplicationPath+'my_models.json',TEncoding.UTF8));
+   end
+   else
+   begin
+     MyAIModelsArray:=AIModelsArray;
+   end;
 
 
   // for I := 0 to AIChannelArray.Length-1 do
   // begin
-  //   AIChannelArray.O[I].A['models']:=AIModelsJson.O['data'].A[IntToStr(AIChannelArray.O[I].I['value'])];
+  //   AIChannelArray.O[I].A['models']:=AIModelsArray.O['data'].A[IntToStr(AIChannelArray.O[I].I['value'])];
   //   //如果存在用户自定义的模型,那么需要添加进去
-  //   ConcatJsonArray(AIChannelArray.O[I].A['models'],MyAIModelsJson.O['data'].A[IntToStr(AIChannelArray.O[I].I['value'])]);
+  //   ConcatJsonArray(AIChannelArray.O[I].A['models'],MyAIModelsArray.O['data'].A[IntToStr(AIChannelArray.O[I].I['value'])]);
 
   //   //配对图标
   //   if AIChannelArray.O[I].S['icon_file']='' then
@@ -435,6 +475,55 @@ begin
 //  FLastSelectGoodsTypeValue:=AIniFile.ReadString('','LastSelectGoodsTypeValue','');
 
 
+end;
+
+function TManager.ConnectGatewayServer:Boolean;
+begin
+  Result:=False;
+
+//export const GATEWAY_CLIENT_IDS = {
+//  WEBCHAT_UI: "webchat-ui",
+//  CONTROL_UI: "openclaw-control-ui",
+//  WEBCHAT: "webchat",
+//  CLI: "cli",
+//  GATEWAY_CLIENT: "gateway-client",
+//  MACOS_APP: "openclaw-macos",
+//  IOS_APP: "openclaw-ios",
+//  ANDROID_APP: "openclaw-android",
+//  NODE_HOST: "node-host",
+//  TEST: "test",
+//  FINGERPRINT: "fingerprint",
+//  PROBE: "openclaw-probe",
+//} as const;
+//
+//export const GATEWAY_CLIENT_MODES = {
+//  WEBCHAT: "webchat",
+//  CLI: "cli",
+//  UI: "ui",
+//  BACKEND: "backend",
+//  NODE: "node",
+//  PROBE: "probe",
+//  TEST: "test",
+//} as const;
+
+
+  GlobalGatewayBrowserClient:=CreateGatewayClient(
+    'ws://'+GlobalManager.FWebHost+':'+IntToStr(Self.FWebPort),
+    Self.DoOpenlawGatewayHello,
+    Self.DoOpenlawGatewayEvent,
+    Self.DoOpenlawGatewayClose,
+    Self.DoOpenlawGatewayGap,
+    //使用gateway的authtoken或者device_token
+    'f3d587a762b177332e69617785e867e24af9962151a3286f',//Self.FAuthToken,//'iA_iHm42eQrjpmah89fGfEjLPxW31fSCjnwVytn28AI',//
+    '',
+    'test',
+    '1.2.3',
+    'Win32',
+    'test',
+    'desktopclient-1'
+    );
+  GlobalGatewayBrowserClient.Start;
+  Result:=True;
 end;
 
 function TManager.SaveAIConfig(AIChannel:ISuperObject;AConfigedJson:ISuperObject;AOllamaConfigedJson:ISuperObject;AOfficicalKey:String;AOfficialModels:TStringList;AOllamaModels:TStringList;var ADesc:String):Boolean;
@@ -823,12 +912,19 @@ end;
 //
 //  AChannelJson.A['models'].S[AChannelJson.A['models'].Length]:=AModleName;
 //
-//  AModels:=MyAIModelsJson.O['data'].A[IntToStr(AChannelJson.I['value'])];
+//  AModels:=MyAIModelsArray.O['data'].A[IntToStr(AChannelJson.I['value'])];
 //  AModels.S[AModels.Length]:=AModleName;
 //  //用户自己添加的模型
-//  SaveStringToFile(MyAIModelsJson.AsJson,GetApplicationPath+'my_models.json',TEncoding.UTF8);
+//  SaveStringToFile(MyAIModelsArray.AsJson,GetApplicationPath+'my_models.json',TEncoding.UTF8);
 //
 //end;
+
+procedure TManager.SaveMyModels();
+begin
+  //用户自己添加的模型
+  SaveStringToFile(MyAIModelsArray.AsJson,GetApplicationPath+'my_models.json',TEncoding.UTF8);
+
+end;
 
 procedure TManager.SaveLastLoginInfo;
 begin
@@ -867,6 +963,7 @@ begin
   //Web服务的端口
   AIniFile.WriteInteger('','WebPort',FWebPort);
 
+  AIniFile.WriteString('','AuthToken',FAuthToken);
 end;
 
 procedure TManager.CustomSaveToUserConfigINI(AIniFile: TIniFile);
@@ -877,6 +974,45 @@ begin
 //  AIniFile.WriteString('','LastSelectGoodsTypeCaption',FLastSelectGoodsTypeCaption);
 //  AIniFile.WriteString('','LastSelectGoodsTypeValue',FLastSelectGoodsTypeValue);
 
+end;
+
+destructor TManager.Destroy;
+begin
+  FreeAndNil(FEventManager);
+  inherited;
+end;
+
+function TManager.DisconnectGatewayServer: Boolean;
+begin
+  if GlobalGatewayBrowserClient<>nil then
+  begin
+    FreeAndNil(GlobalGatewayBrowserClient);
+  end;
+
+end;
+
+procedure TManager.DoOpenlawGatewayClose(const Code: Integer;
+  const Reason: string; const Error: TGatewayErrorInfo);
+begin
+  uBaseLog.HandleException(nil,'TManager.DoOpenlawGateway Close');
+end;
+
+procedure TManager.DoOpenlawGatewayEvent(const Event: TGatewayEventFrame);
+begin
+  uBaseLog.HandleException(nil,'TManager.DoOpenlawGateway Event');
+  FEventManager.DoChange(nil,'OpenclawGateway',Event.Event,Event.Payload,nil);
+
+end;
+
+procedure TManager.DoOpenlawGatewayGap(const Expected, Received: Integer);
+begin
+  uBaseLog.HandleException(nil,'TManager.DoOpenlawGateway Gap');
+
+end;
+
+procedure TManager.DoOpenlawGatewayHello(const Hello: TGatewayHelloOk);
+begin
+  uBaseLog.HandleException(nil,'TManager.DoOpenlawGateway Hello');
 end;
 
 //function TManager.GetSysMemory(AName: String): String;
@@ -1358,14 +1494,16 @@ begin
 
 //  FOneAPIUrl:='http://localhost:5434/api/';
   //vscode
-  FJetAIUrl:='http://127.0.0.1:18789/#token=2303f6528e8789d41201c7070eadb1e775d21df5e6b21324';
-//  FJetAIUrl:='http://127.0.0.1:3000/';
+  FOpenclawUrl:='http://127.0.0.1:18789/#token=2303f6528e8789d41201c7070eadb1e775d21df5e6b21324';
+  FJetAIUrl:='http://localhost:5173/chat?show_apps=false';
 
 
   //nginx
 //  FJetAIUrl:='http://127.0.0.1:3003/';
 
 
+  //openclaw网关事件通知管理
+  FEventManager:=TSkinObjectChangeManager.Create(nil);
 
 
 

@@ -67,6 +67,7 @@ uses
   //XSuperJson,
   {$ENDIF}
 
+  IOUtils,
 //  uBitmapOperation,
   uBaseList,
   uBaseLog,
@@ -561,6 +562,8 @@ function CreateCurrentEngineSkinPicture:TSkinPicture;
 ////                                      AOldSkinThemeColor:TDelphiColor;
 //                                      ANewSkinThemeColor:TDelphiColor);
 
+// 从指定的目录加载所有的图片列表
+procedure GetImageFileListFromDir(ARootDir,ADir:String;AStringList:TStringList);
 
 
 implementation
@@ -595,6 +598,38 @@ begin
   begin
     Result:=GlobalSkinGIFPictureEngineClass.Create(ASkinPicture);
   end;
+end;
+
+
+// 从指定的目录加载所有的图片列表
+procedure GetImageFileListFromDir(ARootDir,ADir:String;AStringList:TStringList);
+var
+  I:Integer;
+  AFileExt:String;
+  AFileRelatedName:String;
+  AFiles:TArray<String>;
+  ASubDirs:TArray<String>;
+begin
+  //遍历指定目录下面的所有图片文件
+  AFiles:=IOUtils.TDirectory.GetFiles(ADir);
+  for I := 0 to Length(AFiles)-1 do
+  begin
+    AFileExt:=LowerCase(ExtractFileExt(AFiles[I]));
+    AFileRelatedName:=Copy(AFiles[I],Length(ARootDir)+1,MaxInt);
+    if AFileRelatedName[1]=PathDelim then AFileRelatedName:=Copy(AFileRelatedName,2,MaxInt);
+
+    if (AFileExt='.png') or (AFileExt='.jpg') or (AFileExt='.svg') then
+    begin
+      AStringList.Add(AFileRelatedName);
+    end;
+  end;
+
+  ASubDirs:=IOUtils.TDirectory.GetDirectories(ADir);
+  for I := 0 to Length(ASubDirs)-1 do
+  begin
+    GetImageFileListFromDir(ARootDir,ASubDirs[I],AStringList);
+  end;
+
 end;
 
 

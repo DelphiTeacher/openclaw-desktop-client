@@ -195,7 +195,7 @@ object FrameCustomAIModelSetting: TFrameCustomAIModelSetting
         Size.Width = 320.000000000000000000
         Size.Height = 40.000000000000000000
         Size.PlatformDefault = False
-        TabOrder = 7
+        TabOrder = 8
         Caption = #35831#27714#22320#22336
         Text = #35831#27714#22320#22336
         Properties.IsToolBar = False
@@ -279,7 +279,7 @@ object FrameCustomAIModelSetting: TFrameCustomAIModelSetting
         Size.Width = 320.000000000000000000
         Size.Height = 40.000000000000000000
         Size.PlatformDefault = False
-        TabOrder = 5
+        TabOrder = 6
         Caption = #23494#38053
         Text = #23494#38053
         Properties.IsToolBar = False
@@ -344,7 +344,7 @@ object FrameCustomAIModelSetting: TFrameCustomAIModelSetting
         Size.Width = 320.000000000000000000
         Size.Height = 40.000000000000000000
         Size.PlatformDefault = False
-        TabOrder = 4
+        TabOrder = 5
         Caption = #27169#22411
         Text = #27169#22411
         Properties.IsToolBar = False
@@ -404,7 +404,7 @@ object FrameCustomAIModelSetting: TFrameCustomAIModelSetting
         SelfOwnMaterial.DrawCaptionParam.FontHorzAlign = fhaLeft
         SelfOwnMaterial.DrawCaptionParam.FontVertAlign = fvaTop
         Align = Top
-        Position.Y = 179.000000000000000000
+        Position.Y = 219.000000000000000000
         Size.Width = 320.000000000000000000
         Size.Height = 20.000000000000000000
         Size.PlatformDefault = False
@@ -444,7 +444,7 @@ object FrameCustomAIModelSetting: TFrameCustomAIModelSetting
         Size.Width = 320.000000000000000000
         Size.Height = 40.000000000000000000
         Size.PlatformDefault = False
-        TabOrder = 6
+        TabOrder = 7
         Caption = #27169#22411#31867#22411
         Text = #27169#22411#31867#22411
         Properties.IsToolBar = False
@@ -494,7 +494,7 @@ object FrameCustomAIModelSetting: TFrameCustomAIModelSetting
         SelfOwnMaterial.DrawCaptionParam.FontHorzAlign = fhaLeft
         SelfOwnMaterial.DrawCaptionParam.FontVertAlign = fvaTop
         Align = Top
-        Position.Y = 199.000000000000000000
+        Position.Y = 239.000000000000000000
         Size.Width = 320.000000000000000000
         Size.Height = 50.000000000000000000
         Size.PlatformDefault = False
@@ -548,6 +548,110 @@ object FrameCustomAIModelSetting: TFrameCustomAIModelSetting
           Properties.PushedIcon.IsClipRound = False
           Properties.ButtonIndex = -1
           Properties.PushedGroupIndex = 0
+        end
+      end
+      object SkinFMXPanel5: TSkinFMXPanel
+        ParentMouseEvent = False
+        DirectUIVisible = False
+        ComponentTypeUseKind = ctukDefault
+        MaterialUseKind = mukRef
+        KeepSelfOwnMaterial = False
+        SelfOwnMaterial.BackColor.Color = claWhite
+        SelfOwnMaterial.DrawCaptionParam.FontTrimming = fttNone
+        SelfOwnMaterial.DrawCaptionParam.FontHorzAlign = fhaLeft
+        SelfOwnMaterial.DrawCaptionParam.FontVertAlign = fvaTop
+        RefMaterial = dmEasyServiceCommonMaterial.pnlInputBlackCaptionPanelMaterial
+        Align = Top
+        Position.Y = 179.000000000000000000
+        Size.Width = 320.000000000000000000
+        Size.Height = 40.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 4
+        Caption = #35774#20026#24403#21069#27169#22411
+        Text = #35774#20026#24403#21069#27169#22411
+        Properties.IsToolBar = False
+        object chkIsCurrent: TSkinCheckBox
+          ParentMouseEvent = False
+          DirectUIVisible = False
+          ComponentTypeUseKind = ctukDefault
+          MaterialUseKind = mukSelfOwn
+          KeepSelfOwnMaterial = True
+          SelfOwnMaterial.BackColor.Color = xFFEDEDED
+          SelfOwnMaterial.BackColor.IsFill = True
+          SelfOwnMaterial.BackColor.FillColor.Color = xFFEDEDED
+          SelfOwnMaterial.BackColor.BorderColor.Color = claLightgray
+          SelfOwnMaterial.BackColor.BorderWidth = 1.000000000000000000
+          SelfOwnMaterial.IsTransparent = False
+          SelfOwnMaterial.IsAutoPosition = False
+          SelfOwnMaterial.DrawCaptionParam.FontTrimming = fttNone
+          SelfOwnMaterial.DrawCaptionParam.FontHorzAlign = fhaLeft
+          SelfOwnMaterial.DrawCaptionParam.FontVertAlign = fvaTop
+          SelfOwnMaterial.NormalUnCheckedPicture.IsClipRound = False
+          SelfOwnMaterial.NormalCheckedPicture.IsClipRound = False
+          SelfOwnMaterial.NormalPartiallyCheckedPicture.IsClipRound = False
+          SelfOwnMaterial.HoverUnCheckedPicture.IsClipRound = False
+          SelfOwnMaterial.HoverCheckedPicture.IsClipRound = False
+          SelfOwnMaterial.DisabledCheckedPicture.IsClipRound = False
+          SelfOwnMaterial.DisabledUnCheckedPicture.IsClipRound = False
+          SelfOwnMaterial.CheckChar = #10004
+          SelfOwnMaterial.DrawCheckStateParam.PathActions = <
+            item
+              X = 25.000000000000000000
+              Y = 50.000000000000000000
+              SizeType = dpstPercent
+              ActionType = patMoveTo
+            end
+            item
+              X = 40.000000000000000000
+              Y = 70.000000000000000000
+              SizeType = dpstPercent
+              ActionType = patLineTo
+            end
+            item
+              X = 75.000000000000000000
+              Y = 35.000000000000000000
+              SizeType = dpstPercent
+              ActionType = patLineTo
+            end
+            item
+              SizeType = dpstPixel
+              ActionType = patDrawPath
+            end>
+          SelfOwnMaterial.DrawPartiallyCheckStateParam.Color = claWhite
+          SelfOwnMaterial.DrawCheckRectParam.Color = claWhite
+          SelfOwnMaterial.DrawCheckRectParam.IsFill = True
+          SelfOwnMaterial.DrawCheckRectParam.DrawRectSetting.Left = 8.000000000000000000
+          SelfOwnMaterial.DrawCheckRectParam.DrawRectSetting.Top = 10.000000000000000000
+          SelfOwnMaterial.DrawCheckRectParam.DrawRectSetting.Right = 8.000000000000000000
+          SelfOwnMaterial.DrawCheckRectParam.DrawRectSetting.Bottom = 10.000000000000000000
+          SelfOwnMaterial.DrawCheckRectParam.DrawRectSetting.Width = 50.000000000000000000
+          SelfOwnMaterial.DrawCheckRectParam.DrawRectSetting.Enabled = True
+          SelfOwnMaterial.DrawCheckRectParam.DrawEffectSetting.PushedEffect.CommonEffectTypes = [dpcetOffsetChange]
+          SelfOwnMaterial.DrawCheckRectParam.DrawEffectSetting.PushedEffect.DrawRectSetting.Left = 8.000000000000000000
+          SelfOwnMaterial.DrawCheckRectParam.DrawEffectSetting.PushedEffect.DrawRectSetting.Top = 10.000000000000000000
+          SelfOwnMaterial.DrawCheckRectParam.DrawEffectSetting.PushedEffect.DrawRectSetting.Right = 8.000000000000000000
+          SelfOwnMaterial.DrawCheckRectParam.DrawEffectSetting.PushedEffect.DrawRectSetting.Bottom = 10.000000000000000000
+          SelfOwnMaterial.DrawCheckRectParam.DrawEffectSetting.PushedEffect.DrawRectSetting.Width = 50.000000000000000000
+          SelfOwnMaterial.DrawCheckRectParam.DrawEffectSetting.PushedEffect.DrawRectSetting.Enabled = True
+          SelfOwnMaterial.DrawCheckRectParam.DrawEffectSetting.PushedEffect.DrawRectSetting.PositionHorzType = dpphtRight
+          SelfOwnMaterial.DrawCheckRectParam.DrawEffectSetting.PushedEffect.FillColor.UseThemeColor = ctThemeColor
+          SelfOwnMaterial.DrawCheckRectParam.DrawEffectSetting.PushedEffect.EffectTypes = [drpetFillColorChange]
+          SelfOwnMaterial.IsSimpleDrawCheckState = True
+          SelfOwnMaterial.IsSimpleDrawCheckChar = False
+          SelfOwnMaterial.DrawCheckCharParam.FontTrimming = fttNone
+          SelfOwnMaterial.DrawCheckCharParam.FontHorzAlign = fhaLeft
+          SelfOwnMaterial.DrawCheckCharParam.FontVertAlign = fvaTop
+          Position.X = 100.000000000000000000
+          Position.Y = 8.000000000000000000
+          Size.Width = 41.000000000000000000
+          Size.Height = 22.000000000000000000
+          Size.PlatformDefault = False
+          TabOrder = 0
+          Properties.AutoSize = False
+          Properties.Checked = False
+          Properties.IsAutoChecked = True
+          Properties.IsAutoCaption = False
+          Properties.PartiallyChecked = False
         end
       end
     end

@@ -54,6 +54,7 @@ function GetDefaultChannelList():ISuperArray;
 
 //获取所有的默认模型列表
 function GetDefaultModelList():ISuperArray;
+
 //// 从数据库载载系统模型
 //function LoadSystemModels(var ADesc:String):Boolean;
 //

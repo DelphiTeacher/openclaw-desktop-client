@@ -121,6 +121,7 @@ contains
   ParentItemStyleFrame_CaptionAutoSize_ExpandButtonRight in 'ParentItemStyleFrame_CaptionAutoSize_ExpandButtonRight.pas',
   ListItemStyleFrame_GrayCaptionLeftAutoSize_DetailLeft in 'ListItemStyleFrame_GrayCaptionLeftAutoSize_DetailLeft.pas',
   ListItemStyleFrame_CaptionGrayCenter_BottomBorderSelected in 'ListItemStyleFrame_CaptionGrayCenter_BottomBorderSelected.pas',
-  ListItemStyleFrame_AIModelConfig in 'ListItemStyleFrame_AIModelConfig.pas';
+  ListItemStyleFrame_AIModelConfig in 'ListItemStyleFrame_AIModelConfig.pas',
+  ListItemStyleFrame_RagDataset in 'ListItemStyleFrame_RagDataset.pas';
 
 end.

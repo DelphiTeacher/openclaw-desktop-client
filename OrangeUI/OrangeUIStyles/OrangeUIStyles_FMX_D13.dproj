@@ -389,6 +389,7 @@
         </DCCReference>
         <DCCReference Include="ListItemStyleFrame_CaptionGrayCenter_BottomBorderSelected.pas"/>
         <DCCReference Include="ListItemStyleFrame_AIModelConfig.pas"/>
+        <DCCReference Include="ListItemStyleFrame_RagDataset.pas"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

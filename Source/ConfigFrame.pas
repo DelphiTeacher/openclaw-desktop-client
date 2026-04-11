@@ -6,6 +6,7 @@ uses
   System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants, 
   FMX.Types, FMX.Graphics, FMX.Controls, FMX.Forms, FMX.Dialogs, FMX.StdCtrls,
 //  ConfigAIListFrame,
+  ConfigAIModelListFrame,
   ServiceManageFrame,
   CustomAIModelSettingFrame,
   uSkinFireMonkeyPageControl, uSkinPageControlType, uSkinFireMonkeyControl;
@@ -22,6 +23,7 @@ type
 //    FConfigAIListFrame:TFrameConfigAIList;
     FServiceManageFrame:TFrameServiceManage;
     FCustomAIModelSettingFrame:TFrameCustomAIModelSetting;
+    FConfigAIModelListFrame:TFrameConfigAIModelList;
     procedure Load;
     { Public declarations }
   end;
@@ -54,13 +56,21 @@ begin
 
   if Self.pcMain.Prop.ActivePage=tsModel then
   begin
-    if FCustomAIModelSettingFrame=nil then
+//    if FCustomAIModelSettingFrame=nil then
+//    begin
+//      FCustomAIModelSettingFrame:=TFrameCustomAIModelSetting.Create(Self);
+//      FCustomAIModelSettingFrame.pnlToolBar.Visible:=False;
+//      FCustomAIModelSettingFrame.Parent:=Self.pcMain.Prop.ActivePage;
+//      FCustomAIModelSettingFrame.Align:=TAlignLayout.Client;
+//      FCustomAIModelSettingFrame.Load(False);
+//    end;
+    if FConfigAIModelListFrame=nil then
     begin
-      FCustomAIModelSettingFrame:=TFrameCustomAIModelSetting.Create(Self);
-      FCustomAIModelSettingFrame.pnlToolBar.Visible:=False;
-      FCustomAIModelSettingFrame.Parent:=Self.pcMain.Prop.ActivePage;
-      FCustomAIModelSettingFrame.Align:=TAlignLayout.Client;
-      FCustomAIModelSettingFrame.Load(False);
+      FConfigAIModelListFrame:=TFrameConfigAIModelList.Create(Self);
+//      FConfigAIModelListFrame.pnlToolBar.Visible:=False;
+      FConfigAIModelListFrame.Parent:=Self.pcMain.Prop.ActivePage;
+      FConfigAIModelListFrame.Align:=TAlignLayout.Client;
+      FConfigAIModelListFrame.Load();
     end;
 
   end;

@@ -41,7 +41,8 @@ uses
   Winapi.TlHelp32,
   Windows,
 
-  uOpenClawHelper,
+  uLocalOpenClawHelper,
+  OpenClawGateway,
 
 
 //  uThumbCommon,
@@ -61,6 +62,7 @@ type
   public
     FExecuteNodeCommand:TExecuteCommand;
     FIsServerStarted:Boolean;
+
 
 
     //判断openclaw gateway的进程是不是已经存在，如果已经存在，就不需要再启动了。
@@ -318,7 +320,7 @@ begin
         begin
           CommandLine := LowerCase(CommandLine);
 
-          if (Pos('openclaw', CommandLine) > 0) and
+          if //(Pos('openclaw', CommandLine) > 0) and
              (Pos('gateway', CommandLine) > 0) then
           begin
             Result := True;

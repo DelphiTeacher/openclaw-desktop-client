@@ -12,7 +12,7 @@ uses
   uFileCommon,
   uManager,
   uServiceManage,
-  uOpenClawHelper,
+  uLocalOpenClawHelper,
 
   FMX.Types, FMX.Graphics, FMX.Controls, FMX.Forms, FMX.Dialogs, FMX.StdCtrls, FMX.Controls.Presentation, FMX.Edit, uSkinFireMonkeyControl, uSkinButtonType;
 
@@ -158,13 +158,13 @@ var
   bEnabled_btnStopNode: Boolean;
 begin
   Self.edtWebPort.Text:=IntToStr(GlobalOpenClawHelper.FGatewayPort);
-  if GlobalManager.FJetAIUrl='' then
+  if GlobalManager.FOpenclawUrl='' then
   begin
     Self.edtJetUrl.Text:=GlobalOpenClawHelper.GetGatewayUrl;
   end
   else
   begin
-    Self.edtJetUrl.Text:=GlobalManager.FJetAIUrl;
+    Self.edtJetUrl.Text:=GlobalManager.FOpenclawUrl;
   end;
 
   SyncButtonState;

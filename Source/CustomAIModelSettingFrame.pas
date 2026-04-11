@@ -25,7 +25,7 @@ uses
   uFrameContext,
   uBaseHttpControl,
 
-  uOpenClawHelper,
+  uLocalOpenClawHelper,
 
   EasyServiceCommonMaterialDataMoudle,
 
@@ -34,7 +34,7 @@ uses
   uSkinFireMonkeyScrollControl, uSkinFireMonkeyScrollBox, uSkinFireMonkeyButton,
   uSkinFireMonkeyControl, uSkinFireMonkeyPanel, uSkinScrollBoxContentType,
   uSkinScrollControlType, uSkinScrollBoxType, uSkinButtonType, uBaseSkinControl,
-  uSkinPanelType, FMX.ListBox, uSkinFireMonkeyComboBox;
+  uSkinPanelType, FMX.ListBox, uSkinFireMonkeyComboBox, uSkinCheckBoxType;
 
 type
   TFrameCustomAIModelSetting = class(TFrame)//,IFrameVirtualKeyboardAutoProcessEvent)
@@ -55,6 +55,8 @@ type
     cmbAuthChoice: TSkinComboBox;
     SkinFMXPanel4: TSkinFMXPanel;
     btnReg: TSkinFMXButton;
+    SkinFMXPanel5: TSkinFMXPanel;
+    chkIsCurrent: TSkinCheckBox;
     procedure btnReturnClick(Sender: TObject);
     procedure btnRegClick(Sender: TObject);
 //  private
@@ -77,7 +79,9 @@ type
 //    FrameHistroy:TFrameHistroy;
     constructor Create(AOwner:TComponent);override;
   public
-    procedure Load(AIsInstallDaemon:Boolean);
+    FModelJson:ISuperObject;
+    procedure Load(AIsInstallDaemon:Boolean);overload;
+    procedure Load(AModelJson:ISuperObject);overload;
     { Public declarations }
   end;
 
@@ -109,6 +113,8 @@ begin
 //    ShowMessageBoxFrame(Self,'密码为6~18位数字或字母!','',TMsgDlgType.mtInformation,['确定'],nil);
 //    Exit;
 //  end;
+
+
   if Self.edtCustomBaseUrl.Text='' then
   begin
     ShowMessageBoxFrame(Self,Self.edtCustomBaseUrl.Prop.HelpText+'!','',TMsgDlgType.mtInformation,['确定'],nil);
@@ -124,6 +130,8 @@ begin
     ShowMessageBoxFrame(Self,Self.edtCustomModelID.Prop.HelpText+'!','',TMsgDlgType.mtInformation,['确定'],nil);
     Exit;
   end;
+
+
 //  if Self.edtRePass.Text<>Self.edtPass.Text then
 //  begin
 //    ShowMessageBoxFrame(Self,'两次密码不一致!','',TMsgDlgType.mtInformation,['确定'],nil);
@@ -134,27 +142,37 @@ begin
 
 //  ShowWaitingFrame(Self,'更新中...');
 
+  if FModelJson<>nil then
+  begin
+    FModelJson.S['requestUrl']:=Trim(Self.edtCustomBaseUrl.Text);
+    FModelJson.S['key']:=Trim(Self.edtCustomAPIKey.Text);
+    FModelJson.S['model']:=Trim(Self.edtCustomModelID.Text);
 
-  GlobalOpenClawHelper.FAuthChoice:='custom-api-key';
-  GlobalOpenClawHelper.FCustomBaseUrl:=Trim(Self.edtCustomBaseUrl.Text);
-  GlobalOpenClawHelper.FCustomApiKey:=Trim(Self.edtCustomAPIKey.Text);
-  GlobalOpenClawHelper.FCustomModelId:=Trim(Self.edtCustomModelID.Text);
-  GlobalOpenClawHelper.FCustomCompatibility:='openai';
-
-
-//  FOldPass:=Trim(Self.edtOldPass.Text);
-//  FPassword:=Trim(Self.edtPass.Text);
-//  FRePassword:=Trim(Self.edtRePass.Text);
-
-//  GlobalOpenClawHelper.ApplyModelSettingByCommand;
-
-  ShowWaitingFrame('更新中...');
-  uTimerTask.GetGlobalTimerThread.RunTempTask(
-                                           DoCustomAIModelSettingExecute,
-                                           DoCustomAIModelSettingExecuteEnd,
-                                           'CustomAIModelSetting');
+  end;
 
 
+  if Self.chkIsCurrent.Prop.Checked then
+  begin
+    GlobalOpenClawHelper.FAuthChoice:='custom-api-key';
+    GlobalOpenClawHelper.FCustomBaseUrl:=Trim(Self.edtCustomBaseUrl.Text);
+    GlobalOpenClawHelper.FCustomApiKey:=Trim(Self.edtCustomAPIKey.Text);
+    GlobalOpenClawHelper.FCustomModelId:=Trim(Self.edtCustomModelID.Text);
+    GlobalOpenClawHelper.FCustomCompatibility:='openai';
+
+
+  //  FOldPass:=Trim(Self.edtOldPass.Text);
+  //  FPassword:=Trim(Self.edtPass.Text);
+  //  FRePassword:=Trim(Self.edtRePass.Text);
+
+  //  GlobalOpenClawHelper.ApplyModelSettingByCommand;
+
+    ShowWaitingFrame('更新中...');
+    uTimerTask.GetGlobalTimerThread.RunTempTask(
+                                             DoCustomAIModelSettingExecute,
+                                             DoCustomAIModelSettingExecuteEnd,
+                                             'CustomAIModelSetting');
+
+  end;
 end;
 
 procedure TFrameCustomAIModelSetting.btnReturnClick(Sender: TObject);
@@ -171,6 +189,18 @@ begin
   Self.edtCustomBaseUrl.Text:=GlobalOpenClawHelper.FCustomBaseUrl;
   Self.edtCustomAPIKey.Text:=GlobalOpenClawHelper.FCustomApiKey;
   Self.edtCustomModelID.Text:=GlobalOpenClawHelper.FCustomModelId;
+
+  Self.sbClient.VertScrollBar.Prop.Position:=0;
+
+end;
+
+procedure TFrameCustomAIModelSetting.Load(AModelJson:ISuperObject);
+begin
+  FModelJson:=AModelJson;
+
+  Self.edtCustomBaseUrl.Text:=AModelJson.S['requestUrl'];
+  Self.edtCustomAPIKey.Text:=AModelJson.S['requestAuth'];
+  Self.edtCustomModelID.Text:=AModelJson.S['model'];
 
   Self.sbClient.VertScrollBar.Prop.Position:=0;
 

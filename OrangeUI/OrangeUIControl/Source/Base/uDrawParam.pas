@@ -536,7 +536,7 @@ type
   //效果设置类的类型
   TDrawEffectSettingClass=class of TDrawEffectSetting;
   //设置类的类型
-  TDrawParamSettingClass=class of TDrawParamSetting;
+//  TDrawParamSettingClass=class of TDrawParamSetting;
 
 
 
@@ -562,6 +562,8 @@ type
     FOnChange:TNotifyEvent;
     //效果种类
     FCommonEffectTypes: TDPCommonEffectTypes;
+    //参数绘制矩形设置
+    FDrawRectSetting:TDrawRectSetting;
   private
     function IsAlphaStored:Boolean;
     function IsOffsetStored:Boolean;
@@ -596,6 +598,8 @@ type
     ///   </para>
     /// </summary>
     procedure DoChange(Sender:TObject);
+    procedure SetDrawRectSetting(const Value: TDrawRectSetting);
+
   public
     constructor Create;virtual;
     destructor Destroy;override;
@@ -670,6 +674,15 @@ type
     ///   </para>
     /// </summary>
     property CommonEffectTypes:TDPCommonEffectTypes read FCommonEffectTypes write FCommonEffectTypes stored IsCommonEffectTypesStored;//default [];
+    /// <summary>
+    ///   <para>
+    ///     绘制矩形的设置
+    ///   </para>
+    ///   <para>
+    ///     Setting of drawing rectangle
+    ///   </para>
+    /// </summary>
+    property DrawRectSetting:TDrawRectSetting read FDrawRectSetting write SetDrawRectSetting;
   end;
 
 
@@ -826,116 +839,116 @@ type
 
 
 
-  //绘制参数设置
-  TDrawParamSetting=class(TInterfacedPersistent)
-  private
-    function IsDrawRectCustomStored: Boolean;
-
-    function IsDrawRectBottomStored: Boolean;
-    function IsDrawRectHeightStored: Boolean;
-    function IsDrawRectHorzAlignStored: Boolean;
-    function IsDrawRectLeftStored: Boolean;
-    function IsDrawRectRightStored: Boolean;
-    function IsDrawRectSizeTypeStored: Boolean;
-    function IsDrawRectTopStored: Boolean;
-    function IsDrawRectVertAlignStored: Boolean;
-    function IsDrawRectWidthStored: Boolean;
-
-
-    function IsMouseDownAlphaChangeStored: Boolean;
-    function IsMouseDownAlphaStored: Boolean;
-    function IsMouseDownOffsetChangeStored: Boolean;
-    function IsMouseDownOffsetStored: Boolean;
-    function IsMouseOverAlphaChangeStored: Boolean;
-    function IsMouseOverAlphaStored: Boolean;
-    function IsMouseOverOffsetChangeStored: Boolean;
-    function IsMouseOverOffsetStored: Boolean;
-    function IsPushedAlphaChangeStored: Boolean;
-    function IsPushedAlphaStored: Boolean;
-    function IsPushedOffsetChangeStored: Boolean;
-    function IsPushedOffsetStored: Boolean;
-  protected
-    FDrawParam:TDrawParam;
-
-    function GetMouseDownAlpha: Byte;
-    function GetMouseDownAlphaChange: Boolean;
-    function GetMouseDownOffset: Double;
-    function GetMouseDownOffsetChange: Boolean;
-    function GetMouseOverAlpha: Byte;
-    function GetMouseOverAlphaChange: Boolean;
-    function GetMouseOverOffset: Double;
-    function GetMouseOverOffsetChange: Boolean;
-    function GetPushedAlpha: Byte;
-    function GetPushedAlphaChange: Boolean;
-    function GetPushedOffset: Double;
-    function GetPushedOffsetChange: Boolean;
-    procedure SetMouseDownAlpha(const Value: Byte);
-    procedure SetMouseDownAlphaChange(const Value: Boolean);
-    procedure SetMouseDownOffset(const Value: Double);
-    procedure SetMouseDownOffsetChange(const Value: Boolean);
-    procedure SetMouseOverAlpha(const Value: Byte);
-    procedure SetMouseOverAlphaChange(const Value: Boolean);
-    procedure SetMouseOverOffset(const Value: Double);
-    procedure SetMouseOverOffsetChange(const Value: Boolean);
-    procedure SetPushedAlpha(const Value: Byte);
-    procedure SetPushedAlphaChange(const Value: Boolean);
-    procedure SetPushedOffset(const Value: Double);
-    procedure SetPushedOffsetChange(const Value: Boolean);
-
-
-    function GetDrawRectBottom: Double;
-//    function GetDrawRectCustom: Boolean;
-    function GetDrawRectHeight: Double;
-    function GetDrawRectHorzAlign: TSkinAlign;
-    function GetDrawRectLeft: Double;
-    function GetDrawRectRight: Double;
-    function GetDrawRectSizeType: TDPSizeType;
-    function GetDrawRectTop: Double;
-    function GetDrawRectVertAlign: TSkinAlign;
-    function GetDrawRectWidth: Double;
-    procedure SetDrawRectBottom(const Value: Double);
-//    procedure SetDrawRectCustom(const Value: Boolean);
-    procedure SetDrawRectHeight(const Value: Double);
-    procedure SetDrawRectHorzAlign(const Value: TSkinAlign);
-    procedure SetDrawRectLeft(const Value: Double);
-    procedure SetDrawRectRight(const Value: Double);
-    procedure SetDrawRectSizeType(const Value: TDPSizeType);
-    procedure SetDrawRectTop(const Value: Double);
-    procedure SetDrawRectVertAlign(const Value: TSkinAlign);
-    procedure SetDrawRectWidth(const Value: Double);
-  public
-    constructor Create(ADrawParam:TDrawParam);virtual;
-
-    procedure CheckDrawRectCustom;
-//    property DrawRectCustom:Boolean read GetDrawRectCustom write SetDrawRectCustom stored IsDrawRectCustomStored;
-  published
-    //绘制矩形设置
-    property DrawRectSizeType:TDPSizeType read GetDrawRectSizeType write SetDrawRectSizeType stored IsDrawRectSizeTypeStored;
-    property DrawRectLeft:Double read GetDrawRectLeft write SetDrawRectLeft stored IsDrawRectLeftStored;
-    property DrawRectTop:Double read GetDrawRectTop write SetDrawRectTop stored IsDrawRectTopStored;
-    property DrawRectRight:Double read GetDrawRectRight write SetDrawRectRight stored IsDrawRectRightStored;
-    property DrawRectBottom:Double read GetDrawRectBottom write SetDrawRectBottom stored IsDrawRectBottomStored;
-    property DrawRectWidth:Double read GetDrawRectWidth write SetDrawRectWidth stored IsDrawRectWidthStored;
-    property DrawRectHeight:Double read GetDrawRectHeight write SetDrawRectHeight stored IsDrawRectHeightStored;
-    property DrawRectHorzAlign:TSkinAlign read GetDrawRectHorzAlign write SetDrawRectHorzAlign stored IsDrawRectHorzAlignStored;
-    property DrawRectVertAlign:TSkinAlign read GetDrawRectVertAlign write SetDrawRectVertAlign stored IsDrawRectVertAlignStored;
-
-  published
-    property MouseDownAlpha:Byte read GetMouseDownAlpha write SetMouseDownAlpha stored IsMouseDownAlphaStored;
-    property MouseDownOffset:Double read GetMouseDownOffset write SetMouseDownOffset stored IsMouseDownOffsetStored;
-    property MouseDownAlphaChange:Boolean read GetMouseDownAlphaChange write SetMouseDownAlphaChange stored IsMouseDownAlphaChangeStored;
-    property MouseDownOffsetChange:Boolean read GetMouseDownOffsetChange write SetMouseDownOffsetChange stored IsMouseDownOffsetChangeStored;
-
-    property MouseOverAlpha:Byte read GetMouseOverAlpha write SetMouseOverAlpha stored IsMouseOverAlphaStored;
-    property MouseOverOffset:Double read GetMouseOverOffset write SetMouseOverOffset stored IsMouseOverOffsetStored;
-    property MouseOverAlphaChange:Boolean read GetMouseOverAlphaChange write SetMouseOverAlphaChange stored IsMouseOverAlphaChangeStored;
-    property MouseOverOffsetChange:Boolean read GetMouseOverOffsetChange write SetMouseOverOffsetChange stored IsMouseOverOffsetChangeStored;
-
-    property PushedAlpha:Byte read GetPushedAlpha write SetPushedAlpha stored IsPushedAlphaStored;
-    property PushedOffset:Double read GetPushedOffset write SetPushedOffset stored IsPushedOffsetStored;
-    property PushedAlphaChange:Boolean read GetPushedAlphaChange write SetPushedAlphaChange stored IsPushedAlphaChangeStored;
-    property PushedOffsetChange:Boolean read GetPushedOffsetChange write SetPushedOffsetChange stored IsPushedOffsetChangeStored;
-  end;
+//  //绘制参数设置
+//  TDrawParamSetting=class(TInterfacedPersistent)
+//  private
+//    function IsDrawRectCustomStored: Boolean;
+//
+//    function IsDrawRectBottomStored: Boolean;
+//    function IsDrawRectHeightStored: Boolean;
+//    function IsDrawRectHorzAlignStored: Boolean;
+//    function IsDrawRectLeftStored: Boolean;
+//    function IsDrawRectRightStored: Boolean;
+//    function IsDrawRectSizeTypeStored: Boolean;
+//    function IsDrawRectTopStored: Boolean;
+//    function IsDrawRectVertAlignStored: Boolean;
+//    function IsDrawRectWidthStored: Boolean;
+//
+//
+//    function IsMouseDownAlphaChangeStored: Boolean;
+//    function IsMouseDownAlphaStored: Boolean;
+//    function IsMouseDownOffsetChangeStored: Boolean;
+//    function IsMouseDownOffsetStored: Boolean;
+//    function IsMouseOverAlphaChangeStored: Boolean;
+//    function IsMouseOverAlphaStored: Boolean;
+//    function IsMouseOverOffsetChangeStored: Boolean;
+//    function IsMouseOverOffsetStored: Boolean;
+//    function IsPushedAlphaChangeStored: Boolean;
+//    function IsPushedAlphaStored: Boolean;
+//    function IsPushedOffsetChangeStored: Boolean;
+//    function IsPushedOffsetStored: Boolean;
+//  protected
+//    FDrawParam:TDrawParam;
+//
+//    function GetMouseDownAlpha: Byte;
+//    function GetMouseDownAlphaChange: Boolean;
+//    function GetMouseDownOffset: Double;
+//    function GetMouseDownOffsetChange: Boolean;
+//    function GetMouseOverAlpha: Byte;
+//    function GetMouseOverAlphaChange: Boolean;
+//    function GetMouseOverOffset: Double;
+//    function GetMouseOverOffsetChange: Boolean;
+//    function GetPushedAlpha: Byte;
+//    function GetPushedAlphaChange: Boolean;
+//    function GetPushedOffset: Double;
+//    function GetPushedOffsetChange: Boolean;
+//    procedure SetMouseDownAlpha(const Value: Byte);
+//    procedure SetMouseDownAlphaChange(const Value: Boolean);
+//    procedure SetMouseDownOffset(const Value: Double);
+//    procedure SetMouseDownOffsetChange(const Value: Boolean);
+//    procedure SetMouseOverAlpha(const Value: Byte);
+//    procedure SetMouseOverAlphaChange(const Value: Boolean);
+//    procedure SetMouseOverOffset(const Value: Double);
+//    procedure SetMouseOverOffsetChange(const Value: Boolean);
+//    procedure SetPushedAlpha(const Value: Byte);
+//    procedure SetPushedAlphaChange(const Value: Boolean);
+//    procedure SetPushedOffset(const Value: Double);
+//    procedure SetPushedOffsetChange(const Value: Boolean);
+//
+//
+//    function GetDrawRectBottom: Double;
+////    function GetDrawRectCustom: Boolean;
+//    function GetDrawRectHeight: Double;
+//    function GetDrawRectHorzAlign: TSkinAlign;
+//    function GetDrawRectLeft: Double;
+//    function GetDrawRectRight: Double;
+//    function GetDrawRectSizeType: TDPSizeType;
+//    function GetDrawRectTop: Double;
+//    function GetDrawRectVertAlign: TSkinAlign;
+//    function GetDrawRectWidth: Double;
+//    procedure SetDrawRectBottom(const Value: Double);
+////    procedure SetDrawRectCustom(const Value: Boolean);
+//    procedure SetDrawRectHeight(const Value: Double);
+//    procedure SetDrawRectHorzAlign(const Value: TSkinAlign);
+//    procedure SetDrawRectLeft(const Value: Double);
+//    procedure SetDrawRectRight(const Value: Double);
+//    procedure SetDrawRectSizeType(const Value: TDPSizeType);
+//    procedure SetDrawRectTop(const Value: Double);
+//    procedure SetDrawRectVertAlign(const Value: TSkinAlign);
+//    procedure SetDrawRectWidth(const Value: Double);
+//  public
+//    constructor Create(ADrawParam:TDrawParam);virtual;
+//
+//    procedure CheckDrawRectCustom;
+////    property DrawRectCustom:Boolean read GetDrawRectCustom write SetDrawRectCustom stored IsDrawRectCustomStored;
+//  published
+//    //绘制矩形设置
+//    property DrawRectSizeType:TDPSizeType read GetDrawRectSizeType write SetDrawRectSizeType stored IsDrawRectSizeTypeStored;
+//    property DrawRectLeft:Double read GetDrawRectLeft write SetDrawRectLeft stored IsDrawRectLeftStored;
+//    property DrawRectTop:Double read GetDrawRectTop write SetDrawRectTop stored IsDrawRectTopStored;
+//    property DrawRectRight:Double read GetDrawRectRight write SetDrawRectRight stored IsDrawRectRightStored;
+//    property DrawRectBottom:Double read GetDrawRectBottom write SetDrawRectBottom stored IsDrawRectBottomStored;
+//    property DrawRectWidth:Double read GetDrawRectWidth write SetDrawRectWidth stored IsDrawRectWidthStored;
+//    property DrawRectHeight:Double read GetDrawRectHeight write SetDrawRectHeight stored IsDrawRectHeightStored;
+//    property DrawRectHorzAlign:TSkinAlign read GetDrawRectHorzAlign write SetDrawRectHorzAlign stored IsDrawRectHorzAlignStored;
+//    property DrawRectVertAlign:TSkinAlign read GetDrawRectVertAlign write SetDrawRectVertAlign stored IsDrawRectVertAlignStored;
+//
+//  published
+//    property MouseDownAlpha:Byte read GetMouseDownAlpha write SetMouseDownAlpha stored IsMouseDownAlphaStored;
+//    property MouseDownOffset:Double read GetMouseDownOffset write SetMouseDownOffset stored IsMouseDownOffsetStored;
+//    property MouseDownAlphaChange:Boolean read GetMouseDownAlphaChange write SetMouseDownAlphaChange stored IsMouseDownAlphaChangeStored;
+//    property MouseDownOffsetChange:Boolean read GetMouseDownOffsetChange write SetMouseDownOffsetChange stored IsMouseDownOffsetChangeStored;
+//
+//    property MouseOverAlpha:Byte read GetMouseOverAlpha write SetMouseOverAlpha stored IsMouseOverAlphaStored;
+//    property MouseOverOffset:Double read GetMouseOverOffset write SetMouseOverOffset stored IsMouseOverOffsetStored;
+//    property MouseOverAlphaChange:Boolean read GetMouseOverAlphaChange write SetMouseOverAlphaChange stored IsMouseOverAlphaChangeStored;
+//    property MouseOverOffsetChange:Boolean read GetMouseOverOffsetChange write SetMouseOverOffsetChange stored IsMouseOverOffsetChangeStored;
+//
+//    property PushedAlpha:Byte read GetPushedAlpha write SetPushedAlpha stored IsPushedAlphaStored;
+//    property PushedOffset:Double read GetPushedOffset write SetPushedOffset stored IsPushedOffsetStored;
+//    property PushedAlphaChange:Boolean read GetPushedAlphaChange write SetPushedAlphaChange stored IsPushedAlphaChangeStored;
+//    property PushedOffsetChange:Boolean read GetPushedOffsetChange write SetPushedOffsetChange stored IsPushedOffsetChangeStored;
+//  end;
 
 
 
@@ -1002,7 +1015,7 @@ type
 
     //获取效果状态类
     function GetDrawEffectSettingClass:TDrawEffectSettingClass;virtual;
-    function GetDrawParamSettingClass:TDrawParamSettingClass;virtual;
+//    function GetDrawParamSettingClass:TDrawParamSettingClass;virtual;
 
     //创建颜色参数,绑定它的更改事件,以便Color更改之后可以通知DrawParam进行更改
     function CreateDrawColor(const AName:String;const ACaption:String):TDrawColor;
@@ -1393,6 +1406,9 @@ end;
 
 { TBaseDrawElement }
 
+
+
+
 constructor TDrawParam.Create(const AName:String;const ACaption:String);
 begin
   //默认是控件级别的素材
@@ -1746,10 +1762,10 @@ begin
   Result:=TDrawEffectSetting;
 end;
 
-function TDrawParam.GetDrawParamSettingClass: TDrawParamSettingClass;
-begin
-  Result:=TDrawParamSetting;
-end;
+//function TDrawParam.GetDrawParamSettingClass: TDrawParamSettingClass;
+//begin
+//  Result:=TDrawParamSetting;
+//end;
 
 function TDrawParam.IsAlphaStored: Boolean;
 begin
@@ -1777,6 +1793,10 @@ begin
   if (CurrentEffect<>nil) and (dpcetOffsetChange in CurrentEffect.FCommonEffectTypes) then
   begin
     OffsetRectF(Result,CurrentEffect.FOffset,CurrentEffect.FOffset);
+    if CurrentEffect.FDrawRectSetting.Enabled then
+    begin
+      Result:=CurrentEffect.FDrawRectSetting.CalcDrawRect(AControlRect);
+    end;
 //    AControlRect.Left:=AControlRect.Left+CurrentEffect.FOffset;
 //    AControlRect.Top:=AControlRect.Top+CurrentEffect.FOffset;
 //    AControlRect.Right:=AControlRect.Right+CurrentEffect.FOffset;
@@ -1801,439 +1821,439 @@ begin
 end;
 
 
-{ TDrawParamSetting }
-
-procedure TDrawParamSetting.SetDrawRectBottom(const Value: Double);
-begin
-  FDrawParam.FDrawRectSetting.Bottom:=Value;
-end;
-
-//procedure TDrawParamSetting.SetDrawRectCustom(const Value: Boolean);
+//{ TDrawParamSetting }
+//
+//procedure TDrawParamSetting.SetDrawRectBottom(const Value: Double);
 //begin
-//  FDrawParam.FDrawRectSetting.Enabled:=Value;
+//  FDrawParam.FDrawRectSetting.Bottom:=Value;
 //end;
-
-procedure TDrawParamSetting.SetDrawRectHeight(const Value: Double);
-begin
-  FDrawParam.FDrawRectSetting.Height:=Value;
-  CheckDrawRectCustom;
-end;
-
-procedure TDrawParamSetting.SetDrawRectHorzAlign(const Value: TSkinAlign);
-begin
-  case Value of
-    salLeading: FDrawParam.FDrawRectSetting.PositionHorzType:=dpphtLeft;
-    salCenter: FDrawParam.FDrawRectSetting.PositionHorzType:=dpphtCenter;
-    salTrailing: FDrawParam.FDrawRectSetting.PositionHorzType:=dpphtRight;
-  end;
-  CheckDrawRectCustom;
-end;
-
-procedure TDrawParamSetting.SetDrawRectLeft(const Value: Double);
-begin
-  FDrawParam.FDrawRectSetting.Left:=Value;
-  CheckDrawRectCustom;
-end;
-
-procedure TDrawParamSetting.SetDrawRectRight(const Value: Double);
-begin
-  FDrawParam.FDrawRectSetting.Right:=Value;
-  CheckDrawRectCustom;
-end;
-
-procedure TDrawParamSetting.SetDrawRectSizeType(const Value: TDPSizeType);
-begin
-  FDrawParam.FDrawRectSetting.SizeType:=Value;
-  CheckDrawRectCustom;
-end;
-
-procedure TDrawParamSetting.SetDrawRectTop(const Value: Double);
-begin
-  FDrawParam.FDrawRectSetting.Top:=Value;
-  CheckDrawRectCustom;
-end;
-
-procedure TDrawParamSetting.SetDrawRectVertAlign(const Value: TSkinAlign);
-begin
-  case Value of
-    salLeading: FDrawParam.FDrawRectSetting.PositionVertType:=dppvtTop;
-    salCenter: FDrawParam.FDrawRectSetting.PositionVertType:=dppvtCenter;
-    salTrailing: FDrawParam.FDrawRectSetting.PositionVertType:=dppvtBottom;
-  end;
-  CheckDrawRectCustom;
-end;
-
-procedure TDrawParamSetting.SetDrawRectWidth(const Value: Double);
-begin
-  FDrawParam.FDrawRectSetting.Width:=Value;
-  CheckDrawRectCustom;
-end;
-
-procedure TDrawParamSetting.CheckDrawRectCustom;
-begin
-  FDrawParam.FDrawRectSetting.FEnabled:=
-        IsDrawRectBottomStored
-    or IsDrawRectHeightStored
-    or IsDrawRectHorzAlignStored
-    or IsDrawRectLeftStored
-    or IsDrawRectRightStored
-    or IsDrawRectSizeTypeStored
-    or IsDrawRectTopStored
-    or IsDrawRectVertAlignStored
-    or IsDrawRectWidthStored;
-
-end;
-
-constructor TDrawParamSetting.Create(ADrawParam: TDrawParam);
-begin
-  FDrawParam:=ADrawParam;
-end;
-
-function TDrawParamSetting.GetDrawRectBottom: Double;
-begin
-  Result:=FDrawParam.FDrawRectSetting.FBottom;
-end;
-
-//function TDrawParamSetting.GetDrawRectCustom: Boolean;
+//
+////procedure TDrawParamSetting.SetDrawRectCustom(const Value: Boolean);
+////begin
+////  FDrawParam.FDrawRectSetting.Enabled:=Value;
+////end;
+//
+//procedure TDrawParamSetting.SetDrawRectHeight(const Value: Double);
 //begin
-//  Result:=FDrawParam.FDrawRectSetting.FEnabled;
+//  FDrawParam.FDrawRectSetting.Height:=Value;
+//  CheckDrawRectCustom;
 //end;
-
-function TDrawParamSetting.GetDrawRectHeight: Double;
-begin
-  Result:=FDrawParam.FDrawRectSetting.FHeight;
-end;
-
-function TDrawParamSetting.GetDrawRectHorzAlign: TSkinAlign;
-begin
-  case FDrawParam.FDrawRectSetting.FPositionHorzType of
-    dpphtNone: Result:=salLeading;
-    dpphtLeft: Result:=salLeading;
-    dpphtCenter: Result:=salCenter;
-    dpphtRight: Result:=salTrailing;
-  end;
-end;
-
-function TDrawParamSetting.GetDrawRectLeft: Double;
-begin
-  Result:=FDrawParam.FDrawRectSetting.FLeft;
-end;
-
-function TDrawParamSetting.GetDrawRectRight: Double;
-begin
-  Result:=FDrawParam.FDrawRectSetting.FRight;
-end;
-
-function TDrawParamSetting.GetDrawRectSizeType: TDPSizeType;
-begin
-  Result:=FDrawParam.FDrawRectSetting.FSizeType;
-end;
-
-function TDrawParamSetting.GetDrawRectTop: Double;
-begin
-  Result:=FDrawParam.FDrawRectSetting.FTop;
-end;
-
-function TDrawParamSetting.GetDrawRectVertAlign: TSkinAlign;
-begin
-  case FDrawParam.FDrawRectSetting.FPositionVertType of
-    dppvtNone: Result:=salLeading;
-    dppvtTop: Result:=salLeading;
-    dppvtCenter: Result:=salCenter;
-    dppvtBottom: Result:=salTrailing;
-  end;
-end;
-
-function TDrawParamSetting.GetDrawRectWidth: Double;
-begin
-  Result:=FDrawParam.FDrawRectSetting.FWidth;
-end;
-
-function TDrawParamSetting.GetMouseDownAlpha: Byte;
-begin
-  Result:=FDrawParam.FDrawEffectSetting.FMouseDownEffect.FAlpha;
-end;
-
-function TDrawParamSetting.GetMouseDownAlphaChange: Boolean;
-begin
-  Result:=dpcetAlphaChange in FDrawParam.FDrawEffectSetting.FMouseDownEffect.FCommonEffectTypes;
-end;
-
-function TDrawParamSetting.GetMouseDownOffset: Double;
-begin
-  Result:=FDrawParam.FDrawEffectSetting.FMouseDownEffect.FOffset;
-end;
-
-function TDrawParamSetting.GetMouseDownOffsetChange: Boolean;
-begin
-  Result:=dpcetOffsetChange in FDrawParam.FDrawEffectSetting.FMouseDownEffect.FCommonEffectTypes;
-end;
-
-function TDrawParamSetting.GetMouseOverAlpha: Byte;
-begin
-  Result:=FDrawParam.FDrawEffectSetting.FMouseOverEffect.FAlpha;
-end;
-
-function TDrawParamSetting.GetMouseOverAlphaChange: Boolean;
-begin
-  Result:=dpcetAlphaChange in FDrawParam.FDrawEffectSetting.FMouseOverEffect.FCommonEffectTypes;
-end;
-
-function TDrawParamSetting.GetMouseOverOffset: Double;
-begin
-  Result:=FDrawParam.FDrawEffectSetting.FMouseOverEffect.FOffset;
-end;
-
-function TDrawParamSetting.GetMouseOverOffsetChange: Boolean;
-begin
-  Result:=dpcetOffsetChange in FDrawParam.FDrawEffectSetting.FMouseOverEffect.FCommonEffectTypes;
-end;
-
-function TDrawParamSetting.GetPushedAlpha: Byte;
-begin
-  Result:=FDrawParam.FDrawEffectSetting.FPushedEffect.FAlpha;
-end;
-
-function TDrawParamSetting.GetPushedAlphaChange: Boolean;
-begin
-  Result:=dpcetAlphaChange in FDrawParam.FDrawEffectSetting.FPushedEffect.FCommonEffectTypes;
-end;
-
-function TDrawParamSetting.GetPushedOffset: Double;
-begin
-  Result:=FDrawParam.FDrawEffectSetting.FPushedEffect.FOffset;
-end;
-
-function TDrawParamSetting.GetPushedOffsetChange: Boolean;
-begin
-  Result:=dpcetOffsetChange in FDrawParam.FDrawEffectSetting.FPushedEffect.FCommonEffectTypes;
-end;
-
-function TDrawParamSetting.IsDrawRectBottomStored: Boolean;
-begin
-  Result:=IsNotSameDouble(Self.FDrawParam.FDrawRectSetting.FBottom,0);
-end;
-
-function TDrawParamSetting.IsDrawRectCustomStored: Boolean;
-begin
-  Result:=Self.FDrawParam.FDrawRectSetting.FEnabled<>False;
-end;
-
-function TDrawParamSetting.IsDrawRectHeightStored: Boolean;
-begin
-  Result:=IsNotSameDouble(Self.FDrawParam.FDrawRectSetting.FHeight,0);
-end;
-
-function TDrawParamSetting.IsDrawRectHorzAlignStored: Boolean;
-begin
-  Result:=(Self.FDrawParam.FDrawRectSetting.FPositionHorzType<>dpphtNone)
-    and (Self.FDrawParam.FDrawRectSetting.FPositionHorzType<>dpphtLeft);
-end;
-
-function TDrawParamSetting.IsDrawRectLeftStored: Boolean;
-begin
-  Result:=IsNotSameDouble(Self.FDrawParam.FDrawRectSetting.FLeft,0);
-end;
-
-function TDrawParamSetting.IsDrawRectRightStored: Boolean;
-begin
-  Result:=IsNotSameDouble(Self.FDrawParam.FDrawRectSetting.FRight,0);
-end;
-
-function TDrawParamSetting.IsDrawRectSizeTypeStored: Boolean;
-begin
-  Result:=Self.FDrawParam.FDrawRectSetting.FSizeType<>dpstPixel;
-end;
-
-function TDrawParamSetting.IsDrawRectTopStored: Boolean;
-begin
-  Result:=IsNotSameDouble(Self.FDrawParam.FDrawRectSetting.FTop,0);
-end;
-
-function TDrawParamSetting.IsDrawRectVertAlignStored: Boolean;
-begin
-  Result:=(Self.FDrawParam.FDrawRectSetting.FPositionVertType<>dppvtNone)
-    and (Self.FDrawParam.FDrawRectSetting.FPositionVertType<>dppvtTop);
-end;
-
-function TDrawParamSetting.IsDrawRectWidthStored: Boolean;
-begin
-  Result:=IsNotSameDouble(Self.FDrawParam.FDrawRectSetting.FWidth,0);
-end;
-
-function TDrawParamSetting.IsMouseDownAlphaChangeStored: Boolean;
-begin
-  Result:=dpcetAlphaChange in FDrawParam.FDrawEffectSetting.FMouseDownEffect.FCommonEffectTypes;
-end;
-
-function TDrawParamSetting.IsMouseDownAlphaStored: Boolean;
-begin
-  Result:=Self.FDrawParam.FDrawEffectSetting.FMouseDownEffect.FAlpha<>Const_DefaultEffect_Alpha;
-end;
-
-function TDrawParamSetting.IsMouseDownOffsetChangeStored: Boolean;
-begin
-  Result:=dpcetOffsetChange in FDrawParam.FDrawEffectSetting.FMouseDownEffect.FCommonEffectTypes;
-end;
-
-function TDrawParamSetting.IsMouseDownOffsetStored: Boolean;
-begin
-  Result:=IsNotSameDouble(Self.FDrawParam.FDrawEffectSetting.FMouseDownEffect.FOffset,Const_DefaultEffect_Offset);
-end;
-
-function TDrawParamSetting.IsMouseOverAlphaChangeStored: Boolean;
-begin
-  Result:=dpcetAlphaChange in FDrawParam.FDrawEffectSetting.FMouseOverEffect.FCommonEffectTypes;
-end;
-
-function TDrawParamSetting.IsMouseOverAlphaStored: Boolean;
-begin
-  Result:=Self.FDrawParam.FDrawEffectSetting.FMouseOverEffect.FAlpha<>Const_DefaultEffect_Alpha;
-end;
-
-function TDrawParamSetting.IsMouseOverOffsetChangeStored: Boolean;
-begin
-  Result:=dpcetOffsetChange in FDrawParam.FDrawEffectSetting.FMouseOverEffect.FCommonEffectTypes;
-end;
-
-function TDrawParamSetting.IsMouseOverOffsetStored: Boolean;
-begin
-  Result:=IsNotSameDouble(Self.FDrawParam.FDrawEffectSetting.FMouseOverEffect.FOffset,Const_DefaultEffect_Offset);
-end;
-
-function TDrawParamSetting.IsPushedAlphaChangeStored: Boolean;
-begin
-  Result:=dpcetAlphaChange in FDrawParam.FDrawEffectSetting.FPushedEffect.FCommonEffectTypes;
-end;
-
-function TDrawParamSetting.IsPushedAlphaStored: Boolean;
-begin
-  Result:=Self.FDrawParam.FDrawEffectSetting.FPushedEffect.FAlpha<>Const_DefaultEffect_Alpha;
-end;
-
-function TDrawParamSetting.IsPushedOffsetChangeStored: Boolean;
-begin
-  Result:=dpcetOffsetChange in FDrawParam.FDrawEffectSetting.FPushedEffect.FCommonEffectTypes;
-end;
-
-function TDrawParamSetting.IsPushedOffsetStored: Boolean;
-begin
-  Result:=IsNotSameDouble(Self.FDrawParam.FDrawEffectSetting.FPushedEffect.FOffset,Const_DefaultEffect_Offset);
-end;
-
-procedure TDrawParamSetting.SetMouseDownAlpha(const Value: Byte);
-begin
-  FDrawParam.FDrawEffectSetting.FMouseDownEffect.Alpha:=Value;
-end;
-
-procedure TDrawParamSetting.SetMouseDownAlphaChange(const Value: Boolean);
-begin
-  if Value then
-  begin
-    FDrawParam.FDrawEffectSetting.FMouseDownEffect.CommonEffectTypes:=
-      FDrawParam.FDrawEffectSetting.FMouseDownEffect.CommonEffectTypes+[dpcetAlphaChange];
-  end
-  else
-  begin
-    FDrawParam.FDrawEffectSetting.FMouseDownEffect.CommonEffectTypes:=
-      FDrawParam.FDrawEffectSetting.FMouseDownEffect.CommonEffectTypes-[dpcetAlphaChange];
-  end;
-end;
-
-procedure TDrawParamSetting.SetMouseDownOffset(const Value: Double);
-begin
-  FDrawParam.FDrawEffectSetting.FMouseDownEffect.Offset:=Value;
-end;
-
-procedure TDrawParamSetting.SetMouseDownOffsetChange(const Value: Boolean);
-begin
-  if Value then
-  begin
-    FDrawParam.FDrawEffectSetting.FMouseDownEffect.CommonEffectTypes:=
-      FDrawParam.FDrawEffectSetting.FMouseDownEffect.CommonEffectTypes+[dpcetOffsetChange];
-  end
-  else
-  begin
-    FDrawParam.FDrawEffectSetting.FMouseDownEffect.CommonEffectTypes:=
-      FDrawParam.FDrawEffectSetting.FMouseDownEffect.CommonEffectTypes-[dpcetOffsetChange];
-  end;
-end;
-
-procedure TDrawParamSetting.SetMouseOverAlpha(const Value: Byte);
-begin
-  FDrawParam.FDrawEffectSetting.FMouseOverEffect.Alpha:=Value;
-end;
-
-procedure TDrawParamSetting.SetMouseOverAlphaChange(const Value: Boolean);
-begin
-  if Value then
-  begin
-    FDrawParam.FDrawEffectSetting.FMouseOverEffect.CommonEffectTypes:=
-      FDrawParam.FDrawEffectSetting.FMouseOverEffect.CommonEffectTypes+[dpcetAlphaChange];
-  end
-  else
-  begin
-    FDrawParam.FDrawEffectSetting.FMouseOverEffect.CommonEffectTypes:=
-      FDrawParam.FDrawEffectSetting.FMouseOverEffect.CommonEffectTypes-[dpcetAlphaChange];
-  end;
-end;
-
-procedure TDrawParamSetting.SetMouseOverOffset(const Value: Double);
-begin
-  FDrawParam.FDrawEffectSetting.FMouseOverEffect.Offset:=Value;
-end;
-
-procedure TDrawParamSetting.SetMouseOverOffsetChange(const Value: Boolean);
-begin
-  if Value then
-  begin
-    FDrawParam.FDrawEffectSetting.FMouseOverEffect.CommonEffectTypes:=
-      FDrawParam.FDrawEffectSetting.FMouseOverEffect.CommonEffectTypes+[dpcetOffsetChange];
-  end
-  else
-  begin
-    FDrawParam.FDrawEffectSetting.FMouseOverEffect.CommonEffectTypes:=
-      FDrawParam.FDrawEffectSetting.FMouseOverEffect.CommonEffectTypes-[dpcetOffsetChange];
-  end;
-end;
-
-procedure TDrawParamSetting.SetPushedAlpha(const Value: Byte);
-begin
-  FDrawParam.FDrawEffectSetting.FPushedEffect.Alpha:=Value;
-end;
-
-procedure TDrawParamSetting.SetPushedAlphaChange(const Value: Boolean);
-begin
-  if Value then
-  begin
-    FDrawParam.FDrawEffectSetting.FPushedEffect.CommonEffectTypes:=
-      FDrawParam.FDrawEffectSetting.FPushedEffect.CommonEffectTypes+[dpcetAlphaChange];
-  end
-  else
-  begin
-    FDrawParam.FDrawEffectSetting.FPushedEffect.CommonEffectTypes:=
-      FDrawParam.FDrawEffectSetting.FPushedEffect.CommonEffectTypes-[dpcetAlphaChange];
-  end;
-end;
-
-procedure TDrawParamSetting.SetPushedOffset(const Value: Double);
-begin
-  FDrawParam.FDrawEffectSetting.FPushedEffect.Offset:=Value;
-end;
-
-procedure TDrawParamSetting.SetPushedOffsetChange(const Value: Boolean);
-begin
-  if Value then
-  begin
-    FDrawParam.FDrawEffectSetting.FPushedEffect.CommonEffectTypes:=
-      FDrawParam.FDrawEffectSetting.FPushedEffect.CommonEffectTypes+[dpcetOffsetChange];
-  end
-  else
-  begin
-    FDrawParam.FDrawEffectSetting.FPushedEffect.CommonEffectTypes:=
-      FDrawParam.FDrawEffectSetting.FPushedEffect.CommonEffectTypes-[dpcetOffsetChange];
-  end;
-end;
+//
+//procedure TDrawParamSetting.SetDrawRectHorzAlign(const Value: TSkinAlign);
+//begin
+//  case Value of
+//    salLeading: FDrawParam.FDrawRectSetting.PositionHorzType:=dpphtLeft;
+//    salCenter: FDrawParam.FDrawRectSetting.PositionHorzType:=dpphtCenter;
+//    salTrailing: FDrawParam.FDrawRectSetting.PositionHorzType:=dpphtRight;
+//  end;
+//  CheckDrawRectCustom;
+//end;
+//
+//procedure TDrawParamSetting.SetDrawRectLeft(const Value: Double);
+//begin
+//  FDrawParam.FDrawRectSetting.Left:=Value;
+//  CheckDrawRectCustom;
+//end;
+//
+//procedure TDrawParamSetting.SetDrawRectRight(const Value: Double);
+//begin
+//  FDrawParam.FDrawRectSetting.Right:=Value;
+//  CheckDrawRectCustom;
+//end;
+//
+//procedure TDrawParamSetting.SetDrawRectSizeType(const Value: TDPSizeType);
+//begin
+//  FDrawParam.FDrawRectSetting.SizeType:=Value;
+//  CheckDrawRectCustom;
+//end;
+//
+//procedure TDrawParamSetting.SetDrawRectTop(const Value: Double);
+//begin
+//  FDrawParam.FDrawRectSetting.Top:=Value;
+//  CheckDrawRectCustom;
+//end;
+//
+//procedure TDrawParamSetting.SetDrawRectVertAlign(const Value: TSkinAlign);
+//begin
+//  case Value of
+//    salLeading: FDrawParam.FDrawRectSetting.PositionVertType:=dppvtTop;
+//    salCenter: FDrawParam.FDrawRectSetting.PositionVertType:=dppvtCenter;
+//    salTrailing: FDrawParam.FDrawRectSetting.PositionVertType:=dppvtBottom;
+//  end;
+//  CheckDrawRectCustom;
+//end;
+//
+//procedure TDrawParamSetting.SetDrawRectWidth(const Value: Double);
+//begin
+//  FDrawParam.FDrawRectSetting.Width:=Value;
+//  CheckDrawRectCustom;
+//end;
+//
+//procedure TDrawParamSetting.CheckDrawRectCustom;
+//begin
+//  FDrawParam.FDrawRectSetting.FEnabled:=
+//        IsDrawRectBottomStored
+//    or IsDrawRectHeightStored
+//    or IsDrawRectHorzAlignStored
+//    or IsDrawRectLeftStored
+//    or IsDrawRectRightStored
+//    or IsDrawRectSizeTypeStored
+//    or IsDrawRectTopStored
+//    or IsDrawRectVertAlignStored
+//    or IsDrawRectWidthStored;
+//
+//end;
+//
+//constructor TDrawParamSetting.Create(ADrawParam: TDrawParam);
+//begin
+//  FDrawParam:=ADrawParam;
+//end;
+//
+//function TDrawParamSetting.GetDrawRectBottom: Double;
+//begin
+//  Result:=FDrawParam.FDrawRectSetting.FBottom;
+//end;
+//
+////function TDrawParamSetting.GetDrawRectCustom: Boolean;
+////begin
+////  Result:=FDrawParam.FDrawRectSetting.FEnabled;
+////end;
+//
+//function TDrawParamSetting.GetDrawRectHeight: Double;
+//begin
+//  Result:=FDrawParam.FDrawRectSetting.FHeight;
+//end;
+//
+//function TDrawParamSetting.GetDrawRectHorzAlign: TSkinAlign;
+//begin
+//  case FDrawParam.FDrawRectSetting.FPositionHorzType of
+//    dpphtNone: Result:=salLeading;
+//    dpphtLeft: Result:=salLeading;
+//    dpphtCenter: Result:=salCenter;
+//    dpphtRight: Result:=salTrailing;
+//  end;
+//end;
+//
+//function TDrawParamSetting.GetDrawRectLeft: Double;
+//begin
+//  Result:=FDrawParam.FDrawRectSetting.FLeft;
+//end;
+//
+//function TDrawParamSetting.GetDrawRectRight: Double;
+//begin
+//  Result:=FDrawParam.FDrawRectSetting.FRight;
+//end;
+//
+//function TDrawParamSetting.GetDrawRectSizeType: TDPSizeType;
+//begin
+//  Result:=FDrawParam.FDrawRectSetting.FSizeType;
+//end;
+//
+//function TDrawParamSetting.GetDrawRectTop: Double;
+//begin
+//  Result:=FDrawParam.FDrawRectSetting.FTop;
+//end;
+//
+//function TDrawParamSetting.GetDrawRectVertAlign: TSkinAlign;
+//begin
+//  case FDrawParam.FDrawRectSetting.FPositionVertType of
+//    dppvtNone: Result:=salLeading;
+//    dppvtTop: Result:=salLeading;
+//    dppvtCenter: Result:=salCenter;
+//    dppvtBottom: Result:=salTrailing;
+//  end;
+//end;
+//
+//function TDrawParamSetting.GetDrawRectWidth: Double;
+//begin
+//  Result:=FDrawParam.FDrawRectSetting.FWidth;
+//end;
+//
+//function TDrawParamSetting.GetMouseDownAlpha: Byte;
+//begin
+//  Result:=FDrawParam.FDrawEffectSetting.FMouseDownEffect.FAlpha;
+//end;
+//
+//function TDrawParamSetting.GetMouseDownAlphaChange: Boolean;
+//begin
+//  Result:=dpcetAlphaChange in FDrawParam.FDrawEffectSetting.FMouseDownEffect.FCommonEffectTypes;
+//end;
+//
+//function TDrawParamSetting.GetMouseDownOffset: Double;
+//begin
+//  Result:=FDrawParam.FDrawEffectSetting.FMouseDownEffect.FOffset;
+//end;
+//
+//function TDrawParamSetting.GetMouseDownOffsetChange: Boolean;
+//begin
+//  Result:=dpcetOffsetChange in FDrawParam.FDrawEffectSetting.FMouseDownEffect.FCommonEffectTypes;
+//end;
+//
+//function TDrawParamSetting.GetMouseOverAlpha: Byte;
+//begin
+//  Result:=FDrawParam.FDrawEffectSetting.FMouseOverEffect.FAlpha;
+//end;
+//
+//function TDrawParamSetting.GetMouseOverAlphaChange: Boolean;
+//begin
+//  Result:=dpcetAlphaChange in FDrawParam.FDrawEffectSetting.FMouseOverEffect.FCommonEffectTypes;
+//end;
+//
+//function TDrawParamSetting.GetMouseOverOffset: Double;
+//begin
+//  Result:=FDrawParam.FDrawEffectSetting.FMouseOverEffect.FOffset;
+//end;
+//
+//function TDrawParamSetting.GetMouseOverOffsetChange: Boolean;
+//begin
+//  Result:=dpcetOffsetChange in FDrawParam.FDrawEffectSetting.FMouseOverEffect.FCommonEffectTypes;
+//end;
+//
+//function TDrawParamSetting.GetPushedAlpha: Byte;
+//begin
+//  Result:=FDrawParam.FDrawEffectSetting.FPushedEffect.FAlpha;
+//end;
+//
+//function TDrawParamSetting.GetPushedAlphaChange: Boolean;
+//begin
+//  Result:=dpcetAlphaChange in FDrawParam.FDrawEffectSetting.FPushedEffect.FCommonEffectTypes;
+//end;
+//
+//function TDrawParamSetting.GetPushedOffset: Double;
+//begin
+//  Result:=FDrawParam.FDrawEffectSetting.FPushedEffect.FOffset;
+//end;
+//
+//function TDrawParamSetting.GetPushedOffsetChange: Boolean;
+//begin
+//  Result:=dpcetOffsetChange in FDrawParam.FDrawEffectSetting.FPushedEffect.FCommonEffectTypes;
+//end;
+//
+//function TDrawParamSetting.IsDrawRectBottomStored: Boolean;
+//begin
+//  Result:=IsNotSameDouble(Self.FDrawParam.FDrawRectSetting.FBottom,0);
+//end;
+//
+//function TDrawParamSetting.IsDrawRectCustomStored: Boolean;
+//begin
+//  Result:=Self.FDrawParam.FDrawRectSetting.FEnabled<>False;
+//end;
+//
+//function TDrawParamSetting.IsDrawRectHeightStored: Boolean;
+//begin
+//  Result:=IsNotSameDouble(Self.FDrawParam.FDrawRectSetting.FHeight,0);
+//end;
+//
+//function TDrawParamSetting.IsDrawRectHorzAlignStored: Boolean;
+//begin
+//  Result:=(Self.FDrawParam.FDrawRectSetting.FPositionHorzType<>dpphtNone)
+//    and (Self.FDrawParam.FDrawRectSetting.FPositionHorzType<>dpphtLeft);
+//end;
+//
+//function TDrawParamSetting.IsDrawRectLeftStored: Boolean;
+//begin
+//  Result:=IsNotSameDouble(Self.FDrawParam.FDrawRectSetting.FLeft,0);
+//end;
+//
+//function TDrawParamSetting.IsDrawRectRightStored: Boolean;
+//begin
+//  Result:=IsNotSameDouble(Self.FDrawParam.FDrawRectSetting.FRight,0);
+//end;
+//
+//function TDrawParamSetting.IsDrawRectSizeTypeStored: Boolean;
+//begin
+//  Result:=Self.FDrawParam.FDrawRectSetting.FSizeType<>dpstPixel;
+//end;
+//
+//function TDrawParamSetting.IsDrawRectTopStored: Boolean;
+//begin
+//  Result:=IsNotSameDouble(Self.FDrawParam.FDrawRectSetting.FTop,0);
+//end;
+//
+//function TDrawParamSetting.IsDrawRectVertAlignStored: Boolean;
+//begin
+//  Result:=(Self.FDrawParam.FDrawRectSetting.FPositionVertType<>dppvtNone)
+//    and (Self.FDrawParam.FDrawRectSetting.FPositionVertType<>dppvtTop);
+//end;
+//
+//function TDrawParamSetting.IsDrawRectWidthStored: Boolean;
+//begin
+//  Result:=IsNotSameDouble(Self.FDrawParam.FDrawRectSetting.FWidth,0);
+//end;
+//
+//function TDrawParamSetting.IsMouseDownAlphaChangeStored: Boolean;
+//begin
+//  Result:=dpcetAlphaChange in FDrawParam.FDrawEffectSetting.FMouseDownEffect.FCommonEffectTypes;
+//end;
+//
+//function TDrawParamSetting.IsMouseDownAlphaStored: Boolean;
+//begin
+//  Result:=Self.FDrawParam.FDrawEffectSetting.FMouseDownEffect.FAlpha<>Const_DefaultEffect_Alpha;
+//end;
+//
+//function TDrawParamSetting.IsMouseDownOffsetChangeStored: Boolean;
+//begin
+//  Result:=dpcetOffsetChange in FDrawParam.FDrawEffectSetting.FMouseDownEffect.FCommonEffectTypes;
+//end;
+//
+//function TDrawParamSetting.IsMouseDownOffsetStored: Boolean;
+//begin
+//  Result:=IsNotSameDouble(Self.FDrawParam.FDrawEffectSetting.FMouseDownEffect.FOffset,Const_DefaultEffect_Offset);
+//end;
+//
+//function TDrawParamSetting.IsMouseOverAlphaChangeStored: Boolean;
+//begin
+//  Result:=dpcetAlphaChange in FDrawParam.FDrawEffectSetting.FMouseOverEffect.FCommonEffectTypes;
+//end;
+//
+//function TDrawParamSetting.IsMouseOverAlphaStored: Boolean;
+//begin
+//  Result:=Self.FDrawParam.FDrawEffectSetting.FMouseOverEffect.FAlpha<>Const_DefaultEffect_Alpha;
+//end;
+//
+//function TDrawParamSetting.IsMouseOverOffsetChangeStored: Boolean;
+//begin
+//  Result:=dpcetOffsetChange in FDrawParam.FDrawEffectSetting.FMouseOverEffect.FCommonEffectTypes;
+//end;
+//
+//function TDrawParamSetting.IsMouseOverOffsetStored: Boolean;
+//begin
+//  Result:=IsNotSameDouble(Self.FDrawParam.FDrawEffectSetting.FMouseOverEffect.FOffset,Const_DefaultEffect_Offset);
+//end;
+//
+//function TDrawParamSetting.IsPushedAlphaChangeStored: Boolean;
+//begin
+//  Result:=dpcetAlphaChange in FDrawParam.FDrawEffectSetting.FPushedEffect.FCommonEffectTypes;
+//end;
+//
+//function TDrawParamSetting.IsPushedAlphaStored: Boolean;
+//begin
+//  Result:=Self.FDrawParam.FDrawEffectSetting.FPushedEffect.FAlpha<>Const_DefaultEffect_Alpha;
+//end;
+//
+//function TDrawParamSetting.IsPushedOffsetChangeStored: Boolean;
+//begin
+//  Result:=dpcetOffsetChange in FDrawParam.FDrawEffectSetting.FPushedEffect.FCommonEffectTypes;
+//end;
+//
+//function TDrawParamSetting.IsPushedOffsetStored: Boolean;
+//begin
+//  Result:=IsNotSameDouble(Self.FDrawParam.FDrawEffectSetting.FPushedEffect.FOffset,Const_DefaultEffect_Offset);
+//end;
+//
+//procedure TDrawParamSetting.SetMouseDownAlpha(const Value: Byte);
+//begin
+//  FDrawParam.FDrawEffectSetting.FMouseDownEffect.Alpha:=Value;
+//end;
+//
+//procedure TDrawParamSetting.SetMouseDownAlphaChange(const Value: Boolean);
+//begin
+//  if Value then
+//  begin
+//    FDrawParam.FDrawEffectSetting.FMouseDownEffect.CommonEffectTypes:=
+//      FDrawParam.FDrawEffectSetting.FMouseDownEffect.CommonEffectTypes+[dpcetAlphaChange];
+//  end
+//  else
+//  begin
+//    FDrawParam.FDrawEffectSetting.FMouseDownEffect.CommonEffectTypes:=
+//      FDrawParam.FDrawEffectSetting.FMouseDownEffect.CommonEffectTypes-[dpcetAlphaChange];
+//  end;
+//end;
+//
+//procedure TDrawParamSetting.SetMouseDownOffset(const Value: Double);
+//begin
+//  FDrawParam.FDrawEffectSetting.FMouseDownEffect.Offset:=Value;
+//end;
+//
+//procedure TDrawParamSetting.SetMouseDownOffsetChange(const Value: Boolean);
+//begin
+//  if Value then
+//  begin
+//    FDrawParam.FDrawEffectSetting.FMouseDownEffect.CommonEffectTypes:=
+//      FDrawParam.FDrawEffectSetting.FMouseDownEffect.CommonEffectTypes+[dpcetOffsetChange];
+//  end
+//  else
+//  begin
+//    FDrawParam.FDrawEffectSetting.FMouseDownEffect.CommonEffectTypes:=
+//      FDrawParam.FDrawEffectSetting.FMouseDownEffect.CommonEffectTypes-[dpcetOffsetChange];
+//  end;
+//end;
+//
+//procedure TDrawParamSetting.SetMouseOverAlpha(const Value: Byte);
+//begin
+//  FDrawParam.FDrawEffectSetting.FMouseOverEffect.Alpha:=Value;
+//end;
+//
+//procedure TDrawParamSetting.SetMouseOverAlphaChange(const Value: Boolean);
+//begin
+//  if Value then
+//  begin
+//    FDrawParam.FDrawEffectSetting.FMouseOverEffect.CommonEffectTypes:=
+//      FDrawParam.FDrawEffectSetting.FMouseOverEffect.CommonEffectTypes+[dpcetAlphaChange];
+//  end
+//  else
+//  begin
+//    FDrawParam.FDrawEffectSetting.FMouseOverEffect.CommonEffectTypes:=
+//      FDrawParam.FDrawEffectSetting.FMouseOverEffect.CommonEffectTypes-[dpcetAlphaChange];
+//  end;
+//end;
+//
+//procedure TDrawParamSetting.SetMouseOverOffset(const Value: Double);
+//begin
+//  FDrawParam.FDrawEffectSetting.FMouseOverEffect.Offset:=Value;
+//end;
+//
+//procedure TDrawParamSetting.SetMouseOverOffsetChange(const Value: Boolean);
+//begin
+//  if Value then
+//  begin
+//    FDrawParam.FDrawEffectSetting.FMouseOverEffect.CommonEffectTypes:=
+//      FDrawParam.FDrawEffectSetting.FMouseOverEffect.CommonEffectTypes+[dpcetOffsetChange];
+//  end
+//  else
+//  begin
+//    FDrawParam.FDrawEffectSetting.FMouseOverEffect.CommonEffectTypes:=
+//      FDrawParam.FDrawEffectSetting.FMouseOverEffect.CommonEffectTypes-[dpcetOffsetChange];
+//  end;
+//end;
+//
+//procedure TDrawParamSetting.SetPushedAlpha(const Value: Byte);
+//begin
+//  FDrawParam.FDrawEffectSetting.FPushedEffect.Alpha:=Value;
+//end;
+//
+//procedure TDrawParamSetting.SetPushedAlphaChange(const Value: Boolean);
+//begin
+//  if Value then
+//  begin
+//    FDrawParam.FDrawEffectSetting.FPushedEffect.CommonEffectTypes:=
+//      FDrawParam.FDrawEffectSetting.FPushedEffect.CommonEffectTypes+[dpcetAlphaChange];
+//  end
+//  else
+//  begin
+//    FDrawParam.FDrawEffectSetting.FPushedEffect.CommonEffectTypes:=
+//      FDrawParam.FDrawEffectSetting.FPushedEffect.CommonEffectTypes-[dpcetAlphaChange];
+//  end;
+//end;
+//
+//procedure TDrawParamSetting.SetPushedOffset(const Value: Double);
+//begin
+//  FDrawParam.FDrawEffectSetting.FPushedEffect.Offset:=Value;
+//end;
+//
+//procedure TDrawParamSetting.SetPushedOffsetChange(const Value: Boolean);
+//begin
+//  if Value then
+//  begin
+//    FDrawParam.FDrawEffectSetting.FPushedEffect.CommonEffectTypes:=
+//      FDrawParam.FDrawEffectSetting.FPushedEffect.CommonEffectTypes+[dpcetOffsetChange];
+//  end
+//  else
+//  begin
+//    FDrawParam.FDrawEffectSetting.FPushedEffect.CommonEffectTypes:=
+//      FDrawParam.FDrawEffectSetting.FPushedEffect.CommonEffectTypes-[dpcetOffsetChange];
+//  end;
+//end;
 
 
 { TDrawRectSetting }
@@ -2954,12 +2974,17 @@ end;
 
 constructor TDrawParamCommonEffect.Create;
 begin
+
+  FDrawRectSetting:=TDrawRectSetting.Create;
+  FDrawRectSetting.OnChange:=DoChange;
+
   FOffset:=1;
   FAlpha:=180;
 end;
 
 destructor TDrawParamCommonEffect.Destroy;
 begin
+  FreeAndNil(FDrawRectSetting);
   inherited;
 end;
 
@@ -2969,6 +2994,12 @@ begin
   begin
     FOnChange(Self);
   end;
+end;
+
+
+procedure TDrawParamCommonEffect.SetDrawRectSetting(const Value: TDrawRectSetting);
+begin
+  Self.FDrawRectSetting.Assign(Value);
 end;
 
 function TDrawParamCommonEffect.HasEffectTypes: Boolean;

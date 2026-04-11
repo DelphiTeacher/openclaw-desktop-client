@@ -6,7 +6,7 @@ uses
   System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
 
   uManager,
-  uOpenClawHelper,
+  uLocalOpenClawHelper,
   EasyServiceCommonMaterialDataMoudle,
   FMX.Types, FMX.Graphics, FMX.Controls, FMX.Forms, FMX.Dialogs, FMX.StdCtrls, FMX.WebBrowser, uSkinFireMonkeyControl, uSkinButtonType;
 
@@ -19,7 +19,7 @@ type
     { Private declarations }
   public
     constructor Create(AOwner:TComponent);override;
-    procedure Load;
+    procedure Load();
     { Public declarations }
   end;
 
@@ -43,18 +43,11 @@ begin
   inherited;
 end;
 
-procedure TFrameAIChat.Load;
+procedure TFrameAIChat.Load();
 begin
   Self.WebBrowser1.Align:=TAlignLayout.Client;
 
-  if GlobalManager.FJetAIUrl<>'' then
-  begin
-    Self.WebBrowser1.Navigate(GlobalManager.FJetAIUrl)
-  end
-  else
-  begin
-    Self.WebBrowser1.Navigate(GlobalOpenClawHelper.GetGatewayUrl);
-  end;
+  Self.WebBrowser1.Navigate(GlobalManager.FJetAIUrl)
 
 end;
 

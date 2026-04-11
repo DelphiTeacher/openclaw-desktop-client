@@ -252,6 +252,8 @@
         <DCCReference Include="Source\uSkinPullLoadPanelEditor.pas"/>
         <DCCReference Include="Source\uSkinScrollBarPullLoadPanelEditor.pas"/>
         <DCCReference Include="Source\uListItemStylePropertyDesigner.pas"/>
+        <DCCReference Include="..\OrangeProjectCommon\uFMXSVGSupport.pas"/>
+        <DCCReference Include="Source\uDrawPictureFileNamePropertyDesigner.pas"/>
         <None Include="FrameWork.inc"/>
         <None Include="Version.inc"/>
         <BuildConfiguration Include="Base">
@@ -302,7 +304,7 @@
                 <DeployFile LocalName="C:\Documents and Settings\All Users\Documents\Embarcadero\Studio\16.0\Bpl\OrangeUIDesign_FMX_D11.bpl" Configuration="Release" Class="ProjectOutput"/>
                 <DeployFile LocalName="DCU\FMX\D10_4\Win32\Debug\OrangeUIDesign_FMX_D11.bpl" Configuration="Debug" Class="ProjectOutput"/>
                 <DeployFile LocalName="DCU\FMX\D12\Win32\Debug\OrangeUIDesign_FMX_D12.bpl" Configuration="Debug" Class="ProjectOutput"/>
-                <DeployFile LocalName="DCU\FMX\D12\Win32\Debug\OrangeUIDesign_FMX_D13.bpl" Configuration="Debug" Class="ProjectOutput">
+                <DeployFile LocalName="DCU\FMX\D13\Win32\Debug\OrangeUIDesign_FMX_D13.bpl" Configuration="Debug" Class="ProjectOutput">
                     <Platform Name="Win32">
                         <RemoteName>OrangeUIDesign_FMX_D13.bpl</RemoteName>
                         <Overwrite>true</Overwrite>

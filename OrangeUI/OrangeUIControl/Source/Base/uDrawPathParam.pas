@@ -439,95 +439,95 @@ type
 
 
 
-  TDrawPathParamSetting=class(TDrawParamSetting)
-  private
-    function IsMouseDownPenWidthChangeStored: Boolean;
-    function IsMouseDownPenWidthStored: Boolean;
-    function IsMouseDownFillColorChangeStored: Boolean;
-    function IsMouseDownFillColorStored: Boolean;
-    function IsMouseDownIsFillChangeStored: Boolean;
-    function IsMouseDownIsFillStored: Boolean;
-    function IsMouseOverPenWidthChangeStored: Boolean;
-    function IsMouseOverPenWidthStored: Boolean;
-    function IsMouseOverFillColorChangeStored: Boolean;
-    function IsMouseOverFillColorStored: Boolean;
-    function IsMouseOverIsFillChangeStored: Boolean;
-    function IsMouseOverIsFillStored: Boolean;
-    function IsPushedPenWidthChangeStored: Boolean;
-    function IsPushedPenWidthStored: Boolean;
-    function IsPushedFillColorChangeStored: Boolean;
-    function IsPushedFillColorStored: Boolean;
-    function IsPushedIsFillChangeStored: Boolean;
-    function IsPushedIsFillStored: Boolean;
-  protected
-    FDrawPathParam:TDrawPathParam;
-
-    function GetMouseDownFillColor: TDelphiColor;
-    function GetMouseDownFillColorChange: Boolean;
-    function GetMouseOverFillColor: TDelphiColor;
-    function GetMouseOverFillColorChange: Boolean;
-    function GetPushedFillColor: TDelphiColor;
-    function GetPushedFillColorChange: Boolean;
-
-    function GetMouseDownPenWidth: TControlSize;
-    function GetMouseDownPenWidthChange: Boolean;
-    function GetMouseOverPenWidth: TControlSize;
-    function GetMouseOverPenWidthChange: Boolean;
-    function GetPushedPenWidth: TControlSize;
-    function GetPushedPenWidthChange: Boolean;
-
-    function GetMouseDownIsFill: Boolean;
-    function GetMouseDownIsFillChange: Boolean;
-    function GetMouseOverIsFill: Boolean;
-    function GetMouseOverIsFillChange: Boolean;
-    function GetPushedIsFill: Boolean;
-    function GetPushedIsFillChange: Boolean;
-
-    procedure SetMouseDownIsFill(const Value: Boolean);
-    procedure SetMouseDownIsFillChange(const Value: Boolean);
-    procedure SetMouseOverIsFill(const Value: Boolean);
-    procedure SetMouseOverIsFillChange(const Value: Boolean);
-    procedure SetPushedIsFill(const Value: Boolean);
-    procedure SetPushedIsFillChange(const Value: Boolean);
-
-    procedure SetMouseDownPenWidth(const Value: TControlSize);
-    procedure SetMouseDownPenWidthChange(const Value: Boolean);
-    procedure SetMouseOverPenWidth(const Value: TControlSize);
-    procedure SetMouseOverPenWidthChange(const Value: Boolean);
-    procedure SetPushedPenWidth(const Value: TControlSize);
-    procedure SetPushedPenWidthChange(const Value: Boolean);
-
-    procedure SetMouseDownFillColor(const Value: TDelphiColor);
-    procedure SetMouseDownFillColorChange(const Value: Boolean);
-    procedure SetMouseOverFillColor(const Value: TDelphiColor);
-    procedure SetMouseOverFillColorChange(const Value: Boolean);
-    procedure SetPushedFillColor(const Value: TDelphiColor);
-    procedure SetPushedFillColorChange(const Value: Boolean);
-  public
-    constructor Create(ADrawParam:TDrawParam);override;
-  public
-    property MouseDownIsFill:Boolean read GetMouseDownIsFill write SetMouseDownIsFill stored IsMouseDownIsFillStored;
-    property MouseDownIsFillChange:Boolean read GetMouseDownIsFillChange write SetMouseDownIsFillChange stored IsMouseDownIsFillChangeStored;
-    property MouseOverIsFill:Boolean read GetMouseOverIsFill write SetMouseOverIsFill stored IsMouseOverIsFillStored;
-    property MouseOverIsFillChange:Boolean read GetMouseOverIsFillChange write SetMouseOverIsFillChange stored IsMouseOverIsFillChangeStored;
-    property PushedIsFill:Boolean read GetPushedIsFill write SetPushedIsFill stored IsPushedIsFillStored;
-    property PushedIsFillChange:Boolean read GetPushedIsFillChange write SetPushedIsFillChange stored IsPushedIsFillChangeStored;
-  published
-    property MouseDownFillColor:TDelphiColor read GetMouseDownFillColor write SetMouseDownFillColor stored IsMouseDownFillColorStored;
-    property MouseDownFillColorChange:Boolean read GetMouseDownFillColorChange write SetMouseDownFillColorChange stored IsMouseDownFillColorChangeStored;
-    property MouseDownPenWidth:TControlSize read GetMouseDownPenWidth write SetMouseDownPenWidth stored IsMouseDownPenWidthStored;
-    property MouseDownPenWidthChange:Boolean read GetMouseDownPenWidthChange write SetMouseDownPenWidthChange stored IsMouseDownPenWidthChangeStored;
-
-    property MouseOverFillColor:TDelphiColor read GetMouseOverFillColor write SetMouseOverFillColor stored IsMouseOverFillColorStored;
-    property MouseOverFillColorChange:Boolean read GetMouseOverFillColorChange write SetMouseOverFillColorChange stored IsMouseOverFillColorChangeStored;
-    property MouseOverPenWidth:TControlSize read GetMouseOverPenWidth write SetMouseOverPenWidth stored IsMouseOverPenWidthStored;
-    property MouseOverPenWidthChange:Boolean read GetMouseOverPenWidthChange write SetMouseOverPenWidthChange stored IsMouseOverPenWidthChangeStored;
-
-    property PushedFillColor:TDelphiColor read GetPushedFillColor write SetPushedFillColor stored IsPushedFillColorStored;
-    property PushedFillColorChange:Boolean read GetPushedFillColorChange write SetPushedFillColorChange stored IsPushedFillColorChangeStored;
-    property PushedPenWidth:TControlSize read GetPushedPenWidth write SetPushedPenWidth stored IsPushedPenWidthStored;
-    property PushedPenWidthChange:Boolean read GetPushedPenWidthChange write SetPushedPenWidthChange stored IsPushedPenWidthChangeStored;
-  end;
+//  TDrawPathParamSetting=class(TDrawParamSetting)
+//  private
+//    function IsMouseDownPenWidthChangeStored: Boolean;
+//    function IsMouseDownPenWidthStored: Boolean;
+//    function IsMouseDownFillColorChangeStored: Boolean;
+//    function IsMouseDownFillColorStored: Boolean;
+//    function IsMouseDownIsFillChangeStored: Boolean;
+//    function IsMouseDownIsFillStored: Boolean;
+//    function IsMouseOverPenWidthChangeStored: Boolean;
+//    function IsMouseOverPenWidthStored: Boolean;
+//    function IsMouseOverFillColorChangeStored: Boolean;
+//    function IsMouseOverFillColorStored: Boolean;
+//    function IsMouseOverIsFillChangeStored: Boolean;
+//    function IsMouseOverIsFillStored: Boolean;
+//    function IsPushedPenWidthChangeStored: Boolean;
+//    function IsPushedPenWidthStored: Boolean;
+//    function IsPushedFillColorChangeStored: Boolean;
+//    function IsPushedFillColorStored: Boolean;
+//    function IsPushedIsFillChangeStored: Boolean;
+//    function IsPushedIsFillStored: Boolean;
+//  protected
+//    FDrawPathParam:TDrawPathParam;
+//
+//    function GetMouseDownFillColor: TDelphiColor;
+//    function GetMouseDownFillColorChange: Boolean;
+//    function GetMouseOverFillColor: TDelphiColor;
+//    function GetMouseOverFillColorChange: Boolean;
+//    function GetPushedFillColor: TDelphiColor;
+//    function GetPushedFillColorChange: Boolean;
+//
+//    function GetMouseDownPenWidth: TControlSize;
+//    function GetMouseDownPenWidthChange: Boolean;
+//    function GetMouseOverPenWidth: TControlSize;
+//    function GetMouseOverPenWidthChange: Boolean;
+//    function GetPushedPenWidth: TControlSize;
+//    function GetPushedPenWidthChange: Boolean;
+//
+//    function GetMouseDownIsFill: Boolean;
+//    function GetMouseDownIsFillChange: Boolean;
+//    function GetMouseOverIsFill: Boolean;
+//    function GetMouseOverIsFillChange: Boolean;
+//    function GetPushedIsFill: Boolean;
+//    function GetPushedIsFillChange: Boolean;
+//
+//    procedure SetMouseDownIsFill(const Value: Boolean);
+//    procedure SetMouseDownIsFillChange(const Value: Boolean);
+//    procedure SetMouseOverIsFill(const Value: Boolean);
+//    procedure SetMouseOverIsFillChange(const Value: Boolean);
+//    procedure SetPushedIsFill(const Value: Boolean);
+//    procedure SetPushedIsFillChange(const Value: Boolean);
+//
+//    procedure SetMouseDownPenWidth(const Value: TControlSize);
+//    procedure SetMouseDownPenWidthChange(const Value: Boolean);
+//    procedure SetMouseOverPenWidth(const Value: TControlSize);
+//    procedure SetMouseOverPenWidthChange(const Value: Boolean);
+//    procedure SetPushedPenWidth(const Value: TControlSize);
+//    procedure SetPushedPenWidthChange(const Value: Boolean);
+//
+//    procedure SetMouseDownFillColor(const Value: TDelphiColor);
+//    procedure SetMouseDownFillColorChange(const Value: Boolean);
+//    procedure SetMouseOverFillColor(const Value: TDelphiColor);
+//    procedure SetMouseOverFillColorChange(const Value: Boolean);
+//    procedure SetPushedFillColor(const Value: TDelphiColor);
+//    procedure SetPushedFillColorChange(const Value: Boolean);
+//  public
+//    constructor Create(ADrawParam:TDrawParam);override;
+//  public
+//    property MouseDownIsFill:Boolean read GetMouseDownIsFill write SetMouseDownIsFill stored IsMouseDownIsFillStored;
+//    property MouseDownIsFillChange:Boolean read GetMouseDownIsFillChange write SetMouseDownIsFillChange stored IsMouseDownIsFillChangeStored;
+//    property MouseOverIsFill:Boolean read GetMouseOverIsFill write SetMouseOverIsFill stored IsMouseOverIsFillStored;
+//    property MouseOverIsFillChange:Boolean read GetMouseOverIsFillChange write SetMouseOverIsFillChange stored IsMouseOverIsFillChangeStored;
+//    property PushedIsFill:Boolean read GetPushedIsFill write SetPushedIsFill stored IsPushedIsFillStored;
+//    property PushedIsFillChange:Boolean read GetPushedIsFillChange write SetPushedIsFillChange stored IsPushedIsFillChangeStored;
+//  published
+//    property MouseDownFillColor:TDelphiColor read GetMouseDownFillColor write SetMouseDownFillColor stored IsMouseDownFillColorStored;
+//    property MouseDownFillColorChange:Boolean read GetMouseDownFillColorChange write SetMouseDownFillColorChange stored IsMouseDownFillColorChangeStored;
+//    property MouseDownPenWidth:TControlSize read GetMouseDownPenWidth write SetMouseDownPenWidth stored IsMouseDownPenWidthStored;
+//    property MouseDownPenWidthChange:Boolean read GetMouseDownPenWidthChange write SetMouseDownPenWidthChange stored IsMouseDownPenWidthChangeStored;
+//
+//    property MouseOverFillColor:TDelphiColor read GetMouseOverFillColor write SetMouseOverFillColor stored IsMouseOverFillColorStored;
+//    property MouseOverFillColorChange:Boolean read GetMouseOverFillColorChange write SetMouseOverFillColorChange stored IsMouseOverFillColorChangeStored;
+//    property MouseOverPenWidth:TControlSize read GetMouseOverPenWidth write SetMouseOverPenWidth stored IsMouseOverPenWidthStored;
+//    property MouseOverPenWidthChange:Boolean read GetMouseOverPenWidthChange write SetMouseOverPenWidthChange stored IsMouseOverPenWidthChangeStored;
+//
+//    property PushedFillColor:TDelphiColor read GetPushedFillColor write SetPushedFillColor stored IsPushedFillColorStored;
+//    property PushedFillColorChange:Boolean read GetPushedFillColorChange write SetPushedFillColorChange stored IsPushedFillColorChangeStored;
+//    property PushedPenWidth:TControlSize read GetPushedPenWidth write SetPushedPenWidth stored IsPushedPenWidthStored;
+//    property PushedPenWidthChange:Boolean read GetPushedPenWidthChange write SetPushedPenWidthChange stored IsPushedPenWidthChangeStored;
+//  end;
 
 
 
@@ -582,7 +582,7 @@ type
     ///   </para>
     /// </summary>
     function GetDrawEffectSettingClass:TDrawEffectSettingClass;override;
-    function GetDrawParamSettingClass:TDrawParamSettingClass;override;
+//    function GetDrawParamSettingClass:TDrawParamSettingClass;override;
     /// <summary>
     ///   <para>
     ///     复制
@@ -1261,10 +1261,10 @@ begin
   Result:=TDrawPathEffectSetting;
 end;
 
-function TBaseDrawPathParam.GetDrawParamSettingClass: TDrawParamSettingClass;
-begin
-  Result:=TDrawPathParamSetting;
-end;
+//function TBaseDrawPathParam.GetDrawParamSettingClass: TDrawParamSettingClass;
+//begin
+//  Result:=TDrawPathParamSetting;
+//end;
 
 //function TBaseDrawPathParam.GetSetting: TDrawPathParamSetting;
 //begin
@@ -1627,379 +1627,379 @@ begin
   Result:=(Self.FIsFill<>False);
 end;
 
-
-{ TDrawPathParamSetting }
-
-
-
-constructor TDrawPathParamSetting.Create(ADrawParam: TDrawParam);
-begin
-  inherited;
-  FDrawPathParam:=TDrawPathParam(ADrawParam);
-end;
-
-function TDrawPathParamSetting.GetMouseDownFillColor: TDelphiColor;
-begin
-  Result:=FDrawPathParam.DrawEffectSetting.MouseDownEffect.FFillDrawColor.Color;
-end;
-
-function TDrawPathParamSetting.GetMouseDownFillColorChange: Boolean;
-begin
-  Result:=dppetFillColorChange in FDrawPathParam.DrawEffectSetting.MouseDownEffect.FEffectTypes;
-end;
-
-function TDrawPathParamSetting.GetMouseOverFillColor: TDelphiColor;
-begin
-  Result:=FDrawPathParam.DrawEffectSetting.MouseOverEffect.FFillDrawColor.Color;
-end;
-
-function TDrawPathParamSetting.GetMouseOverFillColorChange: Boolean;
-begin
-  Result:=dppetFillColorChange in FDrawPathParam.DrawEffectSetting.MouseOverEffect.FEffectTypes;
-end;
-
-function TDrawPathParamSetting.GetPushedFillColor: TDelphiColor;
-begin
-  Result:=FDrawPathParam.DrawEffectSetting.PushedEffect.FFillDrawColor.Color;
-end;
-
-function TDrawPathParamSetting.GetPushedFillColorChange: Boolean;
-begin
-  Result:=dppetFillColorChange in FDrawPathParam.DrawEffectSetting.PushedEffect.FEffectTypes;
-end;
-
-
-
-procedure TDrawPathParamSetting.SetMouseDownFillColor(const Value: TDelphiColor);
-begin
-  FDrawPathParam.DrawEffectSetting.MouseDownEffect.FillColor.Color:=Value;
-end;
-
-procedure TDrawPathParamSetting.SetMouseDownFillColorChange(const Value: Boolean);
-begin
-  if Value then
-  begin
-    FDrawPathParam.DrawEffectSetting.MouseDownEffect.EffectTypes:=
-      FDrawPathParam.DrawEffectSetting.MouseDownEffect.EffectTypes+[dppetFillColorChange];
-  end
-  else
-  begin
-    FDrawPathParam.DrawEffectSetting.MouseDownEffect.EffectTypes:=
-      FDrawPathParam.DrawEffectSetting.MouseDownEffect.EffectTypes-[dppetFillColorChange];
-  end;
-end;
-
-procedure TDrawPathParamSetting.SetMouseOverFillColor(const Value: TDelphiColor);
-begin
-  FDrawPathParam.DrawEffectSetting.MouseOverEffect.FillColor.Color:=Value;
-end;
-
-procedure TDrawPathParamSetting.SetMouseOverFillColorChange(const Value: Boolean);
-begin
-  if Value then
-  begin
-    FDrawPathParam.DrawEffectSetting.MouseOverEffect.EffectTypes:=
-      FDrawPathParam.DrawEffectSetting.MouseOverEffect.EffectTypes+[dppetFillColorChange];
-  end
-  else
-  begin
-    FDrawPathParam.DrawEffectSetting.MouseOverEffect.EffectTypes:=
-      FDrawPathParam.DrawEffectSetting.MouseOverEffect.EffectTypes-[dppetFillColorChange];
-  end;
-end;
-
-procedure TDrawPathParamSetting.SetPushedFillColor(const Value: TDelphiColor);
-begin
-  FDrawPathParam.DrawEffectSetting.PushedEffect.FillColor.Color:=Value;
-end;
-
-procedure TDrawPathParamSetting.SetPushedFillColorChange(const Value: Boolean);
-begin
-  if Value then
-  begin
-    FDrawPathParam.DrawEffectSetting.PushedEffect.EffectTypes:=
-      FDrawPathParam.DrawEffectSetting.PushedEffect.EffectTypes+[dppetFillColorChange];
-  end
-  else
-  begin
-    FDrawPathParam.DrawEffectSetting.PushedEffect.EffectTypes:=
-      FDrawPathParam.DrawEffectSetting.PushedEffect.EffectTypes-[dppetFillColorChange];
-  end;
-end;
-
-
-
-
-
-function TDrawPathParamSetting.GetMouseDownPenWidth: TControlSize;
-begin
-  Result:=FDrawPathParam.DrawEffectSetting.MouseDownEffect.PenWidth;
-end;
-
-function TDrawPathParamSetting.GetMouseDownPenWidthChange: Boolean;
-begin
-  Result:=dppetPenWidthChange in FDrawPathParam.DrawEffectSetting.MouseDownEffect.FEffectTypes;
-end;
-
-function TDrawPathParamSetting.GetMouseOverPenWidth: TControlSize;
-begin
-  Result:=FDrawPathParam.DrawEffectSetting.MouseOverEffect.PenWidth;
-end;
-
-function TDrawPathParamSetting.GetMouseOverPenWidthChange: Boolean;
-begin
-  Result:=dppetPenWidthChange in FDrawPathParam.DrawEffectSetting.MouseOverEffect.FEffectTypes;
-end;
-
-function TDrawPathParamSetting.GetPushedPenWidth: TControlSize;
-begin
-  Result:=FDrawPathParam.DrawEffectSetting.PushedEffect.PenWidth;
-end;
-
-function TDrawPathParamSetting.GetPushedPenWidthChange: Boolean;
-begin
-  Result:=dppetPenWidthChange in FDrawPathParam.DrawEffectSetting.PushedEffect.FEffectTypes;
-end;
-
-
-
-procedure TDrawPathParamSetting.SetMouseDownPenWidth(const Value: TControlSize);
-begin
-  FDrawPathParam.DrawEffectSetting.MouseDownEffect.PenWidth:=Value;
-end;
-
-procedure TDrawPathParamSetting.SetMouseDownPenWidthChange(const Value: Boolean);
-begin
-  if Value then
-  begin
-    FDrawPathParam.DrawEffectSetting.MouseDownEffect.EffectTypes:=
-      FDrawPathParam.DrawEffectSetting.MouseDownEffect.EffectTypes+[dppetPenWidthChange];
-  end
-  else
-  begin
-    FDrawPathParam.DrawEffectSetting.MouseDownEffect.EffectTypes:=
-      FDrawPathParam.DrawEffectSetting.MouseDownEffect.EffectTypes-[dppetPenWidthChange];
-  end;
-end;
-
-procedure TDrawPathParamSetting.SetMouseOverPenWidth(const Value: TControlSize);
-begin
-  FDrawPathParam.DrawEffectSetting.MouseOverEffect.PenWidth:=Value;
-end;
-
-procedure TDrawPathParamSetting.SetMouseOverPenWidthChange(const Value: Boolean);
-begin
-  if Value then
-  begin
-    FDrawPathParam.DrawEffectSetting.MouseOverEffect.EffectTypes:=
-      FDrawPathParam.DrawEffectSetting.MouseOverEffect.EffectTypes+[dppetPenWidthChange];
-  end
-  else
-  begin
-    FDrawPathParam.DrawEffectSetting.MouseOverEffect.EffectTypes:=
-      FDrawPathParam.DrawEffectSetting.MouseOverEffect.EffectTypes-[dppetPenWidthChange];
-  end;
-end;
-
-procedure TDrawPathParamSetting.SetPushedPenWidth(const Value: TControlSize);
-begin
-  FDrawPathParam.DrawEffectSetting.PushedEffect.PenWidth:=Value;
-end;
-
-procedure TDrawPathParamSetting.SetPushedPenWidthChange(const Value: Boolean);
-begin
-  if Value then
-  begin
-    FDrawPathParam.DrawEffectSetting.PushedEffect.EffectTypes:=
-      FDrawPathParam.DrawEffectSetting.PushedEffect.EffectTypes+[dppetPenWidthChange];
-  end
-  else
-  begin
-    FDrawPathParam.DrawEffectSetting.PushedEffect.EffectTypes:=
-      FDrawPathParam.DrawEffectSetting.PushedEffect.EffectTypes-[dppetPenWidthChange];
-  end;
-end;
-
-
-
-function TDrawPathParamSetting.GetMouseDownIsFill: Boolean;
-begin
-  Result:=FDrawPathParam.DrawEffectSetting.MouseDownEffect.FIsFill;
-end;
-
-function TDrawPathParamSetting.GetMouseDownIsFillChange: Boolean;
-begin
-  Result:=dppetIsFillChange in FDrawPathParam.DrawEffectSetting.MouseDownEffect.FEffectTypes;
-end;
-
-function TDrawPathParamSetting.GetMouseOverIsFill: Boolean;
-begin
-  Result:=FDrawPathParam.DrawEffectSetting.MouseOverEffect.FIsFill;
-end;
-
-function TDrawPathParamSetting.GetMouseOverIsFillChange: Boolean;
-begin
-  Result:=dppetIsFillChange in FDrawPathParam.DrawEffectSetting.MouseOverEffect.FEffectTypes;
-end;
-
-function TDrawPathParamSetting.GetPushedIsFill: Boolean;
-begin
-  Result:=FDrawPathParam.DrawEffectSetting.PushedEffect.FIsFill;
-end;
-
-function TDrawPathParamSetting.GetPushedIsFillChange: Boolean;
-begin
-  Result:=dppetIsFillChange in FDrawPathParam.DrawEffectSetting.PushedEffect.FEffectTypes;
-end;
-
-
-
-function TDrawPathParamSetting.IsMouseDownPenWidthChangeStored: Boolean;
-begin
-  Result:=dppetPenWidthChange in FDrawPathParam.DrawEffectSetting.MouseDownEffect.FEffectTypes;
-end;
-
-function TDrawPathParamSetting.IsMouseDownPenWidthStored: Boolean;
-begin
-  Result:=IsNotSameDouble(Self.FDrawPathParam.DrawEffectSetting.MouseDownEffect.FPenWidth,0);
-end;
-
-function TDrawPathParamSetting.IsMouseDownFillColorChangeStored: Boolean;
-begin
-  Result:=dppetFillColorChange in FDrawPathParam.DrawEffectSetting.MouseDownEffect.FEffectTypes;
-end;
-
-function TDrawPathParamSetting.IsMouseDownFillColorStored: Boolean;
-begin
-  Result:=Self.FDrawPathParam.DrawEffectSetting.MouseDownEffect.FFillDrawColor.Color<>Const_DefaultColor;
-end;
-
-function TDrawPathParamSetting.IsMouseDownIsFillChangeStored: Boolean;
-begin
-  Result:=dppetIsFillChange in FDrawPathParam.DrawEffectSetting.MouseDownEffect.FEffectTypes;
-end;
-
-function TDrawPathParamSetting.IsMouseDownIsFillStored: Boolean;
-begin
-  Result:=Self.FDrawPathParam.DrawEffectSetting.MouseDownEffect.FIsFill<>False;
-end;
-
-function TDrawPathParamSetting.IsMouseOverPenWidthChangeStored: Boolean;
-begin
-  Result:=dppetPenWidthChange in FDrawPathParam.DrawEffectSetting.MouseOverEffect.FEffectTypes;
-end;
-
-function TDrawPathParamSetting.IsMouseOverPenWidthStored: Boolean;
-begin
-  Result:=IsNotSameDouble(Self.FDrawPathParam.DrawEffectSetting.MouseOverEffect.FPenWidth,0);
-end;
-
-function TDrawPathParamSetting.IsMouseOverFillColorChangeStored: Boolean;
-begin
-  Result:=dppetFillColorChange in FDrawPathParam.DrawEffectSetting.MouseOverEffect.FEffectTypes;
-end;
-
-function TDrawPathParamSetting.IsMouseOverFillColorStored: Boolean;
-begin
-  Result:=Self.FDrawPathParam.DrawEffectSetting.MouseOverEffect.FFillDrawColor.Color<>Const_DefaultColor;
-end;
-
-function TDrawPathParamSetting.IsMouseOverIsFillChangeStored: Boolean;
-begin
-  Result:=dppetIsFillChange in FDrawPathParam.DrawEffectSetting.MouseOverEffect.FEffectTypes;
-end;
-
-function TDrawPathParamSetting.IsMouseOverIsFillStored: Boolean;
-begin
-  Result:=Self.FDrawPathParam.DrawEffectSetting.MouseOverEffect.FIsFill<>False;
-end;
-
-function TDrawPathParamSetting.IsPushedPenWidthChangeStored: Boolean;
-begin
-  Result:=dppetPenWidthChange in FDrawPathParam.DrawEffectSetting.PushedEffect.FEffectTypes;
-end;
-
-function TDrawPathParamSetting.IsPushedPenWidthStored: Boolean;
-begin
-  Result:=IsNotSameDouble(Self.FDrawPathParam.DrawEffectSetting.PushedEffect.FPenWidth,0);
-end;
-
-function TDrawPathParamSetting.IsPushedFillColorChangeStored: Boolean;
-begin
-  Result:=dppetFillColorChange in FDrawPathParam.DrawEffectSetting.PushedEffect.FEffectTypes;
-end;
-
-function TDrawPathParamSetting.IsPushedFillColorStored: Boolean;
-begin
-  Result:=Self.FDrawPathParam.DrawEffectSetting.PushedEffect.FFillDrawColor.Color<>Const_DefaultColor;
-end;
-
-function TDrawPathParamSetting.IsPushedIsFillChangeStored: Boolean;
-begin
-  Result:=dppetIsFillChange in FDrawPathParam.DrawEffectSetting.PushedEffect.FEffectTypes;
-end;
-
-function TDrawPathParamSetting.IsPushedIsFillStored: Boolean;
-begin
-  Result:=Self.FDrawPathParam.DrawEffectSetting.PushedEffect.FIsFill<>False;
-end;
-
-procedure TDrawPathParamSetting.SetMouseDownIsFill(const Value: Boolean);
-begin
-  FDrawPathParam.DrawEffectSetting.MouseDownEffect.IsFill:=Value;
-end;
-
-procedure TDrawPathParamSetting.SetMouseDownIsFillChange(const Value: Boolean);
-begin
-  if Value then
-  begin
-    FDrawPathParam.DrawEffectSetting.MouseDownEffect.EffectTypes:=
-      FDrawPathParam.DrawEffectSetting.MouseDownEffect.EffectTypes+[dppetIsFillChange];
-  end
-  else
-  begin
-    FDrawPathParam.DrawEffectSetting.MouseDownEffect.EffectTypes:=
-      FDrawPathParam.DrawEffectSetting.MouseDownEffect.EffectTypes-[dppetIsFillChange];
-  end;
-end;
-
-procedure TDrawPathParamSetting.SetMouseOverIsFill(const Value: Boolean);
-begin
-  FDrawPathParam.DrawEffectSetting.MouseOverEffect.IsFill:=Value;
-end;
-
-procedure TDrawPathParamSetting.SetMouseOverIsFillChange(const Value: Boolean);
-begin
-  if Value then
-  begin
-    FDrawPathParam.DrawEffectSetting.MouseOverEffect.EffectTypes:=
-      FDrawPathParam.DrawEffectSetting.MouseOverEffect.EffectTypes+[dppetIsFillChange];
-  end
-  else
-  begin
-    FDrawPathParam.DrawEffectSetting.MouseOverEffect.EffectTypes:=
-      FDrawPathParam.DrawEffectSetting.MouseOverEffect.EffectTypes-[dppetIsFillChange];
-  end;
-end;
-
-procedure TDrawPathParamSetting.SetPushedIsFill(const Value: Boolean);
-begin
-  FDrawPathParam.DrawEffectSetting.PushedEffect.IsFill:=Value;
-end;
-
-procedure TDrawPathParamSetting.SetPushedIsFillChange(const Value: Boolean);
-begin
-  if Value then
-  begin
-    FDrawPathParam.DrawEffectSetting.PushedEffect.EffectTypes:=
-      FDrawPathParam.DrawEffectSetting.PushedEffect.EffectTypes+[dppetIsFillChange];
-  end
-  else
-  begin
-    FDrawPathParam.DrawEffectSetting.PushedEffect.EffectTypes:=
-      FDrawPathParam.DrawEffectSetting.PushedEffect.EffectTypes-[dppetIsFillChange];
-  end;
-end;
+//
+//{ TDrawPathParamSetting }
+//
+//
+//
+//constructor TDrawPathParamSetting.Create(ADrawParam: TDrawParam);
+//begin
+//  inherited;
+//  FDrawPathParam:=TDrawPathParam(ADrawParam);
+//end;
+//
+//function TDrawPathParamSetting.GetMouseDownFillColor: TDelphiColor;
+//begin
+//  Result:=FDrawPathParam.DrawEffectSetting.MouseDownEffect.FFillDrawColor.Color;
+//end;
+//
+//function TDrawPathParamSetting.GetMouseDownFillColorChange: Boolean;
+//begin
+//  Result:=dppetFillColorChange in FDrawPathParam.DrawEffectSetting.MouseDownEffect.FEffectTypes;
+//end;
+//
+//function TDrawPathParamSetting.GetMouseOverFillColor: TDelphiColor;
+//begin
+//  Result:=FDrawPathParam.DrawEffectSetting.MouseOverEffect.FFillDrawColor.Color;
+//end;
+//
+//function TDrawPathParamSetting.GetMouseOverFillColorChange: Boolean;
+//begin
+//  Result:=dppetFillColorChange in FDrawPathParam.DrawEffectSetting.MouseOverEffect.FEffectTypes;
+//end;
+//
+//function TDrawPathParamSetting.GetPushedFillColor: TDelphiColor;
+//begin
+//  Result:=FDrawPathParam.DrawEffectSetting.PushedEffect.FFillDrawColor.Color;
+//end;
+//
+//function TDrawPathParamSetting.GetPushedFillColorChange: Boolean;
+//begin
+//  Result:=dppetFillColorChange in FDrawPathParam.DrawEffectSetting.PushedEffect.FEffectTypes;
+//end;
+//
+//
+//
+//procedure TDrawPathParamSetting.SetMouseDownFillColor(const Value: TDelphiColor);
+//begin
+//  FDrawPathParam.DrawEffectSetting.MouseDownEffect.FillColor.Color:=Value;
+//end;
+//
+//procedure TDrawPathParamSetting.SetMouseDownFillColorChange(const Value: Boolean);
+//begin
+//  if Value then
+//  begin
+//    FDrawPathParam.DrawEffectSetting.MouseDownEffect.EffectTypes:=
+//      FDrawPathParam.DrawEffectSetting.MouseDownEffect.EffectTypes+[dppetFillColorChange];
+//  end
+//  else
+//  begin
+//    FDrawPathParam.DrawEffectSetting.MouseDownEffect.EffectTypes:=
+//      FDrawPathParam.DrawEffectSetting.MouseDownEffect.EffectTypes-[dppetFillColorChange];
+//  end;
+//end;
+//
+//procedure TDrawPathParamSetting.SetMouseOverFillColor(const Value: TDelphiColor);
+//begin
+//  FDrawPathParam.DrawEffectSetting.MouseOverEffect.FillColor.Color:=Value;
+//end;
+//
+//procedure TDrawPathParamSetting.SetMouseOverFillColorChange(const Value: Boolean);
+//begin
+//  if Value then
+//  begin
+//    FDrawPathParam.DrawEffectSetting.MouseOverEffect.EffectTypes:=
+//      FDrawPathParam.DrawEffectSetting.MouseOverEffect.EffectTypes+[dppetFillColorChange];
+//  end
+//  else
+//  begin
+//    FDrawPathParam.DrawEffectSetting.MouseOverEffect.EffectTypes:=
+//      FDrawPathParam.DrawEffectSetting.MouseOverEffect.EffectTypes-[dppetFillColorChange];
+//  end;
+//end;
+//
+//procedure TDrawPathParamSetting.SetPushedFillColor(const Value: TDelphiColor);
+//begin
+//  FDrawPathParam.DrawEffectSetting.PushedEffect.FillColor.Color:=Value;
+//end;
+//
+//procedure TDrawPathParamSetting.SetPushedFillColorChange(const Value: Boolean);
+//begin
+//  if Value then
+//  begin
+//    FDrawPathParam.DrawEffectSetting.PushedEffect.EffectTypes:=
+//      FDrawPathParam.DrawEffectSetting.PushedEffect.EffectTypes+[dppetFillColorChange];
+//  end
+//  else
+//  begin
+//    FDrawPathParam.DrawEffectSetting.PushedEffect.EffectTypes:=
+//      FDrawPathParam.DrawEffectSetting.PushedEffect.EffectTypes-[dppetFillColorChange];
+//  end;
+//end;
+//
+//
+//
+//
+//
+//function TDrawPathParamSetting.GetMouseDownPenWidth: TControlSize;
+//begin
+//  Result:=FDrawPathParam.DrawEffectSetting.MouseDownEffect.PenWidth;
+//end;
+//
+//function TDrawPathParamSetting.GetMouseDownPenWidthChange: Boolean;
+//begin
+//  Result:=dppetPenWidthChange in FDrawPathParam.DrawEffectSetting.MouseDownEffect.FEffectTypes;
+//end;
+//
+//function TDrawPathParamSetting.GetMouseOverPenWidth: TControlSize;
+//begin
+//  Result:=FDrawPathParam.DrawEffectSetting.MouseOverEffect.PenWidth;
+//end;
+//
+//function TDrawPathParamSetting.GetMouseOverPenWidthChange: Boolean;
+//begin
+//  Result:=dppetPenWidthChange in FDrawPathParam.DrawEffectSetting.MouseOverEffect.FEffectTypes;
+//end;
+//
+//function TDrawPathParamSetting.GetPushedPenWidth: TControlSize;
+//begin
+//  Result:=FDrawPathParam.DrawEffectSetting.PushedEffect.PenWidth;
+//end;
+//
+//function TDrawPathParamSetting.GetPushedPenWidthChange: Boolean;
+//begin
+//  Result:=dppetPenWidthChange in FDrawPathParam.DrawEffectSetting.PushedEffect.FEffectTypes;
+//end;
+//
+//
+//
+//procedure TDrawPathParamSetting.SetMouseDownPenWidth(const Value: TControlSize);
+//begin
+//  FDrawPathParam.DrawEffectSetting.MouseDownEffect.PenWidth:=Value;
+//end;
+//
+//procedure TDrawPathParamSetting.SetMouseDownPenWidthChange(const Value: Boolean);
+//begin
+//  if Value then
+//  begin
+//    FDrawPathParam.DrawEffectSetting.MouseDownEffect.EffectTypes:=
+//      FDrawPathParam.DrawEffectSetting.MouseDownEffect.EffectTypes+[dppetPenWidthChange];
+//  end
+//  else
+//  begin
+//    FDrawPathParam.DrawEffectSetting.MouseDownEffect.EffectTypes:=
+//      FDrawPathParam.DrawEffectSetting.MouseDownEffect.EffectTypes-[dppetPenWidthChange];
+//  end;
+//end;
+//
+//procedure TDrawPathParamSetting.SetMouseOverPenWidth(const Value: TControlSize);
+//begin
+//  FDrawPathParam.DrawEffectSetting.MouseOverEffect.PenWidth:=Value;
+//end;
+//
+//procedure TDrawPathParamSetting.SetMouseOverPenWidthChange(const Value: Boolean);
+//begin
+//  if Value then
+//  begin
+//    FDrawPathParam.DrawEffectSetting.MouseOverEffect.EffectTypes:=
+//      FDrawPathParam.DrawEffectSetting.MouseOverEffect.EffectTypes+[dppetPenWidthChange];
+//  end
+//  else
+//  begin
+//    FDrawPathParam.DrawEffectSetting.MouseOverEffect.EffectTypes:=
+//      FDrawPathParam.DrawEffectSetting.MouseOverEffect.EffectTypes-[dppetPenWidthChange];
+//  end;
+//end;
+//
+//procedure TDrawPathParamSetting.SetPushedPenWidth(const Value: TControlSize);
+//begin
+//  FDrawPathParam.DrawEffectSetting.PushedEffect.PenWidth:=Value;
+//end;
+//
+//procedure TDrawPathParamSetting.SetPushedPenWidthChange(const Value: Boolean);
+//begin
+//  if Value then
+//  begin
+//    FDrawPathParam.DrawEffectSetting.PushedEffect.EffectTypes:=
+//      FDrawPathParam.DrawEffectSetting.PushedEffect.EffectTypes+[dppetPenWidthChange];
+//  end
+//  else
+//  begin
+//    FDrawPathParam.DrawEffectSetting.PushedEffect.EffectTypes:=
+//      FDrawPathParam.DrawEffectSetting.PushedEffect.EffectTypes-[dppetPenWidthChange];
+//  end;
+//end;
+//
+//
+//
+//function TDrawPathParamSetting.GetMouseDownIsFill: Boolean;
+//begin
+//  Result:=FDrawPathParam.DrawEffectSetting.MouseDownEffect.FIsFill;
+//end;
+//
+//function TDrawPathParamSetting.GetMouseDownIsFillChange: Boolean;
+//begin
+//  Result:=dppetIsFillChange in FDrawPathParam.DrawEffectSetting.MouseDownEffect.FEffectTypes;
+//end;
+//
+//function TDrawPathParamSetting.GetMouseOverIsFill: Boolean;
+//begin
+//  Result:=FDrawPathParam.DrawEffectSetting.MouseOverEffect.FIsFill;
+//end;
+//
+//function TDrawPathParamSetting.GetMouseOverIsFillChange: Boolean;
+//begin
+//  Result:=dppetIsFillChange in FDrawPathParam.DrawEffectSetting.MouseOverEffect.FEffectTypes;
+//end;
+//
+//function TDrawPathParamSetting.GetPushedIsFill: Boolean;
+//begin
+//  Result:=FDrawPathParam.DrawEffectSetting.PushedEffect.FIsFill;
+//end;
+//
+//function TDrawPathParamSetting.GetPushedIsFillChange: Boolean;
+//begin
+//  Result:=dppetIsFillChange in FDrawPathParam.DrawEffectSetting.PushedEffect.FEffectTypes;
+//end;
+//
+//
+//
+//function TDrawPathParamSetting.IsMouseDownPenWidthChangeStored: Boolean;
+//begin
+//  Result:=dppetPenWidthChange in FDrawPathParam.DrawEffectSetting.MouseDownEffect.FEffectTypes;
+//end;
+//
+//function TDrawPathParamSetting.IsMouseDownPenWidthStored: Boolean;
+//begin
+//  Result:=IsNotSameDouble(Self.FDrawPathParam.DrawEffectSetting.MouseDownEffect.FPenWidth,0);
+//end;
+//
+//function TDrawPathParamSetting.IsMouseDownFillColorChangeStored: Boolean;
+//begin
+//  Result:=dppetFillColorChange in FDrawPathParam.DrawEffectSetting.MouseDownEffect.FEffectTypes;
+//end;
+//
+//function TDrawPathParamSetting.IsMouseDownFillColorStored: Boolean;
+//begin
+//  Result:=Self.FDrawPathParam.DrawEffectSetting.MouseDownEffect.FFillDrawColor.Color<>Const_DefaultColor;
+//end;
+//
+//function TDrawPathParamSetting.IsMouseDownIsFillChangeStored: Boolean;
+//begin
+//  Result:=dppetIsFillChange in FDrawPathParam.DrawEffectSetting.MouseDownEffect.FEffectTypes;
+//end;
+//
+//function TDrawPathParamSetting.IsMouseDownIsFillStored: Boolean;
+//begin
+//  Result:=Self.FDrawPathParam.DrawEffectSetting.MouseDownEffect.FIsFill<>False;
+//end;
+//
+//function TDrawPathParamSetting.IsMouseOverPenWidthChangeStored: Boolean;
+//begin
+//  Result:=dppetPenWidthChange in FDrawPathParam.DrawEffectSetting.MouseOverEffect.FEffectTypes;
+//end;
+//
+//function TDrawPathParamSetting.IsMouseOverPenWidthStored: Boolean;
+//begin
+//  Result:=IsNotSameDouble(Self.FDrawPathParam.DrawEffectSetting.MouseOverEffect.FPenWidth,0);
+//end;
+//
+//function TDrawPathParamSetting.IsMouseOverFillColorChangeStored: Boolean;
+//begin
+//  Result:=dppetFillColorChange in FDrawPathParam.DrawEffectSetting.MouseOverEffect.FEffectTypes;
+//end;
+//
+//function TDrawPathParamSetting.IsMouseOverFillColorStored: Boolean;
+//begin
+//  Result:=Self.FDrawPathParam.DrawEffectSetting.MouseOverEffect.FFillDrawColor.Color<>Const_DefaultColor;
+//end;
+//
+//function TDrawPathParamSetting.IsMouseOverIsFillChangeStored: Boolean;
+//begin
+//  Result:=dppetIsFillChange in FDrawPathParam.DrawEffectSetting.MouseOverEffect.FEffectTypes;
+//end;
+//
+//function TDrawPathParamSetting.IsMouseOverIsFillStored: Boolean;
+//begin
+//  Result:=Self.FDrawPathParam.DrawEffectSetting.MouseOverEffect.FIsFill<>False;
+//end;
+//
+//function TDrawPathParamSetting.IsPushedPenWidthChangeStored: Boolean;
+//begin
+//  Result:=dppetPenWidthChange in FDrawPathParam.DrawEffectSetting.PushedEffect.FEffectTypes;
+//end;
+//
+//function TDrawPathParamSetting.IsPushedPenWidthStored: Boolean;
+//begin
+//  Result:=IsNotSameDouble(Self.FDrawPathParam.DrawEffectSetting.PushedEffect.FPenWidth,0);
+//end;
+//
+//function TDrawPathParamSetting.IsPushedFillColorChangeStored: Boolean;
+//begin
+//  Result:=dppetFillColorChange in FDrawPathParam.DrawEffectSetting.PushedEffect.FEffectTypes;
+//end;
+//
+//function TDrawPathParamSetting.IsPushedFillColorStored: Boolean;
+//begin
+//  Result:=Self.FDrawPathParam.DrawEffectSetting.PushedEffect.FFillDrawColor.Color<>Const_DefaultColor;
+//end;
+//
+//function TDrawPathParamSetting.IsPushedIsFillChangeStored: Boolean;
+//begin
+//  Result:=dppetIsFillChange in FDrawPathParam.DrawEffectSetting.PushedEffect.FEffectTypes;
+//end;
+//
+//function TDrawPathParamSetting.IsPushedIsFillStored: Boolean;
+//begin
+//  Result:=Self.FDrawPathParam.DrawEffectSetting.PushedEffect.FIsFill<>False;
+//end;
+//
+//procedure TDrawPathParamSetting.SetMouseDownIsFill(const Value: Boolean);
+//begin
+//  FDrawPathParam.DrawEffectSetting.MouseDownEffect.IsFill:=Value;
+//end;
+//
+//procedure TDrawPathParamSetting.SetMouseDownIsFillChange(const Value: Boolean);
+//begin
+//  if Value then
+//  begin
+//    FDrawPathParam.DrawEffectSetting.MouseDownEffect.EffectTypes:=
+//      FDrawPathParam.DrawEffectSetting.MouseDownEffect.EffectTypes+[dppetIsFillChange];
+//  end
+//  else
+//  begin
+//    FDrawPathParam.DrawEffectSetting.MouseDownEffect.EffectTypes:=
+//      FDrawPathParam.DrawEffectSetting.MouseDownEffect.EffectTypes-[dppetIsFillChange];
+//  end;
+//end;
+//
+//procedure TDrawPathParamSetting.SetMouseOverIsFill(const Value: Boolean);
+//begin
+//  FDrawPathParam.DrawEffectSetting.MouseOverEffect.IsFill:=Value;
+//end;
+//
+//procedure TDrawPathParamSetting.SetMouseOverIsFillChange(const Value: Boolean);
+//begin
+//  if Value then
+//  begin
+//    FDrawPathParam.DrawEffectSetting.MouseOverEffect.EffectTypes:=
+//      FDrawPathParam.DrawEffectSetting.MouseOverEffect.EffectTypes+[dppetIsFillChange];
+//  end
+//  else
+//  begin
+//    FDrawPathParam.DrawEffectSetting.MouseOverEffect.EffectTypes:=
+//      FDrawPathParam.DrawEffectSetting.MouseOverEffect.EffectTypes-[dppetIsFillChange];
+//  end;
+//end;
+//
+//procedure TDrawPathParamSetting.SetPushedIsFill(const Value: Boolean);
+//begin
+//  FDrawPathParam.DrawEffectSetting.PushedEffect.IsFill:=Value;
+//end;
+//
+//procedure TDrawPathParamSetting.SetPushedIsFillChange(const Value: Boolean);
+//begin
+//  if Value then
+//  begin
+//    FDrawPathParam.DrawEffectSetting.PushedEffect.EffectTypes:=
+//      FDrawPathParam.DrawEffectSetting.PushedEffect.EffectTypes+[dppetIsFillChange];
+//  end
+//  else
+//  begin
+//    FDrawPathParam.DrawEffectSetting.PushedEffect.EffectTypes:=
+//      FDrawPathParam.DrawEffectSetting.PushedEffect.EffectTypes-[dppetIsFillChange];
+//  end;
+//end;
 
 
 

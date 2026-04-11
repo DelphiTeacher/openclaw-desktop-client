@@ -59,7 +59,9 @@ contains
   uSkinPageControlEditor in 'Source\uSkinPageControlEditor.pas',
   uSkinPullLoadPanelEditor in 'Source\uSkinPullLoadPanelEditor.pas',
   uSkinScrollBarPullLoadPanelEditor in 'Source\uSkinScrollBarPullLoadPanelEditor.pas',
-  uListItemStylePropertyDesigner in 'Source\uListItemStylePropertyDesigner.pas';
+  uListItemStylePropertyDesigner in 'Source\uListItemStylePropertyDesigner.pas',
+  uFMXSVGSupport in '..\OrangeProjectCommon\uFMXSVGSupport.pas',
+  uDrawPictureFileNamePropertyDesigner in 'Source\uDrawPictureFileNamePropertyDesigner.pas';
 
 end.
 

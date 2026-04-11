@@ -9,6 +9,18 @@
         <Projects Include="OrangeUI\OrangeUIDesign\OrangeUIDesign_FMX_D13.dproj">
             <Dependencies/>
         </Projects>
+        <Projects Include="OrangeUI\OrangeUIStyles\OrangeUIStyles_FMX_D13.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="D:\三方控件\sgcWebSockets_v2023.4.0\Packages\sgcWebSocketsD13.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="D:\三方控件\sgcWebSockets_v2023.4.0\Packages\dclsgcWebSocketsD13.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="D:\DelphiRAG\DelphiAILearn\4.TestAskMyRAG\TestUseMyRAG.dproj">
+            <Dependencies/>
+        </Projects>
         <Projects Include="Source\OpenClawDesktop.dproj">
             <Dependencies/>
         </Projects>
@@ -38,6 +50,42 @@
     <Target Name="OrangeUIDesign_FMX_D13:Make">
         <MSBuild Projects="OrangeUI\OrangeUIDesign\OrangeUIDesign_FMX_D13.dproj" Targets="Make"/>
     </Target>
+    <Target Name="OrangeUIStyles_FMX_D13">
+        <MSBuild Projects="OrangeUI\OrangeUIStyles\OrangeUIStyles_FMX_D13.dproj"/>
+    </Target>
+    <Target Name="OrangeUIStyles_FMX_D13:Clean">
+        <MSBuild Projects="OrangeUI\OrangeUIStyles\OrangeUIStyles_FMX_D13.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="OrangeUIStyles_FMX_D13:Make">
+        <MSBuild Projects="OrangeUI\OrangeUIStyles\OrangeUIStyles_FMX_D13.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="sgcWebSocketsD13">
+        <MSBuild Projects="D:\三方控件\sgcWebSockets_v2023.4.0\Packages\sgcWebSocketsD13.dproj"/>
+    </Target>
+    <Target Name="sgcWebSocketsD13:Clean">
+        <MSBuild Projects="D:\三方控件\sgcWebSockets_v2023.4.0\Packages\sgcWebSocketsD13.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="sgcWebSocketsD13:Make">
+        <MSBuild Projects="D:\三方控件\sgcWebSockets_v2023.4.0\Packages\sgcWebSocketsD13.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="dclsgcWebSocketsD13">
+        <MSBuild Projects="D:\三方控件\sgcWebSockets_v2023.4.0\Packages\dclsgcWebSocketsD13.dproj"/>
+    </Target>
+    <Target Name="dclsgcWebSocketsD13:Clean">
+        <MSBuild Projects="D:\三方控件\sgcWebSockets_v2023.4.0\Packages\dclsgcWebSocketsD13.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="dclsgcWebSocketsD13:Make">
+        <MSBuild Projects="D:\三方控件\sgcWebSockets_v2023.4.0\Packages\dclsgcWebSocketsD13.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="TestUseMyRAG">
+        <MSBuild Projects="D:\DelphiRAG\DelphiAILearn\4.TestAskMyRAG\TestUseMyRAG.dproj"/>
+    </Target>
+    <Target Name="TestUseMyRAG:Clean">
+        <MSBuild Projects="D:\DelphiRAG\DelphiAILearn\4.TestAskMyRAG\TestUseMyRAG.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="TestUseMyRAG:Make">
+        <MSBuild Projects="D:\DelphiRAG\DelphiAILearn\4.TestAskMyRAG\TestUseMyRAG.dproj" Targets="Make"/>
+    </Target>
     <Target Name="OpenClawDesktop">
         <MSBuild Projects="Source\OpenClawDesktop.dproj"/>
     </Target>
@@ -48,13 +96,13 @@
         <MSBuild Projects="Source\OpenClawDesktop.dproj" Targets="Make"/>
     </Target>
     <Target Name="Build">
-        <CallTarget Targets="OrangeUIControl_FMX_D13;OrangeUIDesign_FMX_D13;OpenClawDesktop"/>
+        <CallTarget Targets="OrangeUIControl_FMX_D13;OrangeUIDesign_FMX_D13;OrangeUIStyles_FMX_D13;sgcWebSocketsD13;dclsgcWebSocketsD13;TestUseMyRAG;OpenClawDesktop"/>
     </Target>
     <Target Name="Clean">
-        <CallTarget Targets="OrangeUIControl_FMX_D13:Clean;OrangeUIDesign_FMX_D13:Clean;OpenClawDesktop:Clean"/>
+        <CallTarget Targets="OrangeUIControl_FMX_D13:Clean;OrangeUIDesign_FMX_D13:Clean;OrangeUIStyles_FMX_D13:Clean;sgcWebSocketsD13:Clean;dclsgcWebSocketsD13:Clean;TestUseMyRAG:Clean;OpenClawDesktop:Clean"/>
     </Target>
     <Target Name="Make">
-        <CallTarget Targets="OrangeUIControl_FMX_D13:Make;OrangeUIDesign_FMX_D13:Make;OpenClawDesktop:Make"/>
+        <CallTarget Targets="OrangeUIControl_FMX_D13:Make;OrangeUIDesign_FMX_D13:Make;OrangeUIStyles_FMX_D13:Make;sgcWebSocketsD13:Make;dclsgcWebSocketsD13:Make;TestUseMyRAG:Make;OpenClawDesktop:Make"/>
     </Target>
     <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
 </Project>

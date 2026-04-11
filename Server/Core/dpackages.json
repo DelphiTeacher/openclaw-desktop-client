@@ -1,0 +1,17 @@
+{
+    "name": "delphirag",
+    "version": "1.0.0",
+    "delphiversion": "13.0",
+    "description": "Rag for Delphi",
+    "scripts": {
+      "dev": "dev.bat",
+      "build": "build.bat"
+    },
+    "dependencies": {
+      "pdfium": "^1.6.0"
+    },
+    "devDependencies": {
+
+    }
+  }
+  

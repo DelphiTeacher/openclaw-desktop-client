@@ -455,97 +455,97 @@ type
 
 
 
-  TDrawPictureParamSetting=class(TDrawParamSetting)
-  private
-    function IsMouseDownImageIndexChangeStored: Boolean;
-    function IsMouseDownImageIndexStored: Boolean;
-    function IsMouseDownImageNameChangeStored: Boolean;
-//    function IsMouseDownImageNameStored: Boolean;
-    function IsMouseOverImageIndexChangeStored: Boolean;
-    function IsMouseOverImageIndexStored: Boolean;
-    function IsMouseOverImageNameChangeStored: Boolean;
-//    function IsMouseOverImageNameStored: Boolean;
-    function IsPushedImageIndexChangeStored: Boolean;
-    function IsPushedImageIndexStored: Boolean;
-    function IsPushedImageNameChangeStored: Boolean;
-//    function IsPushedImageNameStored: Boolean;
-    function IsMouseDownRotateAngleChangeStored: Boolean;
-    function IsMouseDownRotateAngleStored: Boolean;
-    function IsMouseOverRotateAngleChangeStored: Boolean;
-    function IsMouseOverRotateAngleStored: Boolean;
-    function IsPushedRotateAngleChangeStored: Boolean;
-    function IsPushedRotateAngleStored: Boolean;
-  protected
-    FDrawPictureParam:TBaseDrawPictureParam;
-
-    function GetMouseDownImageIndex: Integer;
-    function GetMouseDownImageIndexChange: Boolean;
-    function GetMouseOverImageIndex: Integer;
-    function GetMouseOverImageIndexChange: Boolean;
-    function GetPushedImageIndex: Integer;
-    function GetPushedImageIndexChange: Boolean;
-
-    function GetMouseDownImageName: String;
-    function GetMouseDownImageNameChange: Boolean;
-    function GetMouseOverImageName: String;
-    function GetMouseOverImageNameChange: Boolean;
-    function GetPushedImageName: String;
-    function GetPushedImageNameChange: Boolean;
-
-    function GetMouseDownRotateAngle: Integer;
-    function GetMouseDownRotateAngleChange: Boolean;
-    function GetMouseOverRotateAngle: Integer;
-    function GetMouseOverRotateAngleChange: Boolean;
-    function GetPushedRotateAngle: Integer;
-    function GetPushedRotateAngleChange: Boolean;
-
-    procedure SetMouseDownRotateAngle(const Value: Integer);
-    procedure SetMouseDownRotateAngleChange(const Value: Boolean);
-    procedure SetMouseOverRotateAngle(const Value: Integer);
-    procedure SetMouseOverRotateAngleChange(const Value: Boolean);
-    procedure SetPushedRotateAngle(const Value: Integer);
-    procedure SetPushedRotateAngleChange(const Value: Boolean);
-
-
-    procedure SetMouseDownImageName(const Value: String);
-    procedure SetMouseDownImageNameChange(const Value: Boolean);
-    procedure SetMouseOverImageName(const Value: String);
-    procedure SetMouseOverImageNameChange(const Value: Boolean);
-    procedure SetPushedImageName(const Value: String);
-    procedure SetPushedImageNameChange(const Value: Boolean);
-
-    procedure SetMouseDownImageIndex(const Value: Integer);
-    procedure SetMouseDownImageIndexChange(const Value: Boolean);
-    procedure SetMouseOverImageIndex(const Value: Integer);
-    procedure SetMouseOverImageIndexChange(const Value: Boolean);
-    procedure SetPushedImageIndex(const Value: Integer);
-    procedure SetPushedImageIndexChange(const Value: Boolean);
-  public
-    constructor Create(ADrawParam:TDrawParam);override;
-  public
-    property MouseDownImageName:String read GetMouseDownImageName write SetMouseDownImageName;// stored IsMouseDownImageNameStored;
-    property MouseDownImageNameChange:Boolean read GetMouseDownImageNameChange write SetMouseDownImageNameChange stored IsMouseDownImageNameChangeStored;
-    property MouseOverImageName:String read GetMouseOverImageName write SetMouseOverImageName;// stored IsMouseOverImageNameStored;
-    property MouseOverImageNameChange:Boolean read GetMouseOverImageNameChange write SetMouseOverImageNameChange stored IsMouseOverImageNameChangeStored;
-    property PushedImageName:String read GetPushedImageName write SetPushedImageName;// stored IsPushedImageNameStored;
-    property PushedImageNameChange:Boolean read GetPushedImageNameChange write SetPushedImageNameChange stored IsPushedImageNameChangeStored;
-  published
-    property MouseDownImageIndex:Integer read GetMouseDownImageIndex write SetMouseDownImageIndex stored IsMouseDownImageIndexStored;
-    property MouseDownImageIndexChange:Boolean read GetMouseDownImageIndexChange write SetMouseDownImageIndexChange stored IsMouseDownImageIndexChangeStored;
-
-    property MouseOverImageIndex:Integer read GetMouseOverImageIndex write SetMouseOverImageIndex stored IsMouseOverImageIndexStored;
-    property MouseOverImageIndexChange:Boolean read GetMouseOverImageIndexChange write SetMouseOverImageIndexChange stored IsMouseOverImageIndexChangeStored;
-
-    property PushedImageIndex:Integer read GetPushedImageIndex write SetPushedImageIndex stored IsPushedImageIndexStored;
-    property PushedImageIndexChange:Boolean read GetPushedImageIndexChange write SetPushedImageIndexChange stored IsPushedImageIndexChangeStored;
-
-    property MouseDownRotateAngle:Integer read GetMouseDownRotateAngle write SetMouseDownRotateAngle stored IsMouseDownRotateAngleStored;
-    property MouseDownRotateAngleChange:Boolean read GetMouseDownRotateAngleChange write SetMouseDownRotateAngleChange stored IsMouseDownRotateAngleChangeStored;
-    property MouseOverRotateAngle:Integer read GetMouseOverRotateAngle write SetMouseOverRotateAngle stored IsMouseOverRotateAngleStored;
-    property MouseOverRotateAngleChange:Boolean read GetMouseOverRotateAngleChange write SetMouseOverRotateAngleChange stored IsMouseOverRotateAngleChangeStored;
-    property PushedRotateAngle:Integer read GetPushedRotateAngle write SetPushedRotateAngle stored IsPushedRotateAngleStored;
-    property PushedRotateAngleChange:Boolean read GetPushedRotateAngleChange write SetPushedRotateAngleChange stored IsPushedRotateAngleChangeStored;
-  end;
+//  TDrawPictureParamSetting=class(TDrawParamSetting)
+//  private
+//    function IsMouseDownImageIndexChangeStored: Boolean;
+//    function IsMouseDownImageIndexStored: Boolean;
+//    function IsMouseDownImageNameChangeStored: Boolean;
+////    function IsMouseDownImageNameStored: Boolean;
+//    function IsMouseOverImageIndexChangeStored: Boolean;
+//    function IsMouseOverImageIndexStored: Boolean;
+//    function IsMouseOverImageNameChangeStored: Boolean;
+////    function IsMouseOverImageNameStored: Boolean;
+//    function IsPushedImageIndexChangeStored: Boolean;
+//    function IsPushedImageIndexStored: Boolean;
+//    function IsPushedImageNameChangeStored: Boolean;
+////    function IsPushedImageNameStored: Boolean;
+//    function IsMouseDownRotateAngleChangeStored: Boolean;
+//    function IsMouseDownRotateAngleStored: Boolean;
+//    function IsMouseOverRotateAngleChangeStored: Boolean;
+//    function IsMouseOverRotateAngleStored: Boolean;
+//    function IsPushedRotateAngleChangeStored: Boolean;
+//    function IsPushedRotateAngleStored: Boolean;
+//  protected
+//    FDrawPictureParam:TBaseDrawPictureParam;
+//
+//    function GetMouseDownImageIndex: Integer;
+//    function GetMouseDownImageIndexChange: Boolean;
+//    function GetMouseOverImageIndex: Integer;
+//    function GetMouseOverImageIndexChange: Boolean;
+//    function GetPushedImageIndex: Integer;
+//    function GetPushedImageIndexChange: Boolean;
+//
+//    function GetMouseDownImageName: String;
+//    function GetMouseDownImageNameChange: Boolean;
+//    function GetMouseOverImageName: String;
+//    function GetMouseOverImageNameChange: Boolean;
+//    function GetPushedImageName: String;
+//    function GetPushedImageNameChange: Boolean;
+//
+//    function GetMouseDownRotateAngle: Integer;
+//    function GetMouseDownRotateAngleChange: Boolean;
+//    function GetMouseOverRotateAngle: Integer;
+//    function GetMouseOverRotateAngleChange: Boolean;
+//    function GetPushedRotateAngle: Integer;
+//    function GetPushedRotateAngleChange: Boolean;
+//
+//    procedure SetMouseDownRotateAngle(const Value: Integer);
+//    procedure SetMouseDownRotateAngleChange(const Value: Boolean);
+//    procedure SetMouseOverRotateAngle(const Value: Integer);
+//    procedure SetMouseOverRotateAngleChange(const Value: Boolean);
+//    procedure SetPushedRotateAngle(const Value: Integer);
+//    procedure SetPushedRotateAngleChange(const Value: Boolean);
+//
+//
+//    procedure SetMouseDownImageName(const Value: String);
+//    procedure SetMouseDownImageNameChange(const Value: Boolean);
+//    procedure SetMouseOverImageName(const Value: String);
+//    procedure SetMouseOverImageNameChange(const Value: Boolean);
+//    procedure SetPushedImageName(const Value: String);
+//    procedure SetPushedImageNameChange(const Value: Boolean);
+//
+//    procedure SetMouseDownImageIndex(const Value: Integer);
+//    procedure SetMouseDownImageIndexChange(const Value: Boolean);
+//    procedure SetMouseOverImageIndex(const Value: Integer);
+//    procedure SetMouseOverImageIndexChange(const Value: Boolean);
+//    procedure SetPushedImageIndex(const Value: Integer);
+//    procedure SetPushedImageIndexChange(const Value: Boolean);
+//  public
+//    constructor Create(ADrawParam:TDrawParam);override;
+//  public
+//    property MouseDownImageName:String read GetMouseDownImageName write SetMouseDownImageName;// stored IsMouseDownImageNameStored;
+//    property MouseDownImageNameChange:Boolean read GetMouseDownImageNameChange write SetMouseDownImageNameChange stored IsMouseDownImageNameChangeStored;
+//    property MouseOverImageName:String read GetMouseOverImageName write SetMouseOverImageName;// stored IsMouseOverImageNameStored;
+//    property MouseOverImageNameChange:Boolean read GetMouseOverImageNameChange write SetMouseOverImageNameChange stored IsMouseOverImageNameChangeStored;
+//    property PushedImageName:String read GetPushedImageName write SetPushedImageName;// stored IsPushedImageNameStored;
+//    property PushedImageNameChange:Boolean read GetPushedImageNameChange write SetPushedImageNameChange stored IsPushedImageNameChangeStored;
+//  published
+//    property MouseDownImageIndex:Integer read GetMouseDownImageIndex write SetMouseDownImageIndex stored IsMouseDownImageIndexStored;
+//    property MouseDownImageIndexChange:Boolean read GetMouseDownImageIndexChange write SetMouseDownImageIndexChange stored IsMouseDownImageIndexChangeStored;
+//
+//    property MouseOverImageIndex:Integer read GetMouseOverImageIndex write SetMouseOverImageIndex stored IsMouseOverImageIndexStored;
+//    property MouseOverImageIndexChange:Boolean read GetMouseOverImageIndexChange write SetMouseOverImageIndexChange stored IsMouseOverImageIndexChangeStored;
+//
+//    property PushedImageIndex:Integer read GetPushedImageIndex write SetPushedImageIndex stored IsPushedImageIndexStored;
+//    property PushedImageIndexChange:Boolean read GetPushedImageIndexChange write SetPushedImageIndexChange stored IsPushedImageIndexChangeStored;
+//
+//    property MouseDownRotateAngle:Integer read GetMouseDownRotateAngle write SetMouseDownRotateAngle stored IsMouseDownRotateAngleStored;
+//    property MouseDownRotateAngleChange:Boolean read GetMouseDownRotateAngleChange write SetMouseDownRotateAngleChange stored IsMouseDownRotateAngleChangeStored;
+//    property MouseOverRotateAngle:Integer read GetMouseOverRotateAngle write SetMouseOverRotateAngle stored IsMouseOverRotateAngleStored;
+//    property MouseOverRotateAngleChange:Boolean read GetMouseOverRotateAngleChange write SetMouseOverRotateAngleChange stored IsMouseOverRotateAngleChangeStored;
+//    property PushedRotateAngle:Integer read GetPushedRotateAngle write SetPushedRotateAngle stored IsPushedRotateAngleStored;
+//    property PushedRotateAngleChange:Boolean read GetPushedRotateAngleChange write SetPushedRotateAngleChange stored IsPushedRotateAngleChangeStored;
+//  end;
 
 
 
@@ -651,7 +651,7 @@ type
     ///   </para>
     /// </summary>
     function GetDrawEffectSettingClass:TDrawEffectSettingClass;override;
-    function GetDrawParamSettingClass:TDrawParamSettingClass;override;
+//    function GetDrawParamSettingClass:TDrawParamSettingClass;override;
   public
     function SetVariable(AVariableNames:TStringList;AValueStr:String):Boolean;override;
 
@@ -1509,10 +1509,10 @@ begin
   Result:=TDrawPictureEffectSetting;
 end;
 
-function TBaseDrawPictureParam.GetDrawParamSettingClass: TDrawParamSettingClass;
-begin
-  Result:=TDrawPictureParamSetting;
-end;
+//function TBaseDrawPictureParam.GetDrawParamSettingClass: TDrawParamSettingClass;
+//begin
+//  Result:=TDrawPictureParamSetting;
+//end;
 
 //function TBaseDrawPictureParam.GetSetting: TDrawPictureParamSetting;
 //begin
@@ -2075,382 +2075,382 @@ end;
 
 
 
-
-{ TDrawPictureParamSetting }
-
-
-
-constructor TDrawPictureParamSetting.Create(ADrawParam: TDrawParam);
-begin
-  inherited;
-  FDrawPictureParam:=TBaseDrawPictureParam(ADrawParam);
-end;
-
-
-function TDrawPictureParamSetting.GetMouseDownRotateAngle: Integer;
-begin
-  Result:=FDrawPictureParam.DrawEffectSetting.MouseDownEffect.FRotateAngle;
-end;
-
-function TDrawPictureParamSetting.GetMouseDownRotateAngleChange: Boolean;
-begin
-  Result:=dppetRotateAngleChange in FDrawPictureParam.DrawEffectSetting.MouseDownEffect.FEffectTypes;
-end;
-
-function TDrawPictureParamSetting.GetMouseOverRotateAngle: Integer;
-begin
-  Result:=FDrawPictureParam.DrawEffectSetting.MouseOverEffect.FRotateAngle;
-
-end;
-
-function TDrawPictureParamSetting.GetMouseOverRotateAngleChange: Boolean;
-begin
-  Result:=dppetRotateAngleChange in FDrawPictureParam.DrawEffectSetting.MouseOverEffect.FEffectTypes;
-end;
-
-function TDrawPictureParamSetting.GetPushedRotateAngle: Integer;
-begin
-  Result:=FDrawPictureParam.DrawEffectSetting.PushedEffect.FRotateAngle;
-end;
-
-function TDrawPictureParamSetting.GetPushedRotateAngleChange: Boolean;
-begin
-  Result:=dppetRotateAngleChange in FDrawPictureParam.DrawEffectSetting.PushedEffect.FEffectTypes;
-end;
-
-
-
-procedure TDrawPictureParamSetting.SetMouseDownRotateAngle(const Value: Integer);
-begin
-  FDrawPictureParam.DrawEffectSetting.MouseDownEffect.RotateAngle:=Value;
-end;
-
-procedure TDrawPictureParamSetting.SetMouseDownRotateAngleChange(const Value: Boolean);
-begin
-  if Value then
-  begin
-    FDrawPictureParam.DrawEffectSetting.MouseDownEffect.EffectTypes:=
-      FDrawPictureParam.DrawEffectSetting.MouseDownEffect.EffectTypes+[dppetRotateAngleChange];
-  end
-  else
-  begin
-    FDrawPictureParam.DrawEffectSetting.MouseDownEffect.EffectTypes:=
-      FDrawPictureParam.DrawEffectSetting.MouseDownEffect.EffectTypes-[dppetRotateAngleChange];
-  end;
-end;
-
-procedure TDrawPictureParamSetting.SetMouseOverRotateAngle(const Value: Integer);
-begin
-  FDrawPictureParam.DrawEffectSetting.MouseOverEffect.RotateAngle:=Value;
-end;
-
-procedure TDrawPictureParamSetting.SetMouseOverRotateAngleChange(const Value: Boolean);
-begin
-  if Value then
-  begin
-    FDrawPictureParam.DrawEffectSetting.MouseOverEffect.EffectTypes:=
-      FDrawPictureParam.DrawEffectSetting.MouseOverEffect.EffectTypes+[dppetRotateAngleChange];
-  end
-  else
-  begin
-    FDrawPictureParam.DrawEffectSetting.MouseOverEffect.EffectTypes:=
-      FDrawPictureParam.DrawEffectSetting.MouseOverEffect.EffectTypes-[dppetRotateAngleChange];
-  end;
-end;
-
-procedure TDrawPictureParamSetting.SetPushedRotateAngle(const Value: Integer);
-begin
-  FDrawPictureParam.DrawEffectSetting.PushedEffect.RotateAngle:=Value;
-end;
-
-procedure TDrawPictureParamSetting.SetPushedRotateAngleChange(const Value: Boolean);
-begin
-  if Value then
-  begin
-    FDrawPictureParam.DrawEffectSetting.PushedEffect.EffectTypes:=
-      FDrawPictureParam.DrawEffectSetting.PushedEffect.EffectTypes+[dppetRotateAngleChange];
-  end
-  else
-  begin
-    FDrawPictureParam.DrawEffectSetting.PushedEffect.EffectTypes:=
-      FDrawPictureParam.DrawEffectSetting.PushedEffect.EffectTypes-[dppetRotateAngleChange];
-  end;
-end;
-
-
-
-function TDrawPictureParamSetting.GetMouseDownImageIndex: Integer;
-begin
-  Result:=FDrawPictureParam.DrawEffectSetting.MouseDownEffect.FImageIndex;
-end;
-
-function TDrawPictureParamSetting.GetMouseDownImageIndexChange: Boolean;
-begin
-  Result:=dppetImageIndexChange in FDrawPictureParam.DrawEffectSetting.MouseDownEffect.FEffectTypes;
-end;
-
-function TDrawPictureParamSetting.GetMouseOverImageIndex: Integer;
-begin
-  Result:=FDrawPictureParam.DrawEffectSetting.MouseOverEffect.FImageIndex;
-
-end;
-
-function TDrawPictureParamSetting.GetMouseOverImageIndexChange: Boolean;
-begin
-  Result:=dppetImageIndexChange in FDrawPictureParam.DrawEffectSetting.MouseOverEffect.FEffectTypes;
-end;
-
-function TDrawPictureParamSetting.GetPushedImageIndex: Integer;
-begin
-  Result:=FDrawPictureParam.DrawEffectSetting.PushedEffect.FImageIndex;
-end;
-
-function TDrawPictureParamSetting.GetPushedImageIndexChange: Boolean;
-begin
-  Result:=dppetImageIndexChange in FDrawPictureParam.DrawEffectSetting.PushedEffect.FEffectTypes;
-end;
-
-
-
-procedure TDrawPictureParamSetting.SetMouseDownImageIndex(const Value: Integer);
-begin
-  FDrawPictureParam.DrawEffectSetting.MouseDownEffect.ImageIndex:=Value;
-end;
-
-procedure TDrawPictureParamSetting.SetMouseDownImageIndexChange(const Value: Boolean);
-begin
-  if Value then
-  begin
-    FDrawPictureParam.DrawEffectSetting.MouseDownEffect.EffectTypes:=
-      FDrawPictureParam.DrawEffectSetting.MouseDownEffect.EffectTypes+[dppetImageIndexChange];
-  end
-  else
-  begin
-    FDrawPictureParam.DrawEffectSetting.MouseDownEffect.EffectTypes:=
-      FDrawPictureParam.DrawEffectSetting.MouseDownEffect.EffectTypes-[dppetImageIndexChange];
-  end;
-end;
-
-procedure TDrawPictureParamSetting.SetMouseOverImageIndex(const Value: Integer);
-begin
-  FDrawPictureParam.DrawEffectSetting.MouseOverEffect.ImageIndex:=Value;
-end;
-
-procedure TDrawPictureParamSetting.SetMouseOverImageIndexChange(const Value: Boolean);
-begin
-  if Value then
-  begin
-    FDrawPictureParam.DrawEffectSetting.MouseOverEffect.EffectTypes:=
-      FDrawPictureParam.DrawEffectSetting.MouseOverEffect.EffectTypes+[dppetImageIndexChange];
-  end
-  else
-  begin
-    FDrawPictureParam.DrawEffectSetting.MouseOverEffect.EffectTypes:=
-      FDrawPictureParam.DrawEffectSetting.MouseOverEffect.EffectTypes-[dppetImageIndexChange];
-  end;
-end;
-
-procedure TDrawPictureParamSetting.SetPushedImageIndex(const Value: Integer);
-begin
-  FDrawPictureParam.DrawEffectSetting.PushedEffect.ImageIndex:=Value;
-end;
-
-procedure TDrawPictureParamSetting.SetPushedImageIndexChange(const Value: Boolean);
-begin
-  if Value then
-  begin
-    FDrawPictureParam.DrawEffectSetting.PushedEffect.EffectTypes:=
-      FDrawPictureParam.DrawEffectSetting.PushedEffect.EffectTypes+[dppetImageIndexChange];
-  end
-  else
-  begin
-    FDrawPictureParam.DrawEffectSetting.PushedEffect.EffectTypes:=
-      FDrawPictureParam.DrawEffectSetting.PushedEffect.EffectTypes-[dppetImageIndexChange];
-  end;
-end;
-
-
-
-
-
-function TDrawPictureParamSetting.GetMouseDownImageName: String;
-begin
-  Result:=FDrawPictureParam.DrawEffectSetting.MouseDownEffect.FImageName;
-end;
-
-function TDrawPictureParamSetting.GetMouseDownImageNameChange: Boolean;
-begin
-  Result:=dppetImageNameChange in FDrawPictureParam.DrawEffectSetting.MouseDownEffect.FEffectTypes;
-end;
-
-function TDrawPictureParamSetting.GetMouseOverImageName: String;
-begin
-  Result:=FDrawPictureParam.DrawEffectSetting.MouseOverEffect.FImageName;
-end;
-
-function TDrawPictureParamSetting.GetMouseOverImageNameChange: Boolean;
-begin
-  Result:=dppetImageNameChange in FDrawPictureParam.DrawEffectSetting.MouseOverEffect.FEffectTypes;
-end;
-
-function TDrawPictureParamSetting.GetPushedImageName: String;
-begin
-  Result:=FDrawPictureParam.DrawEffectSetting.PushedEffect.FImageName;
-end;
-
-function TDrawPictureParamSetting.GetPushedImageNameChange: Boolean;
-begin
-  Result:=dppetImageNameChange in FDrawPictureParam.DrawEffectSetting.PushedEffect.FEffectTypes;
-end;
-
-
-
-function TDrawPictureParamSetting.IsMouseDownImageIndexChangeStored: Boolean;
-begin
-  Result:=dppetImageIndexChange in FDrawPictureParam.DrawEffectSetting.MouseDownEffect.FEffectTypes;
-end;
-
-function TDrawPictureParamSetting.IsMouseDownImageIndexStored: Boolean;
-begin
-  Result:=FDrawPictureParam.DrawEffectSetting.MouseDownEffect.FImageIndex<>-1;
-end;
-
-function TDrawPictureParamSetting.IsMouseDownImageNameChangeStored: Boolean;
-begin
-  Result:=dppetImageNameChange in FDrawPictureParam.DrawEffectSetting.MouseDownEffect.FEffectTypes;
-end;
-
-function TDrawPictureParamSetting.IsMouseDownRotateAngleChangeStored: Boolean;
-begin
-  Result:=dppetRotateAngleChange in FDrawPictureParam.DrawEffectSetting.MouseDownEffect.FEffectTypes;
-end;
-
-function TDrawPictureParamSetting.IsMouseDownRotateAngleStored: Boolean;
-begin
-  Result:=FDrawPictureParam.DrawEffectSetting.MouseDownEffect.FRotateAngle<>Const_DefaultEffect_RotateAngle;
-end;
-
-//function TDrawPictureParamSetting.IsMouseDownImageNameStored: Boolean;
+//
+//{ TDrawPictureParamSetting }
+//
+//
+//
+//constructor TDrawPictureParamSetting.Create(ADrawParam: TDrawParam);
 //begin
-//  Result:=FDrawPictureParam.DrawEffectSetting.MouseDownEffect.FImageName<>-1;
+//  inherited;
+//  FDrawPictureParam:=TBaseDrawPictureParam(ADrawParam);
 //end;
-
-function TDrawPictureParamSetting.IsMouseOverImageIndexChangeStored: Boolean;
-begin
-  Result:=dppetImageIndexChange in FDrawPictureParam.DrawEffectSetting.MouseOverEffect.FEffectTypes;
-end;
-
-function TDrawPictureParamSetting.IsMouseOverImageIndexStored: Boolean;
-begin
-  Result:=FDrawPictureParam.DrawEffectSetting.MouseOverEffect.FImageIndex<>-1;
-end;
-
-function TDrawPictureParamSetting.IsMouseOverImageNameChangeStored: Boolean;
-begin
-  Result:=dppetImageNameChange in FDrawPictureParam.DrawEffectSetting.MouseOverEffect.FEffectTypes;
-end;
-
-function TDrawPictureParamSetting.IsMouseOverRotateAngleChangeStored: Boolean;
-begin
-  Result:=dppetRotateAngleChange in FDrawPictureParam.DrawEffectSetting.MouseOverEffect.FEffectTypes;
-end;
-
-function TDrawPictureParamSetting.IsMouseOverRotateAngleStored: Boolean;
-begin
-  Result:=FDrawPictureParam.DrawEffectSetting.MouseOverEffect.FRotateAngle<>Const_DefaultEffect_RotateAngle;
-end;
-
-//function TDrawPictureParamSetting.IsMouseOverImageNameStored: Boolean;
+//
+//
+//function TDrawPictureParamSetting.GetMouseDownRotateAngle: Integer;
 //begin
+//  Result:=FDrawPictureParam.DrawEffectSetting.MouseDownEffect.FRotateAngle;
+//end;
+//
+//function TDrawPictureParamSetting.GetMouseDownRotateAngleChange: Boolean;
+//begin
+//  Result:=dppetRotateAngleChange in FDrawPictureParam.DrawEffectSetting.MouseDownEffect.FEffectTypes;
+//end;
+//
+//function TDrawPictureParamSetting.GetMouseOverRotateAngle: Integer;
+//begin
+//  Result:=FDrawPictureParam.DrawEffectSetting.MouseOverEffect.FRotateAngle;
 //
 //end;
-
-function TDrawPictureParamSetting.IsPushedImageIndexChangeStored: Boolean;
-begin
-  Result:=dppetImageIndexChange in FDrawPictureParam.DrawEffectSetting.PushedEffect.FEffectTypes;
-end;
-
-function TDrawPictureParamSetting.IsPushedImageIndexStored: Boolean;
-begin
-  Result:=FDrawPictureParam.DrawEffectSetting.PushedEffect.FImageIndex<>-1;
-end;
-
-function TDrawPictureParamSetting.IsPushedImageNameChangeStored: Boolean;
-begin
-  Result:=dppetImageNameChange in FDrawPictureParam.DrawEffectSetting.PushedEffect.FEffectTypes;
-end;
-
-function TDrawPictureParamSetting.IsPushedRotateAngleChangeStored: Boolean;
-begin
-  Result:=dppetRotateAngleChange in FDrawPictureParam.DrawEffectSetting.PushedEffect.FEffectTypes;
-end;
-
-function TDrawPictureParamSetting.IsPushedRotateAngleStored: Boolean;
-begin
-  Result:=FDrawPictureParam.DrawEffectSetting.PushedEffect.FRotateAngle<>Const_DefaultEffect_RotateAngle;
-end;
-
-//function TDrawPictureParamSetting.IsPushedImageNameStored: Boolean;
+//
+//function TDrawPictureParamSetting.GetMouseOverRotateAngleChange: Boolean;
 //begin
+//  Result:=dppetRotateAngleChange in FDrawPictureParam.DrawEffectSetting.MouseOverEffect.FEffectTypes;
+//end;
+//
+//function TDrawPictureParamSetting.GetPushedRotateAngle: Integer;
+//begin
+//  Result:=FDrawPictureParam.DrawEffectSetting.PushedEffect.FRotateAngle;
+//end;
+//
+//function TDrawPictureParamSetting.GetPushedRotateAngleChange: Boolean;
+//begin
+//  Result:=dppetRotateAngleChange in FDrawPictureParam.DrawEffectSetting.PushedEffect.FEffectTypes;
+//end;
+//
+//
+//
+//procedure TDrawPictureParamSetting.SetMouseDownRotateAngle(const Value: Integer);
+//begin
+//  FDrawPictureParam.DrawEffectSetting.MouseDownEffect.RotateAngle:=Value;
+//end;
+//
+//procedure TDrawPictureParamSetting.SetMouseDownRotateAngleChange(const Value: Boolean);
+//begin
+//  if Value then
+//  begin
+//    FDrawPictureParam.DrawEffectSetting.MouseDownEffect.EffectTypes:=
+//      FDrawPictureParam.DrawEffectSetting.MouseDownEffect.EffectTypes+[dppetRotateAngleChange];
+//  end
+//  else
+//  begin
+//    FDrawPictureParam.DrawEffectSetting.MouseDownEffect.EffectTypes:=
+//      FDrawPictureParam.DrawEffectSetting.MouseDownEffect.EffectTypes-[dppetRotateAngleChange];
+//  end;
+//end;
+//
+//procedure TDrawPictureParamSetting.SetMouseOverRotateAngle(const Value: Integer);
+//begin
+//  FDrawPictureParam.DrawEffectSetting.MouseOverEffect.RotateAngle:=Value;
+//end;
+//
+//procedure TDrawPictureParamSetting.SetMouseOverRotateAngleChange(const Value: Boolean);
+//begin
+//  if Value then
+//  begin
+//    FDrawPictureParam.DrawEffectSetting.MouseOverEffect.EffectTypes:=
+//      FDrawPictureParam.DrawEffectSetting.MouseOverEffect.EffectTypes+[dppetRotateAngleChange];
+//  end
+//  else
+//  begin
+//    FDrawPictureParam.DrawEffectSetting.MouseOverEffect.EffectTypes:=
+//      FDrawPictureParam.DrawEffectSetting.MouseOverEffect.EffectTypes-[dppetRotateAngleChange];
+//  end;
+//end;
+//
+//procedure TDrawPictureParamSetting.SetPushedRotateAngle(const Value: Integer);
+//begin
+//  FDrawPictureParam.DrawEffectSetting.PushedEffect.RotateAngle:=Value;
+//end;
+//
+//procedure TDrawPictureParamSetting.SetPushedRotateAngleChange(const Value: Boolean);
+//begin
+//  if Value then
+//  begin
+//    FDrawPictureParam.DrawEffectSetting.PushedEffect.EffectTypes:=
+//      FDrawPictureParam.DrawEffectSetting.PushedEffect.EffectTypes+[dppetRotateAngleChange];
+//  end
+//  else
+//  begin
+//    FDrawPictureParam.DrawEffectSetting.PushedEffect.EffectTypes:=
+//      FDrawPictureParam.DrawEffectSetting.PushedEffect.EffectTypes-[dppetRotateAngleChange];
+//  end;
+//end;
+//
+//
+//
+//function TDrawPictureParamSetting.GetMouseDownImageIndex: Integer;
+//begin
+//  Result:=FDrawPictureParam.DrawEffectSetting.MouseDownEffect.FImageIndex;
+//end;
+//
+//function TDrawPictureParamSetting.GetMouseDownImageIndexChange: Boolean;
+//begin
+//  Result:=dppetImageIndexChange in FDrawPictureParam.DrawEffectSetting.MouseDownEffect.FEffectTypes;
+//end;
+//
+//function TDrawPictureParamSetting.GetMouseOverImageIndex: Integer;
+//begin
+//  Result:=FDrawPictureParam.DrawEffectSetting.MouseOverEffect.FImageIndex;
 //
 //end;
-
-procedure TDrawPictureParamSetting.SetMouseDownImageName(const Value: String);
-begin
-  FDrawPictureParam.DrawEffectSetting.MouseDownEffect.ImageName:=Value;
-end;
-
-procedure TDrawPictureParamSetting.SetMouseDownImageNameChange(const Value: Boolean);
-begin
-  if Value then
-  begin
-    FDrawPictureParam.DrawEffectSetting.MouseDownEffect.EffectTypes:=
-      FDrawPictureParam.DrawEffectSetting.MouseDownEffect.EffectTypes+[dppetImageNameChange];
-  end
-  else
-  begin
-    FDrawPictureParam.DrawEffectSetting.MouseDownEffect.EffectTypes:=
-      FDrawPictureParam.DrawEffectSetting.MouseDownEffect.EffectTypes-[dppetImageNameChange];
-  end;
-end;
-
-procedure TDrawPictureParamSetting.SetMouseOverImageName(const Value: String);
-begin
-  FDrawPictureParam.DrawEffectSetting.MouseOverEffect.ImageName:=Value;
-end;
-
-procedure TDrawPictureParamSetting.SetMouseOverImageNameChange(const Value: Boolean);
-begin
-  if Value then
-  begin
-    FDrawPictureParam.DrawEffectSetting.MouseOverEffect.EffectTypes:=
-      FDrawPictureParam.DrawEffectSetting.MouseOverEffect.EffectTypes+[dppetImageNameChange];
-  end
-  else
-  begin
-    FDrawPictureParam.DrawEffectSetting.MouseOverEffect.EffectTypes:=
-      FDrawPictureParam.DrawEffectSetting.MouseOverEffect.EffectTypes-[dppetImageNameChange];
-  end;
-end;
-
-procedure TDrawPictureParamSetting.SetPushedImageName(const Value: String);
-begin
-  FDrawPictureParam.DrawEffectSetting.PushedEffect.ImageName:=Value;
-end;
-
-procedure TDrawPictureParamSetting.SetPushedImageNameChange(const Value: Boolean);
-begin
-  if Value then
-  begin
-    FDrawPictureParam.DrawEffectSetting.PushedEffect.EffectTypes:=
-      FDrawPictureParam.DrawEffectSetting.PushedEffect.EffectTypes+[dppetImageNameChange];
-  end
-  else
-  begin
-    FDrawPictureParam.DrawEffectSetting.PushedEffect.EffectTypes:=
-      FDrawPictureParam.DrawEffectSetting.PushedEffect.EffectTypes-[dppetImageNameChange];
-  end;
-end;
+//
+//function TDrawPictureParamSetting.GetMouseOverImageIndexChange: Boolean;
+//begin
+//  Result:=dppetImageIndexChange in FDrawPictureParam.DrawEffectSetting.MouseOverEffect.FEffectTypes;
+//end;
+//
+//function TDrawPictureParamSetting.GetPushedImageIndex: Integer;
+//begin
+//  Result:=FDrawPictureParam.DrawEffectSetting.PushedEffect.FImageIndex;
+//end;
+//
+//function TDrawPictureParamSetting.GetPushedImageIndexChange: Boolean;
+//begin
+//  Result:=dppetImageIndexChange in FDrawPictureParam.DrawEffectSetting.PushedEffect.FEffectTypes;
+//end;
+//
+//
+//
+//procedure TDrawPictureParamSetting.SetMouseDownImageIndex(const Value: Integer);
+//begin
+//  FDrawPictureParam.DrawEffectSetting.MouseDownEffect.ImageIndex:=Value;
+//end;
+//
+//procedure TDrawPictureParamSetting.SetMouseDownImageIndexChange(const Value: Boolean);
+//begin
+//  if Value then
+//  begin
+//    FDrawPictureParam.DrawEffectSetting.MouseDownEffect.EffectTypes:=
+//      FDrawPictureParam.DrawEffectSetting.MouseDownEffect.EffectTypes+[dppetImageIndexChange];
+//  end
+//  else
+//  begin
+//    FDrawPictureParam.DrawEffectSetting.MouseDownEffect.EffectTypes:=
+//      FDrawPictureParam.DrawEffectSetting.MouseDownEffect.EffectTypes-[dppetImageIndexChange];
+//  end;
+//end;
+//
+//procedure TDrawPictureParamSetting.SetMouseOverImageIndex(const Value: Integer);
+//begin
+//  FDrawPictureParam.DrawEffectSetting.MouseOverEffect.ImageIndex:=Value;
+//end;
+//
+//procedure TDrawPictureParamSetting.SetMouseOverImageIndexChange(const Value: Boolean);
+//begin
+//  if Value then
+//  begin
+//    FDrawPictureParam.DrawEffectSetting.MouseOverEffect.EffectTypes:=
+//      FDrawPictureParam.DrawEffectSetting.MouseOverEffect.EffectTypes+[dppetImageIndexChange];
+//  end
+//  else
+//  begin
+//    FDrawPictureParam.DrawEffectSetting.MouseOverEffect.EffectTypes:=
+//      FDrawPictureParam.DrawEffectSetting.MouseOverEffect.EffectTypes-[dppetImageIndexChange];
+//  end;
+//end;
+//
+//procedure TDrawPictureParamSetting.SetPushedImageIndex(const Value: Integer);
+//begin
+//  FDrawPictureParam.DrawEffectSetting.PushedEffect.ImageIndex:=Value;
+//end;
+//
+//procedure TDrawPictureParamSetting.SetPushedImageIndexChange(const Value: Boolean);
+//begin
+//  if Value then
+//  begin
+//    FDrawPictureParam.DrawEffectSetting.PushedEffect.EffectTypes:=
+//      FDrawPictureParam.DrawEffectSetting.PushedEffect.EffectTypes+[dppetImageIndexChange];
+//  end
+//  else
+//  begin
+//    FDrawPictureParam.DrawEffectSetting.PushedEffect.EffectTypes:=
+//      FDrawPictureParam.DrawEffectSetting.PushedEffect.EffectTypes-[dppetImageIndexChange];
+//  end;
+//end;
+//
+//
+//
+//
+//
+//function TDrawPictureParamSetting.GetMouseDownImageName: String;
+//begin
+//  Result:=FDrawPictureParam.DrawEffectSetting.MouseDownEffect.FImageName;
+//end;
+//
+//function TDrawPictureParamSetting.GetMouseDownImageNameChange: Boolean;
+//begin
+//  Result:=dppetImageNameChange in FDrawPictureParam.DrawEffectSetting.MouseDownEffect.FEffectTypes;
+//end;
+//
+//function TDrawPictureParamSetting.GetMouseOverImageName: String;
+//begin
+//  Result:=FDrawPictureParam.DrawEffectSetting.MouseOverEffect.FImageName;
+//end;
+//
+//function TDrawPictureParamSetting.GetMouseOverImageNameChange: Boolean;
+//begin
+//  Result:=dppetImageNameChange in FDrawPictureParam.DrawEffectSetting.MouseOverEffect.FEffectTypes;
+//end;
+//
+//function TDrawPictureParamSetting.GetPushedImageName: String;
+//begin
+//  Result:=FDrawPictureParam.DrawEffectSetting.PushedEffect.FImageName;
+//end;
+//
+//function TDrawPictureParamSetting.GetPushedImageNameChange: Boolean;
+//begin
+//  Result:=dppetImageNameChange in FDrawPictureParam.DrawEffectSetting.PushedEffect.FEffectTypes;
+//end;
+//
+//
+//
+//function TDrawPictureParamSetting.IsMouseDownImageIndexChangeStored: Boolean;
+//begin
+//  Result:=dppetImageIndexChange in FDrawPictureParam.DrawEffectSetting.MouseDownEffect.FEffectTypes;
+//end;
+//
+//function TDrawPictureParamSetting.IsMouseDownImageIndexStored: Boolean;
+//begin
+//  Result:=FDrawPictureParam.DrawEffectSetting.MouseDownEffect.FImageIndex<>-1;
+//end;
+//
+//function TDrawPictureParamSetting.IsMouseDownImageNameChangeStored: Boolean;
+//begin
+//  Result:=dppetImageNameChange in FDrawPictureParam.DrawEffectSetting.MouseDownEffect.FEffectTypes;
+//end;
+//
+//function TDrawPictureParamSetting.IsMouseDownRotateAngleChangeStored: Boolean;
+//begin
+//  Result:=dppetRotateAngleChange in FDrawPictureParam.DrawEffectSetting.MouseDownEffect.FEffectTypes;
+//end;
+//
+//function TDrawPictureParamSetting.IsMouseDownRotateAngleStored: Boolean;
+//begin
+//  Result:=FDrawPictureParam.DrawEffectSetting.MouseDownEffect.FRotateAngle<>Const_DefaultEffect_RotateAngle;
+//end;
+//
+////function TDrawPictureParamSetting.IsMouseDownImageNameStored: Boolean;
+////begin
+////  Result:=FDrawPictureParam.DrawEffectSetting.MouseDownEffect.FImageName<>-1;
+////end;
+//
+//function TDrawPictureParamSetting.IsMouseOverImageIndexChangeStored: Boolean;
+//begin
+//  Result:=dppetImageIndexChange in FDrawPictureParam.DrawEffectSetting.MouseOverEffect.FEffectTypes;
+//end;
+//
+//function TDrawPictureParamSetting.IsMouseOverImageIndexStored: Boolean;
+//begin
+//  Result:=FDrawPictureParam.DrawEffectSetting.MouseOverEffect.FImageIndex<>-1;
+//end;
+//
+//function TDrawPictureParamSetting.IsMouseOverImageNameChangeStored: Boolean;
+//begin
+//  Result:=dppetImageNameChange in FDrawPictureParam.DrawEffectSetting.MouseOverEffect.FEffectTypes;
+//end;
+//
+//function TDrawPictureParamSetting.IsMouseOverRotateAngleChangeStored: Boolean;
+//begin
+//  Result:=dppetRotateAngleChange in FDrawPictureParam.DrawEffectSetting.MouseOverEffect.FEffectTypes;
+//end;
+//
+//function TDrawPictureParamSetting.IsMouseOverRotateAngleStored: Boolean;
+//begin
+//  Result:=FDrawPictureParam.DrawEffectSetting.MouseOverEffect.FRotateAngle<>Const_DefaultEffect_RotateAngle;
+//end;
+//
+////function TDrawPictureParamSetting.IsMouseOverImageNameStored: Boolean;
+////begin
+////
+////end;
+//
+//function TDrawPictureParamSetting.IsPushedImageIndexChangeStored: Boolean;
+//begin
+//  Result:=dppetImageIndexChange in FDrawPictureParam.DrawEffectSetting.PushedEffect.FEffectTypes;
+//end;
+//
+//function TDrawPictureParamSetting.IsPushedImageIndexStored: Boolean;
+//begin
+//  Result:=FDrawPictureParam.DrawEffectSetting.PushedEffect.FImageIndex<>-1;
+//end;
+//
+//function TDrawPictureParamSetting.IsPushedImageNameChangeStored: Boolean;
+//begin
+//  Result:=dppetImageNameChange in FDrawPictureParam.DrawEffectSetting.PushedEffect.FEffectTypes;
+//end;
+//
+//function TDrawPictureParamSetting.IsPushedRotateAngleChangeStored: Boolean;
+//begin
+//  Result:=dppetRotateAngleChange in FDrawPictureParam.DrawEffectSetting.PushedEffect.FEffectTypes;
+//end;
+//
+//function TDrawPictureParamSetting.IsPushedRotateAngleStored: Boolean;
+//begin
+//  Result:=FDrawPictureParam.DrawEffectSetting.PushedEffect.FRotateAngle<>Const_DefaultEffect_RotateAngle;
+//end;
+//
+////function TDrawPictureParamSetting.IsPushedImageNameStored: Boolean;
+////begin
+////
+////end;
+//
+//procedure TDrawPictureParamSetting.SetMouseDownImageName(const Value: String);
+//begin
+//  FDrawPictureParam.DrawEffectSetting.MouseDownEffect.ImageName:=Value;
+//end;
+//
+//procedure TDrawPictureParamSetting.SetMouseDownImageNameChange(const Value: Boolean);
+//begin
+//  if Value then
+//  begin
+//    FDrawPictureParam.DrawEffectSetting.MouseDownEffect.EffectTypes:=
+//      FDrawPictureParam.DrawEffectSetting.MouseDownEffect.EffectTypes+[dppetImageNameChange];
+//  end
+//  else
+//  begin
+//    FDrawPictureParam.DrawEffectSetting.MouseDownEffect.EffectTypes:=
+//      FDrawPictureParam.DrawEffectSetting.MouseDownEffect.EffectTypes-[dppetImageNameChange];
+//  end;
+//end;
+//
+//procedure TDrawPictureParamSetting.SetMouseOverImageName(const Value: String);
+//begin
+//  FDrawPictureParam.DrawEffectSetting.MouseOverEffect.ImageName:=Value;
+//end;
+//
+//procedure TDrawPictureParamSetting.SetMouseOverImageNameChange(const Value: Boolean);
+//begin
+//  if Value then
+//  begin
+//    FDrawPictureParam.DrawEffectSetting.MouseOverEffect.EffectTypes:=
+//      FDrawPictureParam.DrawEffectSetting.MouseOverEffect.EffectTypes+[dppetImageNameChange];
+//  end
+//  else
+//  begin
+//    FDrawPictureParam.DrawEffectSetting.MouseOverEffect.EffectTypes:=
+//      FDrawPictureParam.DrawEffectSetting.MouseOverEffect.EffectTypes-[dppetImageNameChange];
+//  end;
+//end;
+//
+//procedure TDrawPictureParamSetting.SetPushedImageName(const Value: String);
+//begin
+//  FDrawPictureParam.DrawEffectSetting.PushedEffect.ImageName:=Value;
+//end;
+//
+//procedure TDrawPictureParamSetting.SetPushedImageNameChange(const Value: Boolean);
+//begin
+//  if Value then
+//  begin
+//    FDrawPictureParam.DrawEffectSetting.PushedEffect.EffectTypes:=
+//      FDrawPictureParam.DrawEffectSetting.PushedEffect.EffectTypes+[dppetImageNameChange];
+//  end
+//  else
+//  begin
+//    FDrawPictureParam.DrawEffectSetting.PushedEffect.EffectTypes:=
+//      FDrawPictureParam.DrawEffectSetting.PushedEffect.EffectTypes-[dppetImageNameChange];
+//  end;
+//end;
 
 
 

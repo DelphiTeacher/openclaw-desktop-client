@@ -1281,7 +1281,10 @@ type
       ///   </para>
       /// </summary>
       procedure ReplaceFileNameOnly(const AIndex: Integer;const AFileName: String);
+
+      procedure LoadFromDir(ADir:String);
     public
+      function FindByFileName(AFileName:String):TDrawPicture;
       function FindImageNameIndex(AImageName:String):Integer;
       property Items[Index:Integer]:TDrawPicture read GetItem;default;// write SetItem;default;
       //使用ImageName
@@ -1456,6 +1459,9 @@ function CreateCurrentEngineDrawPicture(
                               const ACaption:String;
                               const AGroup:String=''
                               ):TDrawPicture;
+
+
+
 
 implementation
 
@@ -2498,6 +2504,7 @@ end;
 function TBaseDrawPicture.FileNamePicture: TSkinPicture;
 var
   I: Integer;
+  AFileDir:String;
   AFileNameNoExt:String;
   AFileExt:String;
 begin
@@ -2539,6 +2546,9 @@ begin
 //
 //        uBaseLog.HandleException(nil,'OrangeUI TBaseDrawPicture.FileNamePicture FFileName:'+FFileName+' Const_BufferBitmapScale:'+FloatToStr(Const_BufferBitmapScale));
 
+        AFileDir:=ReplaceStr(ExtractFileDir(FFileName),'\',PathDelim);
+        if AFileDir<>'' then AFileDir:=AFileDir+PathDelim;
+        
         AFileNameNoExt:=GetFileNameWithoutExt(FFileName);
         AFileExt:=ExtractFileExt(FFileName);
 
@@ -2550,7 +2560,8 @@ begin
         else
         begin
 
-            FLoadedFilePath:=GetLoadedFilePath(GetApplicationPath+'icons'+PathDelim,AFileNameNoExt,AFileExt);
+            //根据当前的分辨率,
+            FLoadedFilePath:=GetLoadedFilePath(GetApplicationPath+'icons'+PathDelim+AFileDir,AFileNameNoExt,AFileExt);
 
             if FLoadedFilePath='' then
             begin
@@ -2561,12 +2572,20 @@ begin
               begin
 
       //            uBaseLog.HandleException(nil,'OrangeUI TBaseDrawPicture.FileNamePicture GlobalFilePictureSearchPaths:'+GlobalFilePictureSearchPaths[I]);
-                FLoadedFilePath:=GetLoadedFilePath(GlobalFilePictureSearchPaths[I],AFileNameNoExt,AFileExt);
+                FLoadedFilePath:=GetLoadedFilePath(GlobalFilePictureSearchPaths[I]+AFileDir,AFileNameNoExt,AFileExt);
                 if FLoadedFilePath<>'' then Break;
 
               end;
 
             end;
+
+
+            if FLoadedFilePath='' then
+            begin
+
+            end;
+
+
 
         end;
 
@@ -3782,6 +3801,23 @@ begin
 end;
 
 
+procedure TDrawPictureCollection.LoadFromDir(ADir: String);
+var
+  I:Integer;
+  AFileNameList:TStringList;
+begin
+  AFileNameList:=TStringList.Create;
+  try
+    GetImageFileListFromDir(ADir,ADir,AFileNameList);
+    for I := 0 to AFileNameList.Count-1 do
+    begin
+      Self.Add.FileName:=AFileNameList[I];
+    end;
+  finally
+    FreeAndNil(AFileNameList);
+  end;
+end;
+
 {$IFDEF VCL}
 function TDrawPictureCollection.AddGraphic(AGraphic: TGraphic): Integer;
 var
@@ -3863,6 +3899,23 @@ begin
   //创建临时图片
 //  Result:=CreateCurrentEngineDrawPicture('','','');
   Result:=TDrawPictureItem.Create(Self);
+end;
+
+function TDrawPictureCollection.FindByFileName(AFileName: String): TDrawPicture;
+var
+  I: Integer;
+begin
+  Result:=nil;
+
+  for I := 0 to Self.Count-1 do
+  begin
+    if Items[I].FFileName=AFileName then
+    begin
+      Result:=Items[I];
+      Break;
+    end;
+  end;
+
 end;
 
 function TDrawPictureCollection.FindImageNameIndex(AImageName: String): Integer;

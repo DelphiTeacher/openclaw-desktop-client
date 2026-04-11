@@ -150,7 +150,7 @@
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base)'!=''">
         <FeatureFilesAdded>false</FeatureFilesAdded>
-        <DCC_UnitSearchPath>..\OrangeUI\OrangeUIStyles;..\OrangeUI\OrangeProjectCommon;..\OrangeUI\OrangeProjectCommon\SVGIconImageList\Source;..\OrangeUI\OrangeProjectCommon\SVGIconImageList\Image32\source;..\OrangeUI\OrangeUIPageFramework;..\OrangeUI\OrangeUIPageFramework\FMX;..\OrangeUI\OrangeProjectCommon\OrangeUI_Copy;..\OrangeUI\OrangeUIDesign\DCU\FMX\D13\$(Platform)\$(Config);$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
+        <DCC_UnitSearchPath>..\OrangeUI\OrangeUIStyles;..\OrangeUI\OrangeProjectCommon;..\OrangeUI\OrangeProjectCommon\SVGIconImageList\Source;..\OrangeUI\OrangeProjectCommon\SVGIconImageList\Image32\source;..\OrangeUI\OrangeUIPageFramework;..\OrangeUI\OrangeUIPageFramework\FMX;..\OrangeUI\OrangeProjectCommon\OrangeUI_Copy;..\OrangeUI\OrangeUIDesign\DCU\FMX\D13\$(Platform)\$(Config);..\DelphiGenAI\source;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
         <Icns_MainIcns>$(BDS)\bin\delphi_PROJECTICNS.icns</Icns_MainIcns>
         <AUP_WRITE_CALENDAR>true</AUP_WRITE_CALENDAR>
         <SanitizedProjectName>OpenClawDesktop</SanitizedProjectName>
@@ -345,6 +345,7 @@
         <Icns_MainIcns>$(ProjectName).Artwork\Windows\AppIcon.icns</Icns_MainIcns>
         <AppDPIAwarenessMode>none</AppDPIAwarenessMode>
         <AppExecutionLevel>requireAdministrator</AppExecutionLevel>
+        <DCC_UnitSearchPath>D:\三方控件\sgcWebSockets_v2023.4.0\libD13\win32;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_Win64)'!=''">
         <DCC_Namespace>Winapi;System.Win;Data.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;$(DCC_Namespace)</DCC_Namespace>
@@ -630,7 +631,7 @@
             <FormType>fmx</FormType>
             <DesignClass>TFrame</DesignClass>
         </DCCReference>
-        <DCCReference Include="uOpenClawHelper.pas"/>
+        <DCCReference Include="uLocalOpenClawHelper.pas"/>
         <DCCReference Include="CustomAIModelSettingFrame.pas">
             <Form>FrameCustomAIModelSetting</Form>
             <FormType>fmx</FormType>
@@ -646,6 +647,40 @@
             <FormType>dfm</FormType>
             <DesignClass>TDataModule</DesignClass>
         </DCCReference>
+        <DCCReference Include="OpenClawGateway.pas"/>
+        <DCCReference Include="OpenClawDeviceIdentity.pas"/>
+        <DCCReference Include="OpenClawDeviceAuth.pas"/>
+        <DCCReference Include="ED25519.pas"/>
+        <DCCReference Include="..\OrangeUI\OrangeUIStyles\ListItemStyleFrame_AIModelConfig.pas">
+            <FormType>fmx</FormType>
+        </DCCReference>
+        <DCCReference Include="AIModels.pas"/>
+        <DCCReference Include="ConfigAIModelListFrame.pas">
+            <Form>FrameConfigAIModelList</Form>
+            <FormType>fmx</FormType>
+            <DesignClass>TFrame</DesignClass>
+        </DCCReference>
+        <DCCReference Include="SkillFrame.pas">
+            <Form>FrameSkill</Form>
+            <FormType>fmx</FormType>
+            <DesignClass>TFrame</DesignClass>
+        </DCCReference>
+        <DCCReference Include="LoginFrame.pas">
+            <Form>FrameLogin</Form>
+            <FormType>fmx</FormType>
+            <DesignClass>TFrame</DesignClass>
+        </DCCReference>
+        <DCCReference Include="DatasetManageFrame.pas">
+            <Form>FrameDatasetManage</Form>
+            <FormType>fmx</FormType>
+            <DesignClass>TFrame</DesignClass>
+        </DCCReference>
+        <DCCReference Include="OpenclawChatFrame.pas">
+            <Form>FrameOpenclawChat</Form>
+            <FormType>fmx</FormType>
+            <DesignClass>TFrame</DesignClass>
+        </DCCReference>
+        <DCCReference Include="..\OrangeUI\OrangeUIStyles\ListItemStyleFrame_RagDataset.pas"/>
         <JavaReference Include="baiduOCR\baidu-ocr-license.jar">
             <ContainerId>ClassesdexFile</ContainerId>
             <Disabled/>
@@ -839,7 +874,6 @@
                     <Source Name="MainSource">OpenClawDesktop.dpr</Source>
                 </Source>
                 <Excluded_Packages>
-                    <Excluded_Packages Name="D:\MyFilesNew\OrangeUI\OrangeUIDesign\DCU\FMX\D13\Win32\Debug\OrangeUIDesign_FMX_D13.bpl">File D:\MyFilesNew\OrangeUI\OrangeUIDesign\DCU\FMX\D13\Win32\Debug\OrangeUIDesign_FMX_D13.bpl not found</Excluded_Packages>
                     <Excluded_Packages Name="$(BDSBIN)\bcboffice2k370.bpl">Embarcadero C++Builder Office 2000 Servers Package</Excluded_Packages>
                     <Excluded_Packages Name="$(BDSBIN)\bcbofficexp370.bpl">Embarcadero C++Builder Office XP Servers Package</Excluded_Packages>
                     <Excluded_Packages Name="$(BDSBIN)\dcloffice2k370.bpl">Microsoft Office 2000 Sample Automation Server Wrapper Components</Excluded_Packages>

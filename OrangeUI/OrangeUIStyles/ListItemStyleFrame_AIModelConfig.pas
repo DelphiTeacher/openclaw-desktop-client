@@ -35,7 +35,7 @@ type
     SkinFMXLabel4: TSkinFMXLabel;
     lblVisual: TSkinFMXLabel;
     SkinFMXLabel6: TSkinFMXLabel;
-    SkinCheckBox1: TSkinCheckBox;
+    chkEnable: TSkinCheckBox;
     btnTest: TSkinButton;
     btnConfig: TSkinButton;
     procedure SkinFMXPanel1Resize(Sender: TObject);

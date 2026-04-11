@@ -852,6 +852,7 @@ var
 
   ScreenLogPixels:Integer;
 
+  //图片搜索路径列表
   GlobalFilePictureSearchPaths:TStringList;
 
 var

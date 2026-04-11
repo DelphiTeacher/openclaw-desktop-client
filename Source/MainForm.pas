@@ -261,6 +261,7 @@ type
     tbDistance: TTrackBar;
     ActionList1: TActionList;
     TakePhotoFromCameraAction1: TTakePhotoFromCameraAction;
+    SkinTheme1: TSkinTheme;
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure FormVirtualKeyboardHidden(Sender: TObject;
@@ -461,7 +462,7 @@ type
     procedure SyncServerSetting(AServer:String;APort:Integer);virtual;
 
     //加载主题配置
-    function CustomLoadFromINI: Boolean;
+//    function CustomLoadFromINI: Boolean;
   end;
 
 
@@ -1416,7 +1417,7 @@ begin
 
 
   // 从配置文件加载主题
-  CustomLoadFromINI;
+//  CustomLoadFromINI;
 
   //窗体背景色默认是黑色,为了在IOS下面状态栏字体初始就显示为白色
   //但窗体显示之后,就要恢复窗体背景色为白色
@@ -2162,16 +2163,16 @@ begin
 
 
 
-      if (AppID<>'') and (Const_CenterServerHost<>'') then
-      begin
-        //获取开放平台的应用信息
-        if GlobalIsNeedGetAppInfo then
-        begin
-          //为什么要登陆成功才获取APP信息?
-          //获取APP基本信息
-          tteGetApp.Run();
-        end;
-      end;
+//      if (AppID<>'') and (Const_CenterServerHost<>'') then
+//      begin
+//        //获取开放平台的应用信息
+//        if GlobalIsNeedGetAppInfo then
+//        begin
+//          //为什么要登陆成功才获取APP信息?
+//          //获取APP基本信息
+//          tteGetApp.Run();
+//        end;
+//      end;
 
 
 
@@ -3222,39 +3223,39 @@ begin
 
 end;
 
-function TfrmMain.CustomLoadFromINI: Boolean;
-var
-  AappThemeColor: String;
-begin
-
-  try
-    try
-      {$IFDEF MSWINDOWS}
-        FmyIniFile := TIniFile.Create(GetApplicationPath + 'Config.ini');
-      {$ELSE}
-        FmyIniFile := TIniFile.Create(GetApplicationPath + 'Config.ini', TEncoding.UTF8);
-      {$ENDIF}
-
-      AappThemeColor := FmyIniFile.ReadString('', 'appThemeColor', '');
-
-      if AappThemeColor <> '' then
-      begin
-        dmCommonImageDataMoudle.SkinTheme1.NavigationBarColor:= WebHexToColor(AappThemeColor);
-        dmCommonImageDataMoudle.SkinTheme1.SkinThemeColor:= WebHexToColor(AappThemeColor);
-      end;
-
-    except
-      on E:Exception do
-      begin
-        OutputDebugString('OrangeUI TfrmMain.CustomLoadFromINI Error:'+E.Message);
-      end;
-    end;
-  finally
-    FmyIniFile.Free;
-  end;
-  Result:=True;
-
-end;
+//function TfrmMain.CustomLoadFromINI: Boolean;
+//var
+//  AappThemeColor: String;
+//begin
+//
+//  try
+//    try
+//      {$IFDEF MSWINDOWS}
+//        FmyIniFile := TIniFile.Create(GetApplicationPath + 'Config.ini');
+//      {$ELSE}
+//        FmyIniFile := TIniFile.Create(GetApplicationPath + 'Config.ini', TEncoding.UTF8);
+//      {$ENDIF}
+//
+//      AappThemeColor := FmyIniFile.ReadString('', 'appThemeColor', '');
+//
+//      if AappThemeColor <> '' then
+//      begin
+//        dmCommonImageDataMoudle.SkinTheme1.NavigationBarColor:= WebHexToColor(AappThemeColor);
+//        dmCommonImageDataMoudle.SkinTheme1.SkinThemeColor:= WebHexToColor(AappThemeColor);
+//      end;
+//
+//    except
+//      on E:Exception do
+//      begin
+//        OutputDebugString('OrangeUI TfrmMain.CustomLoadFromINI Error:'+E.Message);
+//      end;
+//    end;
+//  finally
+//    FmyIniFile.Free;
+//  end;
+//  Result:=True;
+//
+//end;
 
 {$IFDEF HAS_ORANGESCANCODE}
 procedure TfrmMain.CustomSettingOrangeScanCodeForm(AOrangeScanCodeForm:TOrangeScanCodeForm);
@@ -3540,7 +3541,7 @@ begin
   //授权服务器
   //可以使用其他的服务器
 //  CenterInterfaceUrl:='http://'+CenterServerHost+':'+IntToStr(CenterServerPort)+'/';
-  CenterInterfaceUrl:='http://'+Const_CenterServerHost+':'+IntToStr(Const_CenterServerPort)+'/';
+//  CenterInterfaceUrl:='http://'+Const_CenterServerHost+':'+IntToStr(Const_CenterServerPort)+'/';
 end;
 
 procedure TfrmMain.TakePhotoFromCameraAction1DidFinishTaking(Image: TBitmap);

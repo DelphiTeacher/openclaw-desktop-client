@@ -547,8 +547,9 @@ object FrameListItemStyle_AIModelConfig: TFrameListItemStyle_AIModelConfig
       Size.PlatformDefault = False
       TabOrder = 43
       Properties.IsToolBar = False
-      object SkinCheckBox1: TSkinCheckBox
+      object chkEnable: TSkinCheckBox
         ParentMouseEvent = False
+        BindItemFieldName = 'ItemChecked'
         DirectUIVisible = False
         ComponentTypeUseKind = ctukDefault
         MaterialUseKind = mukSelfOwn
