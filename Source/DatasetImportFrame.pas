@@ -34,31 +34,51 @@ uses
   uRestInterfaceCall,
 
   uUIFunction,
+  DatasetImportLocalFileFrame,
+  DatasetImportSettingFrame,
+
 
 
   FMX.Types, FMX.Graphics, FMX.Controls, FMX.Forms, FMX.Dialogs, FMX.StdCtrls, uDrawCanvas, uSkinItems, uSkinFireMonkeyControl, uSkinScrollControlType, uSkinCustomListType,
   uSkinVirtualListType, uSkinListViewType, uSkinFireMonkeyListView, uSkinPanelType, uSkinFireMonkeyPanel, uTimerTaskEvent,
   uSkinLabelType, uSkinFireMonkeyLabel, FMX.ListBox, uSkinFireMonkeyComboBox,
   FMX.Controls.Presentation, FMX.Edit, uSkinFireMonkeyEdit, uSkinButtonType,
-  uSkinFireMonkeyButton, uSkinPageControlType;
+  uSkinFireMonkeyButton, uSkinPageControlType, uSkinFireMonkeyPageControl;
 
 type
   TFrameDatasetImport = class(TFrame)
     pnlToolBar: TSkinFMXPanel;
     btnReturn: TSkinFMXButton;
-    SkinPageControl1: TSkinPageControl;
+    SkinFMXPageControl1: TSkinFMXPageControl;
+    tsImportLocalFile: TSkinTabSheet;
+    tsImportSetting: TSkinTabSheet;
+    tsPreview: TSkinTabSheet;
+    tsConfirm: TSkinTabSheet;
+    pnlFilter: TSkinFMXPanel;
+    SkinFMXLabel4: TSkinFMXLabel;
+    cmbProviders: TSkinFMXComboBox;
+    SkinFMXLabel5: TSkinFMXLabel;
+    edtKeyword: TSkinFMXEdit;
+    SkinFMXLabel2: TSkinFMXLabel;
+    SkinFMXPanel4: TSkinFMXPanel;
+    btnAll: TSkinFMXButton;
+    btnEnabled: TSkinFMXButton;
+    btnCurrent: TSkinFMXButton;
+    lblCount: TSkinFMXLabel;
+    SkinFMXButton1: TSkinFMXButton;
     procedure btnNewClick(Sender: TObject);
-    procedure tteCreateDatasetExecute(ATimerTask: TTimerTask);
-    procedure tteLoadExecute(ATimerTask: TTimerTask);
     procedure btnReturnClick(Sender: TObject);
+    procedure SkinFMXPageControl1Change(Sender: TObject);
+    procedure SkinFMXButton1Click(Sender: TObject);
   private
     FPostJson:ISuperObject;
     procedure OnModalResultFromDatasetCreate(AMessageBoxFrame:TObject);
     { Private declarations }
   public
-    FDatasetJson:ISuperObject;
+    FDatasetImportLocalFileFrame:TFrameDatasetImportLocalFile;
+    FDatasetImportSettingFrame:TFrameDatasetImportSetting;
     constructor Create(AOwner:TComponent);override;
-    procedure Load(ADatasetJson:ISuperObject);
+    procedure Load();
     { Public declarations }
   end;
 
@@ -103,68 +123,48 @@ begin
 //  pnlDatasetCreate.Visible:=False;
 end;
 
-procedure TFrameDatasetImport.Load(ADatasetJson:ISuperObject);
+procedure TFrameDatasetImport.Load();
 begin
-  FDatasetJson:=ADatasetJson;
-//  Self.tteLoad.Run();
+  Self.SkinFMXPageControl1.Prop.ActivePage:=tsImportLocalFile;
+  SkinFMXPageControl1Change(nil);
 end;
 
 procedure TFrameDatasetImport.OnModalResultFromDatasetCreate(
   AMessageBoxFrame: TObject);
 begin
-  if TFrameMessageBox(AMessageBoxFrame).ModalResult = '确定' then
+
+
+end;
+
+procedure TFrameDatasetImport.SkinFMXButton1Click(Sender: TObject);
+begin
+  Self.SkinFMXPageControl1.Prop.ActivePageIndex:=Self.SkinFMXPageControl1.Prop.ActivePageIndex+1;
+end;
+
+procedure TFrameDatasetImport.SkinFMXPageControl1Change(Sender: TObject);
+begin
+  if Self.SkinFMXPageControl1.Prop.ActivePage=tsImportLocalFile then
   begin
+    if FDatasetImportLocalFileFrame=nil then
+    begin
+      FDatasetImportLocalFileFrame:=TFrameDatasetImportLocalFile.Create(Self);
+      FDatasetImportLocalFileFrame.Parent:=Self.SkinFMXPageControl1.Prop.ActivePage;
+      FDatasetImportLocalFileFrame.Align:=TAlignLayout.Client;
+      FDatasetImportLocalFileFrame.Load(nil);
+    end;
 
   end;
+  if Self.SkinFMXPageControl1.Prop.ActivePage=tsImportSetting then
+  begin
+    if FDatasetImportSettingFrame=nil then
+    begin
+      FDatasetImportSettingFrame:=TFrameDatasetImportSetting.Create(Self);
+      FDatasetImportSettingFrame.Parent:=Self.SkinFMXPageControl1.Prop.ActivePage;
+      FDatasetImportSettingFrame.Align:=TAlignLayout.Client;
+      FDatasetImportSettingFrame.Load(nil);
+    end;
 
-end;
-
-procedure TFrameDatasetImport.tteCreateDatasetExecute(ATimerTask: TTimerTask);
-begin
-  //调用知识库创建的接口
-  ATimerTask.TaskTag:=TASK_FAIL;
-
-  //获取首页统计
-  TTimerTask(ATimerTask).TaskDesc:=SimpleCallAPI(
-        'dataset/create',
-        nil,
-        InterfaceUrl+'ragcenter/',
-        [],
-        [],
-        GlobalRestAPISignType,
-        GlobalRestAPIAppSecret,
-        True,nil,FPostJson.AsJSON//,
-//        ['key',GlobalManager.User.key]
-        );
-
-  TTimerTask(ATimerTask).TaskTag:=TASK_SUCC;
-
-end;
-
-procedure TFrameDatasetImport.tteLoadExecute(ATimerTask: TTimerTask);
-var
-  ARequestJson:ISuperObject;
-begin
-  //从接口加载知识库列表
-  ATimerTask.TaskTag:=TASK_FAIL;
-
-  ARequestJson:=SO();
-
-  //获取首页统计
-  TTimerTask(ATimerTask).TaskDesc:=SimpleCallAPI(
-        'dataset/list',
-        nil,
-        InterfaceUrl+'ragcenter/',
-        [],
-        [],
-        GlobalRestAPISignType,
-        GlobalRestAPIAppSecret,
-        True,nil,ARequestJson.AsJson
-//        ['key',GlobalManager.User.key]
-        );
-
-  TTimerTask(ATimerTask).TaskTag:=TASK_SUCC;
-
+  end;
 end;
 
 end.

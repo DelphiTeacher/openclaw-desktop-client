@@ -68,7 +68,6 @@ type
     SkinFMXLabel3: TSkinFMXLabel;
     SkinFMXLabel8: TSkinFMXLabel;
     OpenDialog1: TOpenDialog;
-    SkinFMXButton1: TSkinFMXButton;
     SkinFMXLabel9: TSkinFMXLabel;
     procedure btnNewClick(Sender: TObject);
     procedure tteUploadExecute(ATimerTask: TTimerTask);
@@ -253,6 +252,7 @@ begin
 
       ARecordJson.S['status']:='上传成功';
       ARecordJson.I['progress']:=100;
+      ARecordJson.O['data']:=ADataJson;
 
 
 
