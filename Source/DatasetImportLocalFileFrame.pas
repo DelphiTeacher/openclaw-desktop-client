@@ -77,11 +77,11 @@ type
       AItemDesignerPanel: TSkinFMXItemDesignerPanel; AItem: TSkinItem;
       AItemDrawRect: TRect);
   private
-    FFiles:ISuperArray;
     FPostJson:ISuperObject;
     procedure OnModalResultFromDatasetCreate(AMessageBoxFrame:TObject);
     { Private declarations }
   public
+    FFiles:ISuperArray;
     FDatasetJson:ISuperObject;
     constructor Create(AOwner:TComponent);override;
     destructor Destroy;override;
@@ -172,6 +172,9 @@ end;
 constructor TFrameDatasetImportLocalFile.Create(AOwner: TComponent);
 begin
   inherited;
+    Self.lvData.Prop.Items.BeginUpdate;
+    Self.lvData.Prop.Items.Clear;
+    Self.lvData.Prop.Items.EndUpdate;
 end;
 
 destructor TFrameDatasetImportLocalFile.Destroy;

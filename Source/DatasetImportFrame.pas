@@ -36,6 +36,7 @@ uses
   uUIFunction,
   DatasetImportLocalFileFrame,
   DatasetImportSettingFrame,
+  DatasetChunkPreviewFrame,
 
 
 
@@ -71,14 +72,16 @@ type
     procedure SkinFMXPageControl1Change(Sender: TObject);
     procedure SkinFMXButton1Click(Sender: TObject);
   private
-    FPostJson:ISuperObject;
+    FDatasetJson:ISuperObject;
+    FCollectionJson:ISuperObject;
     procedure OnModalResultFromDatasetCreate(AMessageBoxFrame:TObject);
     { Private declarations }
   public
     FDatasetImportLocalFileFrame:TFrameDatasetImportLocalFile;
     FDatasetImportSettingFrame:TFrameDatasetImportSetting;
+    FDatasetChunkPreviewFrame:TFrameDatasetChunkPreview;
     constructor Create(AOwner:TComponent);override;
-    procedure Load();
+    procedure Load(ADatasetJson:ISuperObject);
     { Public declarations }
   end;
 
@@ -123,8 +126,10 @@ begin
 //  pnlDatasetCreate.Visible:=False;
 end;
 
-procedure TFrameDatasetImport.Load();
+procedure TFrameDatasetImport.Load(ADatasetJson:ISuperObject);
 begin
+  FDatasetJson:=ADatasetJson;
+  FCollectionJson:=SO();
   Self.SkinFMXPageControl1.Prop.ActivePage:=tsImportLocalFile;
   SkinFMXPageControl1Change(nil);
 end;
@@ -138,6 +143,10 @@ end;
 
 procedure TFrameDatasetImport.SkinFMXButton1Click(Sender: TObject);
 begin
+  if Self.SkinFMXPageControl1.Prop.ActivePage=tsImportSetting then
+  begin
+    Self.FDatasetImportSettingFrame.Save();
+  end;
   Self.SkinFMXPageControl1.Prop.ActivePageIndex:=Self.SkinFMXPageControl1.Prop.ActivePageIndex+1;
 end;
 
@@ -150,7 +159,7 @@ begin
       FDatasetImportLocalFileFrame:=TFrameDatasetImportLocalFile.Create(Self);
       FDatasetImportLocalFileFrame.Parent:=Self.SkinFMXPageControl1.Prop.ActivePage;
       FDatasetImportLocalFileFrame.Align:=TAlignLayout.Client;
-      FDatasetImportLocalFileFrame.Load(nil);
+      FDatasetImportLocalFileFrame.Load(FDatasetJson);
     end;
 
   end;
@@ -161,10 +170,22 @@ begin
       FDatasetImportSettingFrame:=TFrameDatasetImportSetting.Create(Self);
       FDatasetImportSettingFrame.Parent:=Self.SkinFMXPageControl1.Prop.ActivePage;
       FDatasetImportSettingFrame.Align:=TAlignLayout.Client;
-      FDatasetImportSettingFrame.Load(nil);
+      FDatasetImportSettingFrame.Load(FCollectionJson);
     end;
 
   end;
+  if Self.SkinFMXPageControl1.Prop.ActivePage=tsPreview then
+  begin
+    if FDatasetChunkPreviewFrame=nil then
+    begin
+      FDatasetChunkPreviewFrame:=TFrameDatasetChunkPreview.Create(Self);
+      FDatasetChunkPreviewFrame.Parent:=Self.SkinFMXPageControl1.Prop.ActivePage;
+      FDatasetChunkPreviewFrame.Align:=TAlignLayout.Client;
+    end;
+    FDatasetChunkPreviewFrame.Load(FDatasetImportLocalFileFrame.FFiles,FDatasetJson,FCollectionJson);
+
+  end;
+
 end;
 
 end.

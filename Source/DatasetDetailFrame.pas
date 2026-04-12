@@ -33,6 +33,7 @@ uses
   uRestInterfaceCall,
 
   uUIFunction,
+  DatasetImportFrame,
 
 
   FMX.Types, FMX.Graphics, FMX.Controls, FMX.Forms, FMX.Dialogs, FMX.StdCtrls, uDrawCanvas, uSkinItems, uSkinFireMonkeyControl, uSkinScrollControlType, uSkinCustomListType,
@@ -99,6 +100,10 @@ procedure TFrameDatasetDetail.btnNewClick(Sender: TObject);
 //  I:Integer;
 begin
   //跳转到文件导入页面
+  HideFrame;
+  ShowFrame(TFrame(GlobalDatasetImportFrame),TFrameDatasetImport);
+  GlobalDatasetImportFrame.Load(FDatasetJson);
+
 
 
 //  Self.cmbVectorModel.Items.Clear;
