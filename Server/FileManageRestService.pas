@@ -1352,7 +1352,7 @@ begin
 
 
         ASuperObject:=SO();
-//        ASuperObject.S['_id']:=CreateGUIDString;
+        ASuperObject.S['_id']:=CreateGUIDString;
         ASuperObject.S['teamId']:='';
         ASuperObject.S['tmbId']:='';
         ASuperObject.I['length']:=AFileSize;
@@ -1379,7 +1379,11 @@ begin
                             ADataJson
                             );
 
-
+        if ADataJson=nil then
+        begin
+          ADataJson:=SO();
+          ADataJson.S['fileId']:=ASuperObject.S['_id'];
+        end;
 
 
       finally

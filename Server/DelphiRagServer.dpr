@@ -30,7 +30,8 @@ uses
   VectorStore in 'Core\VectorStore.pas',
   PostgreSqlVectorStore in 'Core\PostgreSqlVectorStore.pas',
   uGlobal in 'Core\uGlobal.pas',
-  uGenTextEmbedding in 'Core\uGenTextEmbedding.pas';
+  uGenTextEmbedding in 'Core\uGenTextEmbedding.pas',
+  uRagCommon in 'Core\uRagCommon.pas';
 
 {$R *.res}
 

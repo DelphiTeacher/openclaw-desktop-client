@@ -170,6 +170,7 @@
         <DCCReference Include="Core\PostgreSqlVectorStore.pas"/>
         <DCCReference Include="Core\uGlobal.pas"/>
         <DCCReference Include="Core\uGenTextEmbedding.pas"/>
+        <DCCReference Include="Core\uRagCommon.pas"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

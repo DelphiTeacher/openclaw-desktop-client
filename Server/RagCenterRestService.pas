@@ -113,6 +113,8 @@ uses
   System.NetEncoding,
   FileIndyHttpServerModule,
 
+  uDatasetCollectionProcessTask,
+
 
   kbmMWSecurity,
   kbmMWServer,
@@ -200,6 +202,12 @@ type
     [kbmMW_Method]
     [kbmMW_Rest('method:post, path: "dataset/collection/create/localFile"')]
     function dataset_collection_create_localFile(
+                    [kbmMW_Arg(mwatRemoteLocation)] const ARemoteLocation:String):String;
+
+    //预览文件分块
+    [kbmMW_Method]
+    [kbmMW_Rest('method:post, path: "dataset/file/getPreviewChunks"')]
+    function dataset_file_getPreviewChunks(
                     [kbmMW_Arg(mwatRemoteLocation)] const ARemoteLocation:String):String;
 
 
@@ -580,6 +588,93 @@ begin
   finally
     FreeAndNil(AStringStream);
   end;
+end;
+
+function TsrvRagCenterRestService.dataset_file_getPreviewChunks(const ARemoteLocation: String): String;
+var
+  ACode:Integer;
+  ADesc:String;
+  ADataJson:ISuperObject;
+  AStringStream:TStringStream;
+  ASuperObject:ISuperObject;
+
+  AIntfItem:TCommonRestIntfItem;
+  AWhereKeyJsonArray:ISuperArray;
+begin
+
+
+  ACode:=FAIL;
+  ADesc:='';
+  ADataJson:=nil;
+
+  AStringStream:=TStringStream.Create('',TEncoding.UTF8);
+  try
+    AStringStream.LoadFromStream(RequestStream);
+    try
+      ASuperObject:=SO(AStringStream.DataString);
+    except
+      on E:Exception do
+      begin
+        ADesc:=('RequestStream不是合法的Json格式');
+        Result:=ReturnJson(ACode,ADesc,ADataJson).AsJSON;
+        Exit;
+      end;
+    end;
+  finally
+    FreeAndNil(AStringStream);
+  end;
+
+
+  try
+
+      AIntfItem:=CommonRestServiceModule.IntfList.Find('dataset_files');
+      if AIntfItem=nil then
+      begin
+        ADesc:='不存在dataset_files接口';
+        Exit;
+      end;
+
+//      //返回知识库列表
+//      AWhereKeyJsonArray:=SA();
+//      //ASuperObject中有两个参数，一个是parentId,表示父目录的ID，一个是searchKey表示搜索关键词
+//      AWhereKeyJsonArray.O[AWhereKeyJsonArray.Length]:=GetFieldCondition('AND','_id','=',ASuperObject.S['sourceId']);
+//      // 如果searchKey不为空，则加上这个搜索条件，根据知识库的name和intro字段来过滤
+//      // if ASuperObject.S['searchKey']<>'' then
+//      // begin
+//      //   AWhereKeyJsonArray.O[AWhereKeyJsonArray.Length]:=GetFieldCondition('AND','name','like',ASuperObject.S['searchKey']);
+//      //   AWhereKeyJsonArray.O[AWhereKeyJsonArray.Length]:=GetFieldCondition('OR','intro','like',ASuperObject.S['searchKey']);
+//      // end;
+//
+//
+//      //查询记录,找到文件的内容和地址
+//      if not AIntfItem.GetRecord(AIntfItem.DBModule,nil,
+//                                    '',
+//                                    AWhereKeyJsonArray.AsJSON,
+//                                    '','',
+//                                    ACode,
+//                                    ADesc,
+//                                    ADataJson) then
+//      begin
+//        Exit;
+//      end;
+//
+//
+//      //解析文件并分块
+
+      if not uDatasetCollectionProcessTask.DoPreviewDatasetCollection(ASuperObject,ADesc,ADataJson) then
+      begin
+        Exit;
+      end;
+
+
+      ACode:=Succ;
+
+
+  finally
+    Result:=ReturnJson(ACode,ADesc,ADataJson).AsJSON;
+  end;
+
+
 end;
 
 function TsrvRagCenterRestService.dataset_list(const ARemoteLocation: String): String;
