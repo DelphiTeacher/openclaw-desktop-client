@@ -390,6 +390,9 @@
         <DCCReference Include="ListItemStyleFrame_CaptionGrayCenter_BottomBorderSelected.pas"/>
         <DCCReference Include="ListItemStyleFrame_AIModelConfig.pas"/>
         <DCCReference Include="ListItemStyleFrame_RagDataset.pas"/>
+        <DCCReference Include="ListItemStyleFrame_DatasetImportLocalFile.pas">
+            <FormType>fmx</FormType>
+        </DCCReference>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

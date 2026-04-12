@@ -681,6 +681,23 @@
             <DesignClass>TFrame</DesignClass>
         </DCCReference>
         <DCCReference Include="..\OrangeUI\OrangeUIStyles\ListItemStyleFrame_RagDataset.pas"/>
+        <DCCReference Include="DatasetDetailFrame.pas">
+            <Form>FrameDatasetDetail</Form>
+            <FormType>fmx</FormType>
+            <DesignClass>TFrame</DesignClass>
+        </DCCReference>
+        <DCCReference Include="..\OrangeUI\OrangeUIStyles\ListItemStyleFrame_RagDatasetCollection.pas"/>
+        <DCCReference Include="DatasetImportFrame.pas">
+            <Form>FrameDatasetImport</Form>
+            <FormType>fmx</FormType>
+            <DesignClass>TFrame</DesignClass>
+        </DCCReference>
+        <DCCReference Include="..\OrangeUI\OrangeUIStyles\ListItemStyleFrame_DatasetImportLocalFile.pas"/>
+        <DCCReference Include="DatasetImportLocalFileFrame.pas">
+            <Form>FrameDatasetImportLocalFile</Form>
+            <FormType>fmx</FormType>
+            <DesignClass>TFrame</DesignClass>
+        </DCCReference>
         <JavaReference Include="baiduOCR\baidu-ocr-license.jar">
             <ContainerId>ClassesdexFile</ContainerId>
             <Disabled/>

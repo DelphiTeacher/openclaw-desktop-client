@@ -550,7 +550,8 @@ type
                       ctNavigationBarColor,
                       ctNavigationBarFontColor,
                       ctThemeColor2,
-                      ctThemeColor3
+                      ctThemeColor3,
+                      ctBorderColor
                       );
   //颜色
   TDrawColor=class(TPersistent)
@@ -658,6 +659,7 @@ type
     FSkinThemeColor1:TDelphiColor;
     FSkinThemeColor2:TDelphiColor;
     FSkinThemeColor3:TDelphiColor;
+    FBorderColor:TDelphiColor;
     FNavigationBarColor: TDelphiColor;
     FNavigationBarFontColor:TDelphiColor;
     FFilePictureSearchPaths:TStringList;
@@ -665,10 +667,12 @@ type
     function GetSkinThemeColor1: TDelphiColor;
     function GetSkinThemeColor2: TDelphiColor;
     function GetSkinThemeColor3: TDelphiColor;
+    function GetBorderColor: TDelphiColor;
     procedure SetSkinThemeColor(const Value: TDelphiColor);
     procedure SetSkinThemeColor1(const Value: TDelphiColor);
     procedure SetSkinThemeColor2(const Value: TDelphiColor);
     procedure SetSkinThemeColor3(const Value: TDelphiColor);
+    procedure SetBorderColor(const Value: TDelphiColor);
     procedure SetNavigationBarColor(const Value: TDelphiColor);
     function GetNavigationBarColor: TDelphiColor;
     function GetNavigationBarFontColor: TDelphiColor;
@@ -697,6 +701,8 @@ type
     property SkinThemeColor1:TDelphiColor read GetSkinThemeColor1 write SetSkinThemeColor1;
     property SkinThemeColor2:TDelphiColor read GetSkinThemeColor2 write SetSkinThemeColor2;
     property SkinThemeColor3:TDelphiColor read GetSkinThemeColor3 write SetSkinThemeColor3;
+    //边框颜色
+    property BorderColor:TDelphiColor read GetBorderColor write SetBorderColor;
     //图片搜索路径
     property FilePictureSearchPaths:TStringList read GetFilePictureSearchPaths write SetFilePictureSearchPaths;
   end;
@@ -835,6 +841,7 @@ var
   SkinThemeColor2:TDelphiColor;
   //主题色3
   SkinThemeColor3:TDelphiColor;
+  SkinBorderColor:TDelphiColor;
 
 
 
@@ -2458,6 +2465,7 @@ begin
     ctThemeColor3: Result:=SkinThemeColor3;
     ctNavigationBarColor: Result:=SkinNavigationBarColor;
     ctNavigationBarFontColor: Result:=SkinNavigationBarFontColor;
+    ctBorderColor: Result:=SkinBorderColor;
   end;
 end;
 
@@ -2737,6 +2745,7 @@ begin
   FSkinThemeColor2:=uGraphicCommon.SkinThemeColor2;
 
   FSkinThemeColor3:=uGraphicCommon.SkinThemeColor3;
+  FBorderColor:=uGraphicCommon.SkinBorderColor;
 
   FNavigationBarColor:=uGraphicCommon.SkinNavigationBarColor;
   FNavigationBarFontColor:=uGraphicCommon.SkinNavigationBarFontColor;
@@ -2802,6 +2811,12 @@ end;
 function TSkinTheme.GetSkinThemeColor3: TDelphiColor;
 begin
   Result:=FSkinThemeColor3;//uGraphicCommon.SkinThemeColor1;
+end;
+
+
+function TSkinTheme.GetBorderColor: TDelphiColor;
+begin
+  Result:=FBorderColor;//uGraphicCommon.SkinThemeColor1;
 end;
 
 procedure TSkinTheme.Loaded;
@@ -2870,6 +2885,12 @@ begin
 end;
 
 
+procedure TSkinTheme.SetBorderColor(const Value: TDelphiColor);
+begin
+  FBorderColor:=Value;
+  uGraphicCommon.SkinBorderColor:=Value;
+end;
+
 
 
 { TDrawColorList }
@@ -2917,6 +2938,7 @@ initialization
   SkinThemeColor2:=$FF4DC060;
   //主题色3
   SkinThemeColor3:=$FF4DC060;
+  SkinBorderColor:=$FFEDEDED;
   {$ENDIF}
 
   {$IFDEF VCL}
@@ -2928,6 +2950,7 @@ initialization
   SkinThemeColor2:=$004DA3FF;//TAlphaColorRec.Orange;
   //默认主题色3
   SkinThemeColor3:=$007575F6;//TAlphaColorRec.Orange;
+  SkinBorderColor:=$00EDEDED;//TAlphaColorRec.Orange;
   {$ENDIF}
 
 

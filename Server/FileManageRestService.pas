@@ -216,7 +216,7 @@ type
     //上传文件
     [kbmMW_Method]
     [kbmMW_Rest('method:post, path: "upload_form"')]
-    function Upload_form([kbmMW_Rest('value: "$appid", required: false')] const AAppID:String;
+    function Upload_form(//[kbmMW_Rest('value: "$appid", required: false')] const AAppID:String;
                     [kbmMW_Arg(mwatRemoteLocation)] const ARemoteLocation:String):String;
 
 
@@ -1104,7 +1104,8 @@ begin
 
 end;
 
-function TsrvFileManageRestService.Upload_form(const AAppID, ARemoteLocation: String): String;
+function TsrvFileManageRestService.Upload_form(const //AAppID,
+ARemoteLocation: String): String;
 var
   AFileExt:String;
   ARemoteFilePath:String;
@@ -1338,6 +1339,7 @@ begin
             AMimeDecoder.ReadHeader;
           end;
 
+          // 没有头了,说明没有数据了
           if AMimeDecoder.Headers.Count=0 then
           begin
             break;

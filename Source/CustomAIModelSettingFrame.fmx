@@ -18,8 +18,8 @@ object FrameCustomAIModelSetting: TFrameCustomAIModelSetting
     Size.Height = 50.000000000000000000
     Size.PlatformDefault = False
     TabOrder = 0
-    Caption = #33258#23450#20041#27169#22411#37197#32622
-    Text = #33258#23450#20041#27169#22411#37197#32622
+    Caption = #30693#35782#24211#35814#24773
+    Text = #30693#35782#24211#35814#24773
     Properties.IsToolBar = True
     object btnReturn: TSkinFMXButton
       ParentMouseEvent = False

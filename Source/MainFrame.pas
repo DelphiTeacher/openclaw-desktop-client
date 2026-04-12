@@ -67,6 +67,7 @@ uses
   Winapi.ShellApi,
   Winapi.WIndows,
   InstallDaemonFrame,
+  DatasetImportLocalFileFrame,
 
   System.RegularExpressions,
   System.RegularExpressionsCore,
@@ -287,12 +288,22 @@ begin
 end;
 
 procedure TFrameMain.Login(AIsOnlineLogin:Boolean);
+var
+  ADatasetImportLocalFileFrame:TFrameDatasetImportLocalFile;
 begin
+  //测试页面
+  Self.pcMain.Visible:=False;
+
+  ADatasetImportLocalFileFrame:=TFrameDatasetImportLocalFile.Create(Self);
+  ADatasetImportLocalFileFrame.Parent:=Self;
+  ADatasetImportLocalFileFrame.Align:=TAlignLayout.Client;
+  ADatasetImportLocalFileFrame.Load(nil);
 
 
-  Self.pcMain.Prop.Orientation:=toNone;
-  Self.pcMain.Prop.ActivePage:=tsHome;
-  pcMainChange(nil);
+
+//  Self.pcMain.Prop.Orientation:=toNone;
+//  Self.pcMain.Prop.ActivePage:=tsHome;
+//  pcMainChange(nil);
 
 
 end;

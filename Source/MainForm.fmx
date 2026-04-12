@@ -149,6 +149,7 @@ object frmMain: TfrmMain
     SkinThemeColor1 = xFFF67575
     SkinThemeColor2 = xFFF67575
     SkinThemeColor3 = xFFF67575
+    BorderColor = xFFEDEDED
     FilePictureSearchPaths.Strings = (
       'D:\OpenClawCode\desktopclient\Source\Win32\Debug\icons')
     Left = 40

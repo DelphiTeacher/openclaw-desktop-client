@@ -141,7 +141,12 @@ uses
   LoginFrame in 'LoginFrame.pas' {FrameLogin: TFrame},
   DatasetManageFrame in 'DatasetManageFrame.pas' {FrameDatasetManage: TFrame},
   OpenclawChatFrame in 'OpenclawChatFrame.pas' {FrameOpenclawChat: TFrame},
-  ListItemStyleFrame_RagDataset in '..\OrangeUI\OrangeUIStyles\ListItemStyleFrame_RagDataset.pas';
+  ListItemStyleFrame_RagDataset in '..\OrangeUI\OrangeUIStyles\ListItemStyleFrame_RagDataset.pas',
+  DatasetDetailFrame in 'DatasetDetailFrame.pas' {FrameDatasetDetail: TFrame},
+  ListItemStyleFrame_RagDatasetCollection in '..\OrangeUI\OrangeUIStyles\ListItemStyleFrame_RagDatasetCollection.pas',
+  DatasetImportFrame in 'DatasetImportFrame.pas' {FrameDatasetImport: TFrame},
+  ListItemStyleFrame_DatasetImportLocalFile in '..\OrangeUI\OrangeUIStyles\ListItemStyleFrame_DatasetImportLocalFile.pas',
+  DatasetImportLocalFileFrame in 'DatasetImportLocalFileFrame.pas' {FrameDatasetImportLocalFile: TFrame};
 
 {$R *.res}
 

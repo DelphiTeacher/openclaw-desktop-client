@@ -22,6 +22,7 @@ object frmServerMain: TfrmServerMain
     Height = 105
     Align = alTop
     TabOrder = 0
+    ExplicitWidth = 695
     object Label1: TLabel
       Left = 52
       Top = 12
@@ -112,6 +113,8 @@ object frmServerMain: TfrmServerMain
     ActivePage = tsPerformance
     Align = alClient
     TabOrder = 1
+    ExplicitWidth = 695
+    ExplicitHeight = 331
     object tsPerformance: TTabSheet
       Caption = #24615#33021
       object Label3: TLabel
