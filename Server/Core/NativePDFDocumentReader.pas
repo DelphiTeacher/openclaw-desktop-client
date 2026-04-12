@@ -1,3 +1,4 @@
+﻿//convert pas to utf8 by ¥
 unit NativePDFDocumentReader;
 
 interface

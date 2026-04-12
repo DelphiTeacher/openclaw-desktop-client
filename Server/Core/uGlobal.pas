@@ -1,3 +1,4 @@
+ï»¿//convert pas to utf8 by Â¥
 unit uGlobal;
 
 interface
@@ -15,7 +16,7 @@ type
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
   public
-    //Ä¬ÈÏÄ£ÐÍ
+    //é»˜è®¤æ¨¡åž‹
     systemModelList:ISuperArray;
     //
     systemActiveModelList:ISuperArray;
@@ -24,7 +25,7 @@ type
     ttsModelMap:ISuperArray;
     sttModelMap:ISuperArray;
     reRankModelMap:ISuperArray;
-    //Ä¬ÈÏÄ£ÐÍ
+    //é»˜è®¤æ¨¡åž‹
     systemDefaultModel_llm:String;
     systemDefaultModel_embedding:String;
     systemDefaultModel_tts:String;

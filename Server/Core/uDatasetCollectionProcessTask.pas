@@ -1,4 +1,5 @@
-﻿unit uDatasetCollectionProcessTask;
+﻿//convert pas to utf8 by ¥
+unit uDatasetCollectionProcessTask;
 
 interface
 

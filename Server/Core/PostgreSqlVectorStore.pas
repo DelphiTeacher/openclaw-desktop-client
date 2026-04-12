@@ -1,4 +1,5 @@
-﻿unit PostgreSqlVectorStore;
+﻿//convert pas to utf8 by ¥
+unit PostgreSqlVectorStore;
 
 interface
 

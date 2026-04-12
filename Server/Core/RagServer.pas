@@ -1,4 +1,5 @@
-﻿unit RagServer;
+﻿//convert pas to utf8 by ¥
+unit RagServer;
 
 interface
 

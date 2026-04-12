@@ -1,4 +1,5 @@
-﻿unit DocumentReader;
+﻿//convert pas to utf8 by ¥
+unit DocumentReader;
 
 interface
 

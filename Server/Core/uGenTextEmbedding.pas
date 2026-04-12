@@ -1,4 +1,5 @@
-﻿unit uGenTextEmbedding;
+﻿//convert pas to utf8 by ¥
+unit uGenTextEmbedding;
 
 interface
 
