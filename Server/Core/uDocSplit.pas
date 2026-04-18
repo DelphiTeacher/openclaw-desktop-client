@@ -8,7 +8,11 @@ uses
   SysUtils,
   System.RegularExpressions;
 
-
+type
+  TChunk=record
+    q:String;
+    a:String;
+  end;
 
 //将文档拆分成一句一句
 function SplitDocToSentences(ADocString:String):TStringList;

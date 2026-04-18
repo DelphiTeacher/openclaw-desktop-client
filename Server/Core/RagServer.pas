@@ -7,12 +7,14 @@ uses
   System.SysUtils,
   System.Classes,
 
-  uGlobal,
+  uGlobalVar,
   uTableCommonRestCenter,
   ServerDataBaseModule,
 
   VectorStore,
   PostgreSqlVectorStore,
+  uDatasetCollectionProcessTask,
+  uDataEmbeddingProcessTask,
 
   System.Generics.Collections;
 
@@ -23,6 +25,10 @@ type
 
   public
     FVectorStore:TPostgreSqlVectorStore;
+    //文档解析分片的任务
+    FDatasetCollectionProcessTask:TDatasetCollectionProcessTask;
+    //文档向量化的任务
+    FDataEmbeddingProcessTask:TDataEmbeddingProcessTask;
     procedure Init;
 
     constructor Create(AOwner: TComponent); override;
@@ -296,27 +302,36 @@ procedure TRagServer.Start;
 var
   ADesc:String;
 begin
-  GlobalVar.FDBModule.DoPrepareStart(ADesc);
+  GlobalVar.Start;
 
   FVectorStore.Start;
 
-  // 加载系统模型列表
-//  LoadSystemModels(ADesc);
+  FDatasetCollectionProcessTask:=TDatasetCollectionProcessTask.Create(False);
+  FDataEmbeddingProcessTask:=TDataEmbeddingProcessTask.Create(False);
 
 end;
 
 procedure TRagServer.Stop;
 begin
-  GlobalVar.FDBModule.DoPrepareStop;  
+  GlobalVar.FDBModule.DoPrepareStop;
+  FVectorStore.Stop;
+
+  if FDatasetCollectionProcessTask<>nil then
+  begin
+    FDatasetCollectionProcessTask.Terminate;
+    FDatasetCollectionProcessTask.WaitFor;
+    FreeAndNil(FDatasetCollectionProcessTask);
+  end;
+
+  if FDataEmbeddingProcessTask<>nil then
+  begin
+    FreeAndNil(FDataEmbeddingProcessTask);
+    FDataEmbeddingProcessTask.WaitFor;
+    FreeAndNil(FDataEmbeddingProcessTask);
+  end;
+
 end;
 
-// initialization
-//   GlobalRagServer:=TRagServer.Create(nil);
-//   GlobalRagServer.FDBModule.DBConfigFileName:='RagCenterDBConfig.ini';
-//   GlobalRagServer.FDBModule.DBConfig.FDBDataBaseName:='rag_center';
-
-// finalization
-//   FreeAndNil(GlobalRagServer);
 
 
 end.

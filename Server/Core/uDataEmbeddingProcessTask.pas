@@ -13,7 +13,7 @@ uses
 
   GenAI, GenAI.Types,
 
-  uGlobal,
+  uGlobalVar,
   uBaseLog,
   uDatasetToJson,
   XSuperObject
@@ -43,24 +43,28 @@ var
 var
   I:Integer;
   ACode:Integer;
+  ADataJson:ISuperObject;
   ADataChunkJson:ISuperObject;
   ACollectionJson:ISuperObject;
   ADatasetJson:ISuperObject;
   Value1:TEmbeddings;
+  ADatasetDatasIntfItem:TCommonRestIntfItem;
   AIntfItem:TCommonRestIntfItem;
   AWhereKeyJsonArray:ISuperArray;
   AVectorArray:ISuperArray;
   ARecordJson:ISuperObject;
   AEmbedding:TArray<Double>;
   AChunks:ISuperArray;
+  AVectorDataId:Integer;
+  AVectorModelJson:ISuperObject;
 begin
   Result := False;
 
 
 
   // 从数据库的dataset_datas表中获取state为wait的记录，表示未向量化的文档片段，然后调用向量化模型，将文档片段转换为向量
-  AIntfItem:=GlobalCommonRestIntfList.Find('dataset_datas');
-  if AIntfItem=nil then
+  ADatasetDatasIntfItem:=GlobalCommonRestIntfList.Find('dataset_datas');
+  if ADatasetDatasIntfItem=nil then
   begin
     // ADesc:='不存在dataset_collections接口';
     uBaseLog.HandleException(nil,'TDatasetCollectionProcessTask.Execute 不存在dataset_datas接口');
@@ -70,26 +74,26 @@ begin
   // 从数据库中查询需要重新处理的知识库数据集
   AWhereKeyJsonArray:=GetWhereConditionArray(['state'],['wait']);
 
-  if not AIntfItem.GetRecord('',AWhereKeyJsonArray.AsJSON(),'','',ACode,ADesc,ADataChunkJson) then
+  if not ADatasetDatasIntfItem.GetRecord('',AWhereKeyJsonArray.AsJSON(),'','',ACode,ADesc,ADataChunkJson) then
   begin
     // 不存在，等久一点
     Exit;
   end;
 
-  // 获取到所在的知识库，知识库中有所使用的向量模型
-  AIntfItem:=GlobalCommonRestIntfList.Find('dataset_collections');
-  if AIntfItem=nil then
-  begin
-    // ADesc:='不存在dataset_collections接口';
-    uBaseLog.HandleException(nil,'TDatasetCollectionProcessTask.Execute 不存在dataset_collections接口');
-    Exit;
-  end;
-  if not AIntfItem.GetRecord('',GetWhereConditions(['_id'],[ADataChunkJson.S['collectionId']]),'','',ACode,ADesc,ACollectionJson) then
-  begin
-    // 不存在，等久一点
-    uBaseLog.HandleException(nil,'TDatasetCollectionProcessTask.Execute 不存在对应的collection');
-    Exit;
-  end;
+//  // 获取到所在的知识库，知识库中有所使用的向量模型
+//  AIntfItem:=GlobalCommonRestIntfList.Find('dataset_collections');
+//  if AIntfItem=nil then
+//  begin
+//    // ADesc:='不存在dataset_collections接口';
+//    uBaseLog.HandleException(nil,'TDatasetCollectionProcessTask.Execute 不存在dataset_collections接口');
+//    Exit;
+//  end;
+//  if not AIntfItem.GetRecord('',GetWhereConditions(['_id'],[ADataChunkJson.S['collectionId']]),'','',ACode,ADesc,ACollectionJson) then
+//  begin
+//    // 不存在，等久一点
+//    uBaseLog.HandleException(nil,'TDatasetCollectionProcessTask.Execute 不存在对应的collection');
+//    Exit;
+//  end;
 
 
   // 获取到所在的知识库，知识库中有所使用的向量模型
@@ -100,7 +104,7 @@ begin
     uBaseLog.HandleException(nil,'TDatasetCollectionProcessTask.Execute 不存在datasets接口');
     Exit;
   end;
-  if not AIntfItem.GetRecord('',GetWhereConditions(['_id'],[ACollectionJson.S['datasetId']]),'','',ACode,ADesc,ADatasetJson) then
+  if not AIntfItem.GetRecord('',GetWhereConditions(['_id'],[ADataChunkJson.S['datasetId']]),'','',ACode,ADesc,ADatasetJson) then
   begin
     // 不存在，等久一点
     uBaseLog.HandleException(nil,'TDatasetCollectionProcessTask.Execute 不存在对应的dataset');
@@ -111,8 +115,23 @@ begin
   uBaseLog.HandleException(nil,'TDatasetCollectionProcessTask.Execute dataset '+ADatasetJson.S['vectormodel']);
 
 
-  Client := TGenAI.Create('sk-5c2de62c553f41bdafa7357c390a0079');
-  Client.BaseURL := 'https://dashscope.aliyuncs.com/compatible-mode/v1';
+//  Client := TGenAI.Create('sk-5c2de62c553f41bdafa7357c390a0079');
+//  Client.BaseURL := 'https://dashscope.aliyuncs.com/compatible-mode/v1';
+
+  AVectorModelJson:=LocateJsonArray(GlobalVar.embeddingModelMap,'name',ADatasetJson.S['vectormodel']);
+
+  if AVectorModelJson.S['requestUrl']='' then
+  begin
+    AVectorModelJson.S['requestUrl']:='https://dashscope.aliyuncs.com/compatible-mode/v1';
+  end;
+  if AVectorModelJson.S['requestAuth']='' then
+  begin
+    AVectorModelJson.S['requestAuth']:='sk-5c2de62c553f41bdafa7357c390a0079';
+  end;
+
+  Client := TGenAI.Create(AVectorModelJson.S['requestAuth']);
+  Client.BaseURL := AVectorModelJson.S['requestUrl'];//'https://dashscope.aliyuncs.com/compatible-mode/v1';
+
 
   // 向量化模型调用
   Value1 := Client.Embeddings.Create(
@@ -127,13 +146,13 @@ begin
   AEmbedding:=Value1.Data[0].Embedding;
 
   //保存到向量数据库中
-  AVectorArray:=SA();
+//  AVectorArray:=SA();
   // 插入一个向量
   ARecordJson:=SO();
-  ARecordJson.S['team_id']:='test';
-  ARecordJson.S['dataset_id']:='test';
-  ARecordJson.S['collection_id']:='test';
-  ARecordJson.S['model']:='text-embedding-v3';
+  ARecordJson.S['team_id']:=ADataChunkJson.S['teamid'];
+  ARecordJson.S['dataset_id']:=ADataChunkJson.S['datasetid'];
+  ARecordJson.S['collection_id']:=ADataChunkJson.S['collectionid'];
+  ARecordJson.S['model']:=ADatasetJson.S['vectormodel'];
 //  AVectorArray:=SA();
 //  for I := 0 to 1536-1 do
 //  begin
@@ -146,15 +165,38 @@ begin
 //      AVectorArray.F[I]:=0;
 //    end;
 //  end;
-  AVectorArray:=DoubleArrayToJsonArray(AEmbedding); 
+  AVectorArray:=DoubleArrayToJsonArray(AEmbedding);
   ARecordJson.A['vector']:=AVectorArray;
 
 
-  AChunks:=SA();
-  AChunks.O[0]:=ARecordJson;
-  GlobalRagServer.FVectorStore.Add(AChunks);
+//  AChunks:=SA();
+//  AChunks.O[0]:=ARecordJson;
+//  GlobalRagServer.FVectorStore.Add(AChunks);
 
+  AVectorDataId:=GlobalRagServer.FVectorStore.Add(ARecordJson);
 
+  //更新到dataset_datas表中
+  ARecordJson:=SO();
+  ARecordJson.I['modeldata_id']:=AVectorDataId;
+  if AVectorDataId>0 then
+  begin
+    ARecordJson.S['state']:='succ';
+  end
+  else
+  begin
+    ARecordJson.S['state']:='fail';
+  end;
+  ADatasetDatasIntfItem.UpdateRecord(ADatasetDatasIntfItem.DBModule,
+                        nil,
+                        '',
+                        ARecordJson,
+//                        GetWhereKeyJson(['_id'],[ADataChunkJson.S['_id']]),
+                        GetWhereKeyJson1('_id',ADataChunkJson.S['_id']),
+                        '',
+                        ACode,
+                        ADesc,
+                        ADataJson
+                        );
 
 
 

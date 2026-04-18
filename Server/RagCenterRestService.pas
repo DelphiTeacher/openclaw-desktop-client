@@ -78,6 +78,7 @@ uses
   uFuncCommon,
 //  uLang,
   EncdDecd,
+  uDatasetSearch,
   {$IFDEF HAS_CONTENT_SEARCH}
   uJobData,
   TaskManagerRestService,
@@ -96,6 +97,7 @@ uses
 
   uOpenCommon,
   RagServer,
+//  VetorStore,
 //  uDBTableCopy,
 
   uOpenPlatformServerManager,
@@ -204,12 +206,50 @@ type
     function dataset_collection_create_localFile(
                     [kbmMW_Arg(mwatRemoteLocation)] const ARemoteLocation:String):String;
 
+    //获取知识库文件列表
+    [kbmMW_Method]
+    [kbmMW_Rest('method:post, path: "dataset/collection/list"')]
+    function dataset_collection_list(
+                    [kbmMW_Arg(mwatRemoteLocation)] const ARemoteLocation:String):String;
+
     //预览文件分块
     [kbmMW_Method]
     [kbmMW_Rest('method:post, path: "dataset/file/getPreviewChunks"')]
     function dataset_file_getPreviewChunks(
                     [kbmMW_Arg(mwatRemoteLocation)] const ARemoteLocation:String):String;
 
+    //知识库搜索
+    [kbmMW_Method]
+    [kbmMW_Rest('method:post, path: "dataset/search"')]
+    function dataset_search(
+                    [kbmMW_Arg(mwatRemoteLocation)] const ARemoteLocation:String):String;
+
+  public
+    // 模型管理
+    // 模型列表接口
+    [kbmMW_Method]
+    [kbmMW_Rest('method:get, path: "ai/model/list"')]
+    function ai_model_list(
+                    [kbmMW_Arg(mwatRemoteLocation)] const ARemoteLocation:String):String;
+
+
+    // 模型列表接口
+    [kbmMW_Method]
+    [kbmMW_Rest('method:get, path: "ai/model/detail"')]
+    function ai_model_detail(
+                   [kbmMW_Rest('value: "$model", required: false')] const model:String;
+                    [kbmMW_Arg(mwatRemoteLocation)] const ARemoteLocation:String):String;
+
+    [kbmMW_Method]
+    [kbmMW_Rest('method:put, path: "ai/model/update"')]
+    function ai_model_update(
+                    [kbmMW_Arg(mwatRemoteLocation)] const ARemoteLocation:String):String;
+
+
+    [kbmMW_Method]
+    [kbmMW_Rest('method:put, path: "ai/model/updateDefault"')]
+    function ai_model_updateDefault(
+                    [kbmMW_Arg(mwatRemoteLocation)] const ARemoteLocation:String):String;
 
 
 
@@ -331,211 +371,448 @@ begin
 end;
 
 
-function TsrvRagCenterRestService.dataset_collection_create_localFile(const ARemoteLocation: String): String;
+function TsrvRagCenterRestService.ai_model_detail(const model, ARemoteLocation: String): String;
 var
-  AFileExt:String;
-  ARemoteFilePath:String;
-
   ACode:Integer;
   ADesc:String;
   ADataJson:ISuperObject;
-  AUserAccessToken:TUserAccessToken;
-
-  AMimeDecoder:TIdMessageDecoderMIME;
-  AMemoryStream:TMemoryStream;
-  AName:String;
-//  AStartIndex:Integer;
-  msgEnd:Boolean;
-  AFileName:String;
-  ASheetFormatList:ISuperArray;
   AStringStream:TStringStream;
+  ASuperObject:ISuperObject;
+
+  AIntfItem:TCommonRestIntfItem;
+  AWhereKeyJsonArray:ISuperArray;
 begin
 
-  //上传文件
+
   ACode:=FAIL;
   ADesc:='';
   ADataJson:=nil;
 
-
-//  AUserAccessToken:=GlobalServiceProject.FUserAccessTokenList.Find(key);
-//
-//  if AUserAccessToken=nil then
-//  begin
-//    //匿名用户也能保存
-//    ADesc:='key:'+key+'无效或已过期';
-//    Result:=ReturnJson(ACode,ADesc,ADataJson).AsJSON;
-//    Exit;
-//  end;
-
   try
 
 
-      //------WebKitFormBoundaryq4GqiQCROcAGnVty
-      //Content-Disposition: form-data; name="object"; filename="26_index_preview.png"
-      //Content-Type: image/png
+      AIntfItem:=CommonRestServiceModule.IntfList.Find('system_models');
+      if AIntfItem=nil then
+      begin
+        ADesc:='不存在system_models接口';
+        Exit;
+      end;
+
+      //返回知识库列表
+      AWhereKeyJsonArray:=SA();
+      //ASuperObject中有两个参数，一个是parentId,表示父目录的ID，一个是searchKey表示搜索关键词
+      AWhereKeyJsonArray.O[AWhereKeyJsonArray.Length]:=GetFieldCondition('AND','model','=',model);
 
 
 
-      AMemoryStream:=TMemoryStream.Create;
-      AMimeDecoder := TIdMessageDecoderMIME.Create(nil);
-      try
-        AMimeDecoder.SourceStream:=RequestStream;
-        AMimeDecoder.FreeSourceStream:=False;
-        //一定要设置MIMEBoundary,不然ReadBody会结束不了,死循环
-        TIdMessageDecoderMIME(AMimeDecoder).MIMEBoundary := Copy(AMimeDecoder.ReadLn(),3,MaxInt);
-        AMimeDecoder.ReadHeader;
-        repeat
-          case AMimeDecoder.PartType of
-            mcptText:
-            begin
-//              //取到参数json
-//              AStringStream:=TStringStream.Create('',TEncoding.UTF8);
-//              try
-//                AMimeDecoder.ReadBody(AStringStream,msgEnd);
-//
-//                ASheetFormatList:=SA(AStringStream.DataString);
-//              finally
-//                FreeAndNil(AStringStream);
-//              end;
-
-            end;
-            mcptAttachment:
-            begin
-              //'form-data; name="sheet_format_list"'
-
-              //Content-Disposition: form-data; name="object"; filename="26_index_preview.png"
-
-
-              //如果Encoding为空,那么Decoder.ReadBody默认为7bit格式读取
-              //但是plupload上传的是8bit格式的,所以要指定
-              if AMimeDecoder.Headers.Values['Content-Transfer-Encoding']='' then
-              begin
-                AMimeDecoder.Headers.Values['Content-Transfer-Encoding']:='8bit';
-              end;
-
-              AMemoryStream.Size:=0;
-              AMimeDecoder.ReadBody(AMemoryStream,msgEnd);
-              AMemoryStream.Position:=0;
-
-//
-//              //'form-data; name="page_json"; filename="page1.json"'
-//              //取出name
-//              AName:=AMimeDecoder.Headers.Values['Content-Disposition'];
-//              AStartIndex:=Pos('name="',AName);
-//              AName:=Copy(AName,AStartIndex+Length('name="'),MaxInt);
-//              AStartIndex:=Pos('"',AName);
-//              AName:=Copy(AName,1,AStartIndex-1);
-//
-//              //取出filename
-//              AFileName:=AMimeDecoder.Headers.Values['Content-Disposition'];
-//              AStartIndex:=Pos('filename="',AFileName);
-//              AFileName:=Copy(AFileName,AStartIndex+Length('filename="'),MaxInt);
-//              AStartIndex:=Pos('"',AFileName);
-//              AFileName:=Copy(AFileName,1,AStartIndex-1);
-
-
-              GetMimeDecoderParam(AMimeDecoder,AName,AFileName);
-              if AName='sheet_format_list' then
-              begin
-                  AStringStream:=TStringStream.Create('',TEncoding.UTF8);
-                  try
-                    AStringStream.LoadFromStream(AMemoryStream);
-
-                    ASheetFormatList:=SA(AStringStream.DataString);
-
-                  finally
-                    AStringStream.Free;
-                  end;
-              end
-              else //if AName='excel_file' then
-              begin
-                  //获取到stream,然后用XlsReadWrtie解析即可
-
-                  //
-                  ADataJson:=TSuperObject.Create;
-
-            //      //返回
-            //      ADataJson.S['RemoteFilePath']:=ARemoteFilePath;
-            //      ADataJson.S['Url']:=ReplaceStr(ARemoteFilePath,'\','/');
-
-                  //返回一个二维数组就可以了，以方便nodejs进行解析
-//                  ADataJson.A['SheetList']:=GetExcelFileContent(AMemoryStream,ASheetFormatList,System.NetEncoding.TNetEncoding.Url.Decode(AName));
-
-
-                  ACode:=SUCC;
-                  ADesc:='解析成功';
-                  //不然会卡住
-                  Break;
-              end;
-
-
-
-//              AMemoryStream.Position:=0;
-//              ASaveDir:=GetApplicationPath+'webfiles'+PathDelim+'files'+PathDelim+'programs'+PathDelim;
-//
-//              SysUtils.ForceDirectories(ASaveDir);
-//              AMemoryStream.SaveToFile(ASaveDir+AFileName);
-
-
-
-//              Break;
-
-            end;
-            mcptIgnore: ;
-            mcptEOF:
-            begin
-              Break;
-            end;
-          end;
-
-          if AMimeDecoder.PartType<>mcptEOF then
-          begin
-            AMimeDecoder.Headers.Clear;
-            AMimeDecoder.ReadHeader;
-          end;
-
-        until AMimeDecoder.PartType=mcptEOF;
-
-
-
-      finally
-        FreeAndNil(AMimeDecoder);
-        FreeAndNil(AMemoryStream);
+//      //查询记录
+//      if not AIntfItem.GetRecordList(AIntfItem.DBModule,
+//                                    nil,
+//                                    '',
+//                                    1,
+//                                    MaxInt,
+//                                    AWhereKeyJsonArray.AsJSON,
+//                                    '',
+//                                    '',0,0,'',0,
+//                                    ACode,
+//                                    ADesc,
+//                                    ADataJson,
+//                                    nil
+//                                    ) then
+//      begin
+//        Exit;
+//      end;
+      //查询记录
+      if not AIntfItem.GetRecord(AIntfItem.DBModule,nil,
+                                    '',
+                                    AWhereKeyJsonArray.AsJSON,
+                                    '','',
+                                    ACode,
+                                    ADesc,
+                                    ADataJson) then
+      begin
+        Exit;
       end;
 
 
 
-//      if AFileExt='' then
-//      begin
-//        AFileExt:=ExtractFileExt(AFileName);
-//      end;
-//      AFileDir:=ReplaceStr(AFileDir,'/',PathDelim);
-//      AFileDir:=ReplaceStr(AFileDir,'\',PathDelim);
-//
-//      ARemoteFilePath:='';
-//      if not ProcessUploadFile(GetApplicationPath,//ExtractFilePath(Application.ExeName),
-//                           '',
-//                           AFileName,
-//                           AFileExt,
-//                           AFileDir,
-//                           RequestStream,
-//                           ARemoteFilePath,
-//                           ACode,
-//                           ADesc) then
-//      begin
-//        //上传失败和
-//        Exit;
-//      end;
+  finally
+      Result:=ReturnJson(ACode,ADesc,ADataJson).AsJSON;
+
+  end;
+end;
+
+function TsrvRagCenterRestService.ai_model_list(const ARemoteLocation: String): String;
+var
+  ACode:Integer;
+  ADesc:String;
+  ADataJson:ISuperObject;
+  AStringStream:TStringStream;
+  ASuperObject:ISuperObject;
+
+  AIntfItem:TCommonRestIntfItem;
+  AWhereKeyJsonArray:ISuperArray;
+  AModelList:ISuperArray;
+  AModelJson:ISuperObject;
+  I: Integer;
+begin
+
+
+  ACode:=FAIL;
+  ADesc:='';
+  ADataJson:=nil;
+
+  AStringStream:=TStringStream.Create('',TEncoding.UTF8);
+  try
+    AStringStream.LoadFromStream(RequestStream);
+    try
+      ASuperObject:=SO(AStringStream.DataString);
+
+    except
+      on E:Exception do
+      begin
+        ADesc:=('RequestStream不是合法的Json格式');
+        Result:=ReturnJson(ACode,ADesc,ADataJson).AsJSON;
+        Exit;
+      end;
+    end;
+  finally
+    FreeAndNil(AStringStream);
+  end;
+
+  try
+
+
+      AIntfItem:=CommonRestServiceModule.IntfList.Find('system_models');
+      if AIntfItem=nil then
+      begin
+        ADesc:='不存在system_models接口';
+        Exit;
+      end;
+
+      //返回知识库列表
+      AWhereKeyJsonArray:=SA();
+      //ASuperObject中有两个参数，一个是parentId,表示父目录的ID，一个是searchKey表示搜索关键词
+//      AWhereKeyJsonArray.O[AWhereKeyJsonArray.Length]:=GetFieldCondition('AND','parentId','=',ASuperObject.S['parentId']);
+      // 如果searchKey不为空，则加上这个搜索条件，根据知识库的name和intro字段来过滤
+      // if ASuperObject.S['searchKey']<>'' then
+      // begin
+      //   AWhereKeyJsonArray.O[AWhereKeyJsonArray.Length]:=GetFieldCondition('AND','name','like',ASuperObject.S['searchKey']);
+      //   AWhereKeyJsonArray.O[AWhereKeyJsonArray.Length]:=GetFieldCondition('OR','intro','like',ASuperObject.S['searchKey']);
+      // end;
+
+
+      //查询记录
+      if not AIntfItem.GetRecordList(AIntfItem.DBModule,
+                                    nil,
+                                    '',
+                                    1,
+                                    MaxInt,
+                                    AWhereKeyJsonArray.AsJSON,
+                                    '',
+                                    '',0,0,'',0,
+                                    ACode,
+                                    ADesc,
+                                    ADataJson,
+                                    nil
+                                    ) then
+      begin
+        Exit;
+      end;
+
+
+      //http://127.0.0.1:10022/ragcenter/ai/model/list
+      AModelList:=SA();
+      for I := 0 to ADataJson.A['RecordList'].Length-1 do
+      begin
+        AModelJson:=SO(ADataJson.A['RecordList'].O[I].S['metadata']);
+        AModelList.O[I]:=AModelJson;
+      end;
+      ADataJson.A['RecordList']:=AModelList;
+
+
 
 
   finally
       Result:=ReturnJson(ACode,ADesc,ADataJson).AsJSON;
-  end;
 
+  end;
 
 end;
 
-function TsrvRagCenterRestService.dataset_create(const ARemoteLocation: String): String;
+function TsrvRagCenterRestService.ai_model_update(const ARemoteLocation: String): String;
+var
+  ACode:Integer;
+  ADesc:String;
+  AUpdateJson:ISuperObject;
+  ADataJson:ISuperObject;
+  AStringStream:TStringStream;
+  ASuperObject:ISuperObject;
+  AMetaDataJson:ISuperObject;
+
+  AIntfItem:TCommonRestIntfItem;
+  AWhereKeyJsonArray:ISuperArray;
+begin
+
+
+  ACode:=FAIL;
+  ADesc:='';
+  ADataJson:=nil;
+
+  AStringStream:=TStringStream.Create('',TEncoding.UTF8);
+  try
+    AStringStream.LoadFromStream(RequestStream);
+    try
+      ASuperObject:=SO(AStringStream.DataString);
+
+    except
+      on E:Exception do
+      begin
+        ADesc:=('RequestStream不是合法的Json格式');
+        Result:=ReturnJson(ACode,ADesc,ADataJson).AsJSON;
+        Exit;
+      end;
+    end;
+  finally
+    FreeAndNil(AStringStream);
+  end;
+
+  try
+
+
+      AIntfItem:=CommonRestServiceModule.IntfList.Find('system_models');
+      if AIntfItem=nil then
+      begin
+        ADesc:='不存在system_models接口';
+        Exit;
+      end;
+
+      //返回知识库列表
+      AWhereKeyJsonArray:=SA();
+      //ASuperObject中有两个参数，一个是parentId,表示父目录的ID，一个是searchKey表示搜索关键词
+      AWhereKeyJsonArray.O[AWhereKeyJsonArray.Length]:=GetFieldCondition('AND','model','=',ASuperObject.S['model']);
+      // 如果searchKey不为空，则加上这个搜索条件，根据知识库的name和intro字段来过滤
+      // if ASuperObject.S['searchKey']<>'' then
+      // begin
+      //   AWhereKeyJsonArray.O[AWhereKeyJsonArray.Length]:=GetFieldCondition('AND','name','like',ASuperObject.S['searchKey']);
+      //   AWhereKeyJsonArray.O[AWhereKeyJsonArray.Length]:=GetFieldCondition('OR','intro','like',ASuperObject.S['searchKey']);
+      // end;
+
+
+      AUpdateJson:=SO();
+      //判断是整体更新还是只是启用和禁用
+      if ASuperObject.O['metadata'].Contains('provider') then
+      begin
+        // 整个模型的更新
+        AUpdateJson.S['metadata']:=ASuperObject.O['metadata'].AsJson;
+      end
+      else
+      begin
+        //单个字段的更新
+        //那就先获取，再更新字段
+        if not AIntfItem.GetRecord(AIntfItem.DBModule,nil,
+                                      '',
+                                      AWhereKeyJsonArray.AsJSON,
+                                      '','',
+                                      ACode,
+                                      ADesc,
+                                      ADataJson) then
+        begin
+          Exit;
+        end;
+        AMetaDataJson:=SO(ADataJson.S['metadata']);
+        //覆盖
+        MergeJson(ASuperObject.O['metadata'],AMetaDataJson);
+        AUpdateJson.S['metadata']:=ASuperObject.O['metadata'].AsJson;
+
+      end;
+
+
+
+      //修改
+      AIntfItem.UpdateRecord(AIntfItem.DBModule,
+                            nil,
+                            '',
+                            AUpdateJson,
+                            AWhereKeyJsonArray.AsJson,
+                            '',
+                            ACode,
+                            ADesc,
+                            ADataJson
+                            );
+
+
+
+  finally
+      Result:=ReturnJson(ACode,ADesc,ADataJson).AsJSON;
+
+  end;
+
+end;
+
+function TsrvRagCenterRestService.ai_model_updateDefault(const ARemoteLocation: String): String;
+var
+  ACode:Integer;
+  ADesc:String;
+  AUpdateJson:ISuperObject;
+  ADataJson:ISuperObject;
+  AStringStream:TStringStream;
+  ASuperObject:ISuperObject;
+  AMetaDataJson:ISuperObject;
+
+  AIntfItem:TCommonRestIntfItem;
+  AWhereKeyJsonArray:ISuperArray;
+  I: Integer;
+begin
+
+
+  ACode:=FAIL;
+  ADesc:='';
+  ADataJson:=nil;
+
+  AStringStream:=TStringStream.Create('',TEncoding.UTF8);
+  try
+    AStringStream.LoadFromStream(RequestStream);
+    try
+      ASuperObject:=SO(AStringStream.DataString);
+
+    except
+      on E:Exception do
+      begin
+        ADesc:=('RequestStream不是合法的Json格式');
+        Result:=ReturnJson(ACode,ADesc,ADataJson).AsJSON;
+        Exit;
+      end;
+    end;
+  finally
+    FreeAndNil(AStringStream);
+  end;
+
+  try
+
+
+
+      AIntfItem:=CommonRestServiceModule.IntfList.Find('system_models');
+      if AIntfItem=nil then
+      begin
+        ADesc:='不存在system_models接口';
+        Exit;
+      end;
+
+
+
+      //查询记录
+      if not AIntfItem.GetRecordList(AIntfItem.DBModule,
+                                    nil,
+                                    '',
+                                    1,
+                                    MaxInt,
+                                    '',
+                                    '',
+                                    '',0,0,'',0,
+                                    ACode,
+                                    ADesc,
+                                    ADataJson,
+                                    nil
+                                    ) then
+      begin
+        Exit;
+      end;
+
+
+
+//      //返回知识库列表
+//      AWhereKeyJsonArray:=SA();
+//      //ASuperObject中有两个参数，一个是parentId,表示父目录的ID，一个是searchKey表示搜索关键词
+//      AWhereKeyJsonArray.O[AWhereKeyJsonArray.Length]:=GetFieldCondition('AND','model','=',ASuperObject.S['model']);
+      // 如果searchKey不为空，则加上这个搜索条件，根据知识库的name和intro字段来过滤
+      // if ASuperObject.S['searchKey']<>'' then
+      // begin
+      //   AWhereKeyJsonArray.O[AWhereKeyJsonArray.Length]:=GetFieldCondition('AND','name','like',ASuperObject.S['searchKey']);
+      //   AWhereKeyJsonArray.O[AWhereKeyJsonArray.Length]:=GetFieldCondition('OR','intro','like',ASuperObject.S['searchKey']);
+      // end;
+
+
+
+      {
+          "llm": "qwen2.5-72b-instruct",
+          "embedding": "bge-large-zh-v1.5",
+          "rerank": "gte-rerank-v2",
+          "datasetTextLLM": "gpt-4.1",
+          "datasetImageLLM": "qwen2.5-72b-instruct"
+      }
+
+      for I := 0 to ADataJson.A['RecordList'].Length-1 do
+      begin
+
+        AMetaDataJson:=SO(ADataJson.A['RecordList'].O[I].S['metadata']);
+        ADataJson.A['RecordList'].O[I].O['metadataJson']:=AMetaDataJson;
+      end;
+
+      for I := 0 to ADataJson.A['RecordList'].Length-1 do
+      begin
+
+        AMetaDataJson:=ADataJson.A['RecordList'].O[I].O['metadataJson'];
+
+        if ((AMetaDataJson.S['type']='llm') and (AMetaDataJson.B['isDefault']=True) and (AMetaDataJson.S['name']<>ASuperObject.S['llm']))
+        or ((AMetaDataJson.S['type']='embedding') and (AMetaDataJson.B['isDefault']=True) and (AMetaDataJson.S['name']<>ASuperObject.S['embedding'])) then
+        begin
+          //原默认模型取消默认
+          AMetaDataJson.B['isDefault']:=False;
+          AUpdateJson:=SO();
+          AUpdateJson.S['metadata']:=AMetaDataJson.AsJSON;
+          //更新
+          AIntfItem.UpdateRecord(AIntfItem.DBModule,
+                                nil,
+                                '',
+                                AUpdateJson,
+                                ConvertJsonArray(GetWhereCondition('AND','model','=',ASuperObject.I['fid'])).AsJson,
+                                '',
+                                ACode,
+                                ADesc,
+                                ADataJson
+                                );
+        end;
+
+      end;
+
+
+
+      for I := 0 to ADataJson.A['RecordList'].Length-1 do
+      begin
+
+        AMetaDataJson:=ADataJson.A['RecordList'].O[I].O['metadataJson'];
+
+        if ((AMetaDataJson.S['type']='llm') and (AMetaDataJson.B['isDefault']=False) and (AMetaDataJson.S['name']=ASuperObject.S['llm']))
+          or ((AMetaDataJson.S['type']='embedding') and (AMetaDataJson.B['isDefault']=False) and (AMetaDataJson.S['name']=ASuperObject.S['embedding'])) then
+        begin
+          //新模型设置默认
+          AMetaDataJson.B['isDefault']:=False;
+          AUpdateJson:=SO();
+          AUpdateJson.S['metadata']:=AMetaDataJson.AsJSON;
+          //更新
+          AIntfItem.UpdateRecord(AIntfItem.DBModule,
+                                nil,
+                                '',
+                                AUpdateJson,
+                                ConvertJsonArray(GetWhereCondition('AND','model','=',ASuperObject.I['fid'])).AsJson,
+                                '',
+                                ACode,
+                                ADesc,
+                                ADataJson
+                                );
+        end;
+
+      end;
+
+  finally
+      Result:=ReturnJson(ACode,ADesc,ADataJson).AsJSON;
+
+  end;
+
+end;
+
+function TsrvRagCenterRestService.dataset_collection_create_localFile(const ARemoteLocation: String): String;
 var
   ACode:Integer;
   ADesc:String;
@@ -561,6 +838,151 @@ begin
       if AIntfItem=nil then
       begin
         ADesc:='不存在datasets接口';
+        Exit;
+      end;
+
+      //新增
+      AIntfItem.AddRecord(AIntfItem.DBModule,
+                          nil,
+                          '',
+                          ASuperObject,
+                          nil,
+                          ACode,
+                          ADesc,
+                          ADataJson
+                          );
+
+      Result:=ReturnJson(ACode,ADesc,ADataJson).AsJSON;
+
+    except
+      on E:Exception do
+      begin
+        ADesc:=('RequestStream不是合法的Json格式');
+        Result:=ReturnJson(ACode,ADesc,ADataJson).AsJSON;
+        Exit;
+      end;
+    end;
+  finally
+    FreeAndNil(AStringStream);
+  end;
+
+end;
+
+function TsrvRagCenterRestService.dataset_collection_list(const ARemoteLocation: String): String;
+var
+  ACode:Integer;
+  ADesc:String;
+  ADataJson:ISuperObject;
+  AStringStream:TStringStream;
+  ASuperObject:ISuperObject;
+
+  AIntfItem:TCommonRestIntfItem;
+  AWhereKeyJsonArray:ISuperArray;
+begin
+
+  //parentId，str，父目录ID，
+  //datasetId，str，所在知识库，
+  //offset，int，
+  //pageSize，int，
+  //searchText，str，根据文档名称进行筛选
+
+  ACode:=FAIL;
+  ADesc:='';
+  ADataJson:=nil;
+
+  AStringStream:=TStringStream.Create('',TEncoding.UTF8);
+  try
+    AStringStream.LoadFromStream(RequestStream);
+    try
+      ASuperObject:=SO(AStringStream.DataString);
+
+    except
+      on E:Exception do
+      begin
+        ADesc:=('RequestStream不是合法的Json格式');
+        Result:=ReturnJson(ACode,ADesc,ADataJson).AsJSON;
+        Exit;
+      end;
+    end;
+  finally
+    FreeAndNil(AStringStream);
+  end;
+
+
+  try
+      AIntfItem:=CommonRestServiceModule.IntfList.Find('dataset_collections');
+      if AIntfItem=nil then
+      begin
+        ADesc:='不存在dataset_collections接口';
+        Exit;
+      end;
+
+      //返回知识库列表
+      AWhereKeyJsonArray:=SA();
+      //ASuperObject中有两个参数，一个是parentId,表示父目录的ID，一个是searchKey表示搜索关键词
+      AWhereKeyJsonArray.O[AWhereKeyJsonArray.Length]:=GetFieldCondition('AND','datasetId','=',FormatGUIDStringHasDevide(ASuperObject.S['datasetId']));
+      // 如果searchKey不为空，则加上这个搜索条件，根据知识库的name和intro字段来过滤
+      // if ASuperObject.S['searchKey']<>'' then
+      // begin
+      //   AWhereKeyJsonArray.O[AWhereKeyJsonArray.Length]:=GetFieldCondition('AND','name','like',ASuperObject.S['searchKey']);
+      //   AWhereKeyJsonArray.O[AWhereKeyJsonArray.Length]:=GetFieldCondition('OR','intro','like',ASuperObject.S['searchKey']);
+      // end;
+
+
+      //查询记录
+      if not AIntfItem.GetRecordList(AIntfItem.DBModule,
+                                    nil,
+                                    '',
+                                    1,
+                                    MaxInt,
+                                    AWhereKeyJsonArray.AsJSON,
+                                    '',
+                                    '',0,0,'',0,
+                                    ACode,
+                                    ADesc,
+                                    ADataJson,
+                                    nil
+                                    ) then
+      begin
+        Exit;
+      end;
+
+
+
+  finally
+
+      Result:=ReturnJson(ACode,ADesc,ADataJson).AsJSON;
+
+  end;
+
+end;
+
+function TsrvRagCenterRestService.dataset_create(const ARemoteLocation: String): String;
+var
+  ACode:Integer;
+  ADesc:String;
+  ADataJson:ISuperObject;
+  AStringStream:TStringStream;
+  ASuperObject:ISuperObject;
+
+  AIntfItem:TCommonRestIntfItem;
+begin
+
+
+  ACode:=FAIL;
+  ADesc:='';
+  ADataJson:=nil;
+
+  AStringStream:=TStringStream.Create('',TEncoding.UTF8);
+  try
+    AStringStream.LoadFromStream(RequestStream);
+    try
+      ASuperObject:=SO(AStringStream.DataString);
+
+      AIntfItem:=CommonRestServiceModule.IntfList.Find('dataset_collections');
+      if AIntfItem=nil then
+      begin
+        ADesc:='不存在dataset_collections接口';
         Exit;
       end;
 
@@ -753,6 +1175,69 @@ begin
   end;
 end;
 
+
+function TsrvRagCenterRestService.dataset_search(const ARemoteLocation: String): String;
+var
+  ACode:Integer;
+  ADesc:String;
+  ADataJson:ISuperObject;
+  AStringStream:TStringStream;
+  ASuperObject:ISuperObject;
+
+  AIntfItem:TCommonRestIntfItem;
+  AWhereKeyJsonArray:ISuperArray;
+  I: Integer;
+  ADatasetJson:ISuperObject;
+  ASearchResultList:ISuperArray;
+begin
+
+
+  ACode:=FAIL;
+  ADesc:='';
+  ADataJson:=nil;
+
+  AStringStream:=TStringStream.Create('',TEncoding.UTF8);
+  try
+    AStringStream.LoadFromStream(RequestStream);
+    try
+      ASuperObject:=SO(AStringStream.DataString);
+    except
+      on E:Exception do
+      begin
+        ADesc:=('RequestStream不是合法的Json格式');
+        Result:=ReturnJson(ACode,ADesc,ADataJson).AsJSON;
+        Exit;
+      end;
+    end;
+  finally
+    FreeAndNil(AStringStream);
+  end;
+
+
+  try
+
+
+      ASearchResultList:=DatasetSearch(ASuperObject,ADesc);
+      if ASearchResultList=nil then
+      begin
+        Exit;
+      end;
+
+
+      ACode:=Succ;
+      ADataJson:=SO();
+
+      ADataJson.A['RecordList']:=ASearchResultList;
+
+
+
+  finally
+    Result:=ReturnJson(ACode,ADesc,ADataJson).AsJSON;
+  end;
+
+
+
+end;
 
 function TsrvRagCenterRestService.EchoString(const AString: String): String;
 begin

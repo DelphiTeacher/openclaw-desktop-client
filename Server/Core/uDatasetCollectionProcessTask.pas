@@ -235,67 +235,74 @@ begin
   Result:=False;
   ADesc:='';
 
+  try
 
-
-  AParseDocumentResult:=nil;
-  //如果是本地文件，那么先解析文件
-//  if ACollectionJson.S['type'] = 'file' then
-//  begin
-    // 先获取文件内容
-    if not GetFilePathByFileId(BUCKET_DATASET,ACollectionJson.S['sourceId'],ADesc,AFileJson,AFilePath) then
+    AParseDocumentResult:=nil;
+    //如果是本地文件，那么先解析文件
+  //  if ACollectionJson.S['type'] = 'file' then
+  //  begin
+      // 先获取文件内容
+      if not GetFilePathByFileId(BUCKET_DATASET,ACollectionJson.S['sourceId'],ADesc,AFileJson,AFilePath) then
+      begin
+        Exit;
+      end;
+      // 先解析文件
+      AParseDocumentResult:=ParseFile(AFilePath);
+  //  end;
+    if AParseDocumentResult=nil then
     begin
+      ADesc:='文件解析失败';
       Exit;
     end;
-    // 先解析文件
-    AParseDocumentResult:=ParseFile(AFilePath);
-//  end;
-  if AParseDocumentResult=nil then
-  begin
-    ADesc:='文件解析失败';
-    Exit;
+
+    // 将解析后的文本保存到数据库中，避免预览和处理的时候重复解析，造成耗时
+    // 保存到buffer_rawtexts表中
+    AIntfItem:=GlobalCommonRestIntfList.Find('buffer_rawtexts');
+    if AIntfItem=nil then
+    begin
+      uBaseLog.HandleException(nil,'TDatasetCollectionProcessTask.Execute 不存在buffer_rawtexts接口');
+      Exit;
+    end;
+    // 删除原有记录
+    AIntfItem.DeleteRecord(AIntfItem.DBModule,nil,ACollectionJson.S['teamId'],ACollectionJson.S['fileId'],'',ACode,ADesc,ADataJson);
+    // 添加新的记录
+    ARecordJson:=SO();
+  //  ARecordJson.S['_id']:=CreateGUIDString();
+    ARecordJson.S['sourceId']:=ACollectionJson.S['fileId'];
+    ARecordJson.S['rawtext']:=AParseDocumentResult.MarkdownContent;
+
+
+
+
+    // 将解析后的文档内容保存到数据库
+  //  SaveDocumentImages(ACollectionJson,AParseDocumentResult,ADesc);
+
+
+    // 将文档内容进行分片并存储
+    AChunks:=SplitDocument(ACollectionJson,AParseDocumentResult);
+
+
+    ARecordList:=SA();
+
+    ADataJson:=SO();
+    ADataJson.A['chunks']:=ARecordList;
+    for I := 0 to AChunks.Count-1 do
+    begin
+      ARecordList.O[I].S['q']:=AChunks[I];
+    end;
+
+    AChunks.Free;
+
+
+    ADesc:='分块成功';
+    Result:=True;
+  except
+    on E:Exception do
+    begin
+      ADesc:=E.Message;
+    end;
+
   end;
-
-  // 将解析后的文本保存到数据库中，避免预览和处理的时候重复解析，造成耗时
-  // 保存到buffer_rawtexts表中
-  AIntfItem:=GlobalCommonRestIntfList.Find('buffer_rawtexts');
-  if AIntfItem=nil then
-  begin
-    uBaseLog.HandleException(nil,'TDatasetCollectionProcessTask.Execute 不存在buffer_rawtexts接口');
-    Exit;
-  end;
-  // 删除原有记录
-  AIntfItem.DeleteRecord(AIntfItem.DBModule,nil,ACollectionJson.S['teamId'],ACollectionJson.S['fileId'],'',ACode,ADesc,ADataJson);
-  // 添加新的记录
-  ARecordJson:=SO();
-//  ARecordJson.S['_id']:=CreateGUIDString();
-  ARecordJson.S['sourceId']:=ACollectionJson.S['fileId'];
-  ARecordJson.S['rawtext']:=AParseDocumentResult.MarkdownContent;
-
-
-
-
-  // 将解析后的文档内容保存到数据库
-//  SaveDocumentImages(ACollectionJson,AParseDocumentResult,ADesc);
-
-
-  // 将文档内容进行分片并存储
-  AChunks:=SplitDocument(ACollectionJson,AParseDocumentResult);
-
-
-  ARecordList:=SA();
-
-  ADataJson:=SO();
-  ADataJson.A['chunks']:=ARecordList;
-  for I := 0 to AChunks.Count-1 do
-  begin
-    ARecordList.O[I].S['q']:=AChunks[I];
-  end;
-
-  AChunks.Free;
-
-
-  ADesc:='分块成功';
-  Result:=True;
 
 end;
 

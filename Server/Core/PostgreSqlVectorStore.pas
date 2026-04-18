@@ -21,10 +21,11 @@ type
     destructor Destroy; override;
 
     procedure Start;
-    
-    procedure Add(AChunks:ISuperArray);
+    procedure Stop;
+
+    function Add(AChunk:ISuperObject):Integer;
     procedure Delete(AWhereKeyJson:ISuperArray);
-    function SimilaritySearch(ASearchRequest: TSearchRequest): TSearchResultList;
+    function SimilaritySearch(ASearchRequest: TSearchRequest): ISuperArray;
   end;
 
 
@@ -55,6 +56,12 @@ var
 begin
   Self.FDBModule.DoPrepareStart(ADesc);
   EnsureTableExists;
+end;
+
+procedure TPostgreSqlVectorStore.Stop;
+begin
+  Self.FDBModule.DoPrepareStop;
+
 end;
 
 procedure TPostgreSqlVectorStore.EnsureTableExists;
@@ -126,17 +133,19 @@ end;
 //   end;
 // end;
 
-procedure TPostgreSqlVectorStore.Add(AChunks:ISuperArray);
+function TPostgreSqlVectorStore.Add(AChunk:ISuperObject):Integer;
 var
   i: Integer;
   ChunkId: string;
-  Content: ISuperObject;
+//  Content: ISuperObject;
   Embedding: TArray<Double>;
   EmbeddingStr: string;
   SQL: string;
   ADesc:String;
   ASQLDBHelper: TBaseDBHelper;
 begin
+  Result:=-1;
+
   if not FDBModule.GetDBHelperFromPool(ASQLDBHelper,ADesc) then
   begin
     Exit;
@@ -144,9 +153,9 @@ begin
   try
 
 
-    for i := 0 to AChunks.Length - 1 do
-    begin
-      Content := AChunks.O[i];
+//    for i := 0 to AChunks.Length - 1 do
+//    begin
+//      Content := AChunks.O[i];
 //      ChunkId := Format('chunk_%d_%d', [i, GetTickCount]);
 
       // TODO: Call embedding service to generate vector
@@ -154,7 +163,7 @@ begin
 //      SetLength(Embedding, 1536);
 //      FillChar(Embedding[0], Length(Embedding) * SizeOf(Double), 0);
 
-      EmbeddingStr := DoubleJsonArrayToString(Content.A['vector']);
+      EmbeddingStr := DoubleJsonArrayToString(AChunk.A['vector']);
 
 //      SQL := Format(
 //        'INSERT INTO %s (team_id,dataset_id,collection_id,vector) VALUES (%s, %s, %s, %s, %s) ',
@@ -168,10 +177,21 @@ begin
 
 
 //        ASQLDBHelper.SelfQuery(SQL);
-        ASQLDBHelper.SelfQuery('INSERT INTO '+FTableName+' (team_id,dataset_id,collection_id,model,vector) VALUES (:team_id,:dataset_id,:collection_id,:model,ARRAY['+EmbeddingStr+']) ',
-                              ['team_id','dataset_id','collection_id','model'],
-                              [Content.S['team_id'],Content.S['dataset_id'],Content.S['collection_id'],Content.S['model']],
-                              asoExec)
+        if not ASQLDBHelper.SelfQuery('INSERT INTO '+FTableName+' (team_id,dataset_id,collection_id,model,vector) VALUES (:team_id,:dataset_id,:collection_id,:model,ARRAY['+EmbeddingStr+']) ',
+                                    ['team_id','dataset_id','collection_id','model'],
+                                    [AChunk.S['team_id'],AChunk.S['dataset_id'],AChunk.S['collection_id'],AChunk.S['model']],
+                                    asoExec) then
+        begin
+          Exit;
+        end;
+
+        //获取到刚插入的id
+        if not ASQLDBHelper.SelfQuery('SELECT currval('''+FTableName+'_'+'id'+'_seq'') as dataid') then
+        begin
+          Exit;
+        end;
+        Result:=ASQLDBHelper.Query.FieldByName('dataid').AsInteger;
+
 
 
 
@@ -179,7 +199,7 @@ begin
 //        on E: Exception do
 //          raise Exception.Create('Failed to insert chunk: ' + E.Message);
 //      end;
-    end;
+//    end;
 
   finally
     FDBModule.FreeDBHelperToPool(ASQLDBHelper);
@@ -218,7 +238,7 @@ begin
   end;
 end;
 
-function TPostgreSqlVectorStore.SimilaritySearch(ASearchRequest: TSearchRequest): TSearchResultList;
+function TPostgreSqlVectorStore.SimilaritySearch(ASearchRequest: TSearchRequest): ISuperArray;
 var
   ADesc:String;
   SQL: string;
@@ -226,18 +246,20 @@ var
   Embedding: TArray<Double>;
   EmbeddingStr: string;
   Similarity: Double;
-  ResultItem: TSearchResult;
   ASQLDBHelper: TBaseDBHelper;
   I: Integer;
+  ADataIdList:TStringList;
 begin
   Result:=nil;
   if not FDBModule.GetDBHelperFromPool(ASQLDBHelper,ADesc) then
   begin
     Exit;
   end;
+
+  Result := SA();
+  ADataIdList:=TStringList.Create;
   try
 
-    Result := TSearchResultList.Create;
     
 
 
@@ -281,10 +303,11 @@ begin
 //    end;
 
 
-    ASQLDBHelper.SelfQuery('SELECT *,inner_product(vector , ARRAY['+DoubleArrayToString(ASearchRequest.Vector)+']::vector) AS score FROM '+FTableName+' ORDER BY score desc LIMIT 100;');
+    ASQLDBHelper.SelfQuery('SELECT *,inner_product(vector , ARRAY['+DoubleArrayToString(ASearchRequest.Vector)+']::vector) AS score FROM '+FTableName+' WHERE dataset_id '+' ORDER BY score desc LIMIT 100;');
     while not ASQLDBHelper.Query.Eof do
     begin
-      ResultItem := TSearchResult.Create;
+
+      //先找出片断ID
 
       // TODO: Populate ResultItem with data from QueryDataSet
 //      for I := 0 to ASQLDBHelper.Query.FieldDefList.Count-1 do
@@ -295,10 +318,20 @@ begin
 //        uBaseLog.HandleException(nil,'TTableCommonRestServerItem.AddRecord '+ASQLDBHelper.Query.FieldDefList[I].Name+' '+IntToStr(Ord(ASQLDBHelper.Query.FieldDefList[I].DataType)));
 //      end;
 
+      ADataIdList.Add(ASQLDBHelper.Query.FieldByName('id').AsString);
 
-      Result.Add(ResultItem);
       ASQLDBHelper.Query.Next;
     end;
+
+    if ADataIdList.Count=0 then
+    begin
+      Exit;
+    end;
+
+    //再根据片断ID从dataset_datas表中搜索出片断
+    ASQLDBHelper.SelfQuery('SELECT * FROM dataset_datas where modeldata_id in ('+ADataIdList.CommaText+') ORDER BY score desc LIMIT 100;');
+    Result:=JSonArrayFromDataSetTo(ASQLDBHelper.Query);
+
 
   finally
     FDBModule.FreeDBHelperToPool(ASQLDBHelper);

@@ -58,11 +58,11 @@ var
 begin
   ATextSplitter:=nil;
   // 根据不同的分片设置，创建不同的分片类
-  if (AChunkSettingJson.S['chunkSplitMode'] = 'size') or (AChunkSettingJson.S['chunkSplitMode'] = 'auto') then
-  begin
+//  if (AChunkSettingJson.S['chunkSplitMode'] = 'size') or (AChunkSettingJson.S['chunkSplitMode'] = 'auto') then
+//  begin
     ATextSplitter:=TTokenTextSplitter.Create;
-    
-  end;
+
+//  end;
   ATextSplitter.FSetting.FChunkSize:=AChunkSettingJson.I['chunkSize'];
 
   Result:=ATextSplitter.Split(AParseDocumentResult.MarkdownContent);

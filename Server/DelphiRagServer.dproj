@@ -59,7 +59,7 @@
         <Base>true</Base>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base)'!=''">
-        <DCC_UnitSearchPath>D:\三方控件\TMS Sparkle\source;D:\三方控件\TMS Sparkle\source\core;D:\三方控件\kbmMemTablePro_77510\Source;D:\三方控件\kbmMW5_02_10\Source;D:\三方控件\kbmMW5_02_10\Source\Ciphers;D:\三方控件\kbmMW5_02_10\Source\Compression;D:\三方控件\kbmMW5_02_10\Source\Hashes;D:\三方控件\kbmhttpsys5_02_10;D:\MyFilesNew\OrangeUI\OrangeProjectCommon;D:\MyFilesNew\OrangeUI\OrangeProjectCommon\OrangeUI;D:\三方控件\Devart\UniDAC for RAD Studio 12\Lib\Win32;D:\三方控件\mxscomm\comps\mORMot;D:\三方控件\DelphiGenAI-main\source;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
+        <DCC_UnitSearchPath>D:\三方控件\TMS Sparkle\source;D:\三方控件\TMS Sparkle\source\core;D:\三方控件\kbmMemTablePro_77510\Source;D:\三方控件\kbmMW5_02_10\Source;D:\三方控件\kbmMW5_02_10\Source\Ciphers;D:\三方控件\kbmMW5_02_10\Source\Compression;D:\三方控件\kbmMW5_02_10\Source\Hashes;D:\三方控件\kbmhttpsys5_02_10;..\OrangeUI\OrangeProjectCommon;..\OrangeUI\OrangeProjectCommon\OrangeUI;D:\三方控件\Devart\UniDAC for RAD Studio 12\Lib\Win32;D:\三方控件\mxscomm\comps\mORMot;D:\三方控件\DelphiGenAI-main\source;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
         <VerInfo_Keys>CompanyName=;FileDescription=;FileVersion=1.0.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=;ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
         <VerInfo_Locale>2052</VerInfo_Locale>
         <DCC_Namespace>System;Xml;Data;Datasnap;Web;Soap;Vcl;Vcl.Imaging;Vcl.Touch;Vcl.Samples;Vcl.Shell;$(DCC_Namespace)</DCC_Namespace>
@@ -168,9 +168,11 @@
         <DCCReference Include="Core\uDataEmbeddingProcessTask.pas"/>
         <DCCReference Include="Core\VectorStore.pas"/>
         <DCCReference Include="Core\PostgreSqlVectorStore.pas"/>
-        <DCCReference Include="Core\uGlobal.pas"/>
+        <DCCReference Include="Core\uGlobalVar.pas"/>
         <DCCReference Include="Core\uGenTextEmbedding.pas"/>
         <DCCReference Include="Core\uRagCommon.pas"/>
+        <DCCReference Include="Core\uDatasetSearch.pas"/>
+        <DCCReference Include="Core\AIModels.pas"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

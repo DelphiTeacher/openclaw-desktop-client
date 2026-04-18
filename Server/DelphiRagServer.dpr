@@ -29,9 +29,11 @@ uses
   uDataEmbeddingProcessTask in 'Core\uDataEmbeddingProcessTask.pas',
   VectorStore in 'Core\VectorStore.pas',
   PostgreSqlVectorStore in 'Core\PostgreSqlVectorStore.pas',
-  uGlobal in 'Core\uGlobal.pas',
+  uGlobalVar in 'Core\uGlobalVar.pas',
   uGenTextEmbedding in 'Core\uGenTextEmbedding.pas',
-  uRagCommon in 'Core\uRagCommon.pas';
+  uRagCommon in 'Core\uRagCommon.pas',
+  uDatasetSearch in 'Core\uDatasetSearch.pas',
+  AIModels in 'Core\AIModels.pas';
 
 {$R *.res}
 
