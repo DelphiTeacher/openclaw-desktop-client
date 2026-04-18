@@ -254,11 +254,23 @@ begin
   //从接口加载知识库列表
   ATimerTask.TaskTag:=TASK_FAIL;
 
+
+  //parentId，str，父目录ID，
+  //datasetId，str，所在知识库，
+  //offset，int，
+  //pageSize，int，
+  //searchText，str，根据文档名称进行筛选
   ARequestJson:=SO();
+  ARequestJson.S['parentId']:='';
+  ARequestJson.S['datasetId']:=FDatasetJson.S['_id'];
+  ARequestJson.I['offset']:=0;
+  ARequestJson.I['pageSize']:=100;
+  ARequestJson.S['searchText']:='';
+
 
   //获取首页统计
   TTimerTask(ATimerTask).TaskDesc:=SimpleCallAPI(
-        'dataset/list',
+        'dataset/collection/list',
         nil,
         InterfaceUrl+'ragcenter/',
         [],

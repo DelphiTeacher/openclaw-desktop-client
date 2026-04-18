@@ -68,6 +68,7 @@ uses
   Winapi.WIndows,
   InstallDaemonFrame,
   DatasetImportLocalFileFrame,
+  DatasetImportFrame,
 
   System.RegularExpressions,
   System.RegularExpressionsCore,
@@ -289,21 +290,26 @@ end;
 
 procedure TFrameMain.Login(AIsOnlineLogin:Boolean);
 var
-  ADatasetImportLocalFileFrame:TFrameDatasetImportLocalFile;
+  ADatasetImportFrame:TFrameDatasetImport;
+//  ADatasetImportLocalFileFrame:TFrameDatasetImportLocalFile;
 begin
   //测试页面
-  Self.pcMain.Visible:=False;
+//  Self.pcMain.Visible:=False;
 
-  ADatasetImportLocalFileFrame:=TFrameDatasetImportLocalFile.Create(Self);
-  ADatasetImportLocalFileFrame.Parent:=Self;
-  ADatasetImportLocalFileFrame.Align:=TAlignLayout.Client;
-  ADatasetImportLocalFileFrame.Load(nil);
+//  ADatasetImportLocalFileFrame:=TFrameDatasetImportLocalFile.Create(Self);
+//  ADatasetImportLocalFileFrame.Parent:=Self;
+//  ADatasetImportLocalFileFrame.Align:=TAlignLayout.Client;
+//  ADatasetImportLocalFileFrame.Load(nil);
+
+//  ADatasetImportFrame:=TFrameDatasetImport.Create(Self);
+//  ADatasetImportFrame.Parent:=Self;
+//  ADatasetImportFrame.Align:=TAlignLayout.Client;
+//  ADatasetImportFrame.Load();
 
 
-
-//  Self.pcMain.Prop.Orientation:=toNone;
-//  Self.pcMain.Prop.ActivePage:=tsHome;
-//  pcMainChange(nil);
+  Self.pcMain.Prop.Orientation:=toNone;
+  Self.pcMain.Prop.ActivePage:=tsHome;
+  pcMainChange(nil);
 
 
 end;

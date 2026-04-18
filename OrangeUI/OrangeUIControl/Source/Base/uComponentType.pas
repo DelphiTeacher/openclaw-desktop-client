@@ -339,6 +339,19 @@ type
   TSkinControlCustomMouseUpEvent=procedure(Button: TMouseButton; Shift: TShiftState;X, Y: Double;const AIsChildMouseEvent:Boolean;const AChild:TObject) of object;
   TSkinControlCustomMouseMoveEvent=procedure(Shift: TShiftState; X, Y: Double;const AIsChildMouseEvent:Boolean;const AChild:TObject) of object;
 
+  /// <summary>
+  ///   <para>
+  ///     控件的绘制事件
+  ///   </para>
+  ///   <para>
+  ///     Paint event of control
+  ///   </para>
+  /// </summary>
+  TSkinControlPaintEvent=procedure(ACanvas:TDrawCanvas;const ADrawRect:TRectF) of object;
+  TSkinControlCustomPaintEvent=procedure(Sender:TObject;ACanvas:TDrawCanvas;ASkinMaterial:TSkinControlMaterial;const ADrawRect:TRectF;APaintData:TPaintData) of object;
+
+
+
   //控件的值更改事件
   ISkinControlValueChange=interface
     ['{C78927A0-D5A4-471A-B8E3-2AC8883467E1}']
@@ -650,6 +663,7 @@ type
     function GetOnCustomMouseMove:TMouseMoveEvent;
     function GetOnCustomMouseEnter:TNotifyEvent;
     function GetOnCustomMouseLeave:TNotifyEvent;
+    function GetOnCustomPaint:TSkinControlCustomPaintEvent;
 
 
     property OnCustomMouseDown:TMouseEvent read GetOnCustomMouseDown;
@@ -657,6 +671,7 @@ type
     property OnCustomMouseMove:TMouseMoveEvent read GetOnCustomMouseMove;
     property OnCustomMouseEnter:TNotifyEvent read GetOnCustomMouseEnter;
     property OnCustomMouseLeave:TNotifyEvent read GetOnCustomMouseLeave;
+    property OnCustomPaint:TSkinControlCustomPaintEvent read GetOnCustomPaint;
   end;
   {$ENDREGION '皮肤控件接口ISkinControl'}
 
@@ -1399,16 +1414,6 @@ type
 
 
   {$REGION '控件类型TSkinControlType'}
-
-  /// <summary>
-  ///   <para>
-  ///     控件的绘制事件
-  ///   </para>
-  ///   <para>
-  ///     Paint event of control
-  ///   </para>
-  /// </summary>
-  TSkinControlPaintEvent=procedure(ACanvas:TDrawCanvas;const ADrawRect:TRectF) of object;
 
 
 
@@ -3305,6 +3310,22 @@ begin
 
       //绘制自身
       Self.CustomPaint(ACanvas,ASkinMaterial,ADrawRect,APaintData);
+
+      //加上自定义绘制功能
+      if Assigned(FSkinControlIntf.OnCustomPaint) then
+      begin
+        FSkinControlIntf.OnCustomPaint(FSkinControl,ACanvas,ASkinMaterial,ADrawRect,APaintData);
+      end;
+
+      if APaintData.IsInDrawDirectUI then
+      begin
+        //在自绘的时候，绘制OnPaint事件
+        if Assigned(FSkinControl.OnPaint) then
+        begin
+          FSkinControl.OnPaint(FSkinControl,ACanvas.FCanvas,ADrawRect);
+        end;
+      end;
+
 
   end;
 

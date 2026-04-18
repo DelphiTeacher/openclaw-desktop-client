@@ -42,6 +42,7 @@ published
     //ÒıÓÃµÄÆ¤·ôËØ²Ä
     property RefMaterial:TSkinControlMaterial read GetRefMaterial write SetRefMaterial;
 
+    property OnCustomPaint:TSkinControlCustomPaintEvent read GetOnCustomPaint write SetOnCustomPaint;
 
 
 

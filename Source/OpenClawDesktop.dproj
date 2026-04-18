@@ -654,7 +654,7 @@
         <DCCReference Include="..\OrangeUI\OrangeUIStyles\ListItemStyleFrame_AIModelConfig.pas">
             <FormType>fmx</FormType>
         </DCCReference>
-        <DCCReference Include="AIModels.pas"/>
+        <DCCReference Include="..\Server\Core\AIModels.pas"/>
         <DCCReference Include="ConfigAIModelListFrame.pas">
             <Form>FrameConfigAIModelList</Form>
             <FormType>fmx</FormType>
@@ -695,6 +695,23 @@
         <DCCReference Include="..\OrangeUI\OrangeUIStyles\ListItemStyleFrame_DatasetImportLocalFile.pas"/>
         <DCCReference Include="DatasetImportLocalFileFrame.pas">
             <Form>FrameDatasetImportLocalFile</Form>
+            <FormType>fmx</FormType>
+            <DesignClass>TFrame</DesignClass>
+        </DCCReference>
+        <DCCReference Include="DatasetImportSettingFrame.pas">
+            <Form>FrameDatasetImportSetting</Form>
+            <FormType>fmx</FormType>
+            <DesignClass>TFrame</DesignClass>
+        </DCCReference>
+        <DCCReference Include="..\Server\Core\uRagCommon.pas"/>
+        <DCCReference Include="..\OrangeUI\OrangeUIStyles\ListItemStyleFrame_RagTextChunkMode.pas"/>
+        <DCCReference Include="DatasetChunkPreviewFrame.pas">
+            <Form>FrameDatasetChunkPreview</Form>
+            <FormType>fmx</FormType>
+            <DesignClass>TFrame</DesignClass>
+        </DCCReference>
+        <DCCReference Include="DatasetImportConfirmFrame.pas">
+            <Form>FrameDatasetImportConfirm</Form>
             <FormType>fmx</FormType>
             <DesignClass>TFrame</DesignClass>
         </DCCReference>

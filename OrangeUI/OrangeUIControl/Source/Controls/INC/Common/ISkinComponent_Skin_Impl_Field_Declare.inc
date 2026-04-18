@@ -10,6 +10,7 @@
 
 
   public
+    FOnCustomPaint:TSkinControlCustomPaintEvent;
   protected
 
     //控件类型名称
@@ -118,6 +119,9 @@
 
     function Get_Version:String;
 
+
+    function GetOnCustomPaint:TSkinControlCustomPaintEvent;
+    procedure SetOnCustomPaint(const Value:TSkinControlCustomPaintEvent);
 
 
     {$IFDEF FPC}

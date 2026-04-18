@@ -923,3 +923,16 @@ end;
 {$ENDIF}
 
 
+
+function {$I Source\Controls\INC\Common\ISkinComponent_Skin_Impl_ClassName.inc}.GetOnCustomPaint:TSkinControlCustomPaintEvent;
+begin
+  Result:=FOnCustomPaint;
+end;
+
+procedure {$I Source\Controls\INC\Common\ISkinComponent_Skin_Impl_ClassName.inc}.SetOnCustomPaint(const Value:TSkinControlCustomPaintEvent);
+begin
+  FOnCustomPaint:=Value;
+end;
+
+
+

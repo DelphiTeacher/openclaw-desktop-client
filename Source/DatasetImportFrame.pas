@@ -23,7 +23,7 @@ uses
   ListItemStyleFrame_IconCaption,
   ListItemStyleFrame_RagDataset,
   EasyServiceCommonMaterialDataMoudle,
-  USkinFireMonkeyItemDesignerPanel,
+  uSkinFireMonkeyItemDesignerPanel,
 
   GenAI.Async.Promise,
 
@@ -37,6 +37,7 @@ uses
   DatasetImportLocalFileFrame,
   DatasetImportSettingFrame,
   DatasetChunkPreviewFrame,
+  DatasetImportConfirmFrame,
 
 
 
@@ -80,6 +81,7 @@ type
     FDatasetImportLocalFileFrame:TFrameDatasetImportLocalFile;
     FDatasetImportSettingFrame:TFrameDatasetImportSetting;
     FDatasetChunkPreviewFrame:TFrameDatasetChunkPreview;
+    FDatasetImportConfirmFrame:TFrameDatasetImportConfirm;
     constructor Create(AOwner:TComponent);override;
     procedure Load(ADatasetJson:ISuperObject);
     { Public declarations }
@@ -183,6 +185,17 @@ begin
       FDatasetChunkPreviewFrame.Align:=TAlignLayout.Client;
     end;
     FDatasetChunkPreviewFrame.Load(FDatasetImportLocalFileFrame.FFiles,FDatasetJson,FCollectionJson);
+
+  end;
+  if Self.SkinFMXPageControl1.Prop.ActivePage=tsConfirm then
+  begin
+    if FDatasetImportConfirmFrame=nil then
+    begin
+      FDatasetImportConfirmFrame:=TFrameDatasetImportConfirm.Create(Self);
+      FDatasetImportConfirmFrame.Parent:=Self.SkinFMXPageControl1.Prop.ActivePage;
+      FDatasetImportConfirmFrame.Align:=TAlignLayout.Client;
+    end;
+    FDatasetImportConfirmFrame.Load(FDatasetImportLocalFileFrame.FFiles,FDatasetJson,FCollectionJson);
 
   end;
 

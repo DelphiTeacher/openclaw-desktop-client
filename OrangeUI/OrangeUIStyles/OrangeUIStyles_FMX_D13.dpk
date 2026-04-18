@@ -123,6 +123,7 @@ contains
   ListItemStyleFrame_CaptionGrayCenter_BottomBorderSelected in 'ListItemStyleFrame_CaptionGrayCenter_BottomBorderSelected.pas',
   ListItemStyleFrame_AIModelConfig in 'ListItemStyleFrame_AIModelConfig.pas',
   ListItemStyleFrame_RagDataset in 'ListItemStyleFrame_RagDataset.pas',
-  ListItemStyleFrame_DatasetImportLocalFile in 'ListItemStyleFrame_DatasetImportLocalFile.pas';
+  ListItemStyleFrame_DatasetImportLocalFile in 'ListItemStyleFrame_DatasetImportLocalFile.pas',
+  ListItemStyleFrame_DatasetImportConfirm in 'ListItemStyleFrame_DatasetImportConfirm.pas';
 
 end.

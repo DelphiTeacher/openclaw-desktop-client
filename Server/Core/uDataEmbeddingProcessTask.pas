@@ -120,6 +120,7 @@ begin
 
   AVectorModelJson:=LocateJsonArray(GlobalVar.embeddingModelMap,'name',ADatasetJson.S['vectormodel']);
 
+  //如果为空，则使用oneapi的接口
   if AVectorModelJson.S['requestUrl']='' then
   begin
     AVectorModelJson.S['requestUrl']:='https://dashscope.aliyuncs.com/compatible-mode/v1';

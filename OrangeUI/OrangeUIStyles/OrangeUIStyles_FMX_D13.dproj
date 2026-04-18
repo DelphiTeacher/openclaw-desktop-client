@@ -393,6 +393,7 @@
         <DCCReference Include="ListItemStyleFrame_DatasetImportLocalFile.pas">
             <FormType>fmx</FormType>
         </DCCReference>
+        <DCCReference Include="ListItemStyleFrame_DatasetImportConfirm.pas"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

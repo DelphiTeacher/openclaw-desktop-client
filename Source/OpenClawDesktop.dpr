@@ -135,7 +135,7 @@ uses
   OpenClawDeviceAuth in 'OpenClawDeviceAuth.pas',
   ED25519 in 'ED25519.pas',
   ListItemStyleFrame_AIModelConfig in '..\OrangeUI\OrangeUIStyles\ListItemStyleFrame_AIModelConfig.pas',
-  AIModels in 'AIModels.pas',
+  AIModels in '..\Server\Core\AIModels.pas',
   ConfigAIModelListFrame in 'ConfigAIModelListFrame.pas' {FrameConfigAIModelList: TFrame},
   SkillFrame in 'SkillFrame.pas' {FrameSkill: TFrame},
   LoginFrame in 'LoginFrame.pas' {FrameLogin: TFrame},
@@ -146,7 +146,12 @@ uses
   ListItemStyleFrame_RagDatasetCollection in '..\OrangeUI\OrangeUIStyles\ListItemStyleFrame_RagDatasetCollection.pas',
   DatasetImportFrame in 'DatasetImportFrame.pas' {FrameDatasetImport: TFrame},
   ListItemStyleFrame_DatasetImportLocalFile in '..\OrangeUI\OrangeUIStyles\ListItemStyleFrame_DatasetImportLocalFile.pas',
-  DatasetImportLocalFileFrame in 'DatasetImportLocalFileFrame.pas' {FrameDatasetImportLocalFile: TFrame};
+  DatasetImportLocalFileFrame in 'DatasetImportLocalFileFrame.pas' {FrameDatasetImportLocalFile: TFrame},
+  DatasetImportSettingFrame in 'DatasetImportSettingFrame.pas' {FrameDatasetImportSetting: TFrame},
+  uRagCommon in '..\Server\Core\uRagCommon.pas',
+  ListItemStyleFrame_RagTextChunkMode in '..\OrangeUI\OrangeUIStyles\ListItemStyleFrame_RagTextChunkMode.pas',
+  DatasetChunkPreviewFrame in 'DatasetChunkPreviewFrame.pas' {FrameDatasetChunkPreview: TFrame},
+  DatasetImportConfirmFrame in 'DatasetImportConfirmFrame.pas' {FrameDatasetImportConfirm: TFrame};
 
 {$R *.res}
 

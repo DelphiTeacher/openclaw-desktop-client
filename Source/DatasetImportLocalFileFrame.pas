@@ -172,9 +172,9 @@ end;
 constructor TFrameDatasetImportLocalFile.Create(AOwner: TComponent);
 begin
   inherited;
-    Self.lvData.Prop.Items.BeginUpdate;
-    Self.lvData.Prop.Items.Clear;
-    Self.lvData.Prop.Items.EndUpdate;
+  Self.lvData.Prop.Items.BeginUpdate;
+  Self.lvData.Prop.Items.Clear;
+  Self.lvData.Prop.Items.EndUpdate;
 end;
 
 destructor TFrameDatasetImportLocalFile.Destroy;
@@ -314,7 +314,7 @@ begin
 //      else
 //      begin
 //        //获取基础数据失败
-        ShowMessageBoxFrame(Self,'上传完成','',TMsgDlgType.mtInformation,['确定'],nil);
+//        ShowMessageBoxFrame(Self,'上传完成','',TMsgDlgType.mtInformation,['确定'],nil);
 //      end;
 
     end

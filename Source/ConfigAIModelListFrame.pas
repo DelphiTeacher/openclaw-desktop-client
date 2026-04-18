@@ -29,6 +29,9 @@ uses
   GenAI, GenAI.Types,
   uLocalOpenClawHelper,
 
+  uRestInterfaceCall,
+  uOpenClientCommon,
+
 
   FMX.Types, FMX.Graphics, FMX.Controls, FMX.Forms, FMX.Dialogs, FMX.StdCtrls, uDrawCanvas, uSkinItems, uSkinFireMonkeyControl, uSkinScrollControlType, uSkinCustomListType,
   uSkinVirtualListType, uSkinListViewType, uSkinFireMonkeyListView, uSkinPanelType, uSkinFireMonkeyPanel, uTimerTaskEvent,
@@ -68,8 +71,10 @@ type
     procedure btnCurrentClick(Sender: TObject);
     procedure btnEnabledClick(Sender: TObject);
     procedure btnAllClick(Sender: TObject);
+    procedure tteLoadExecuteEnd(ATimerTask: TTimerTask);
   private
     procedure DoFilter;
+    procedure DoLoadModels(AModelList:ISuperArray);
     { Private declarations }
   public
     constructor Create(AOwner:TComponent);override;
@@ -166,6 +171,59 @@ begin
   end;
 end;
 
+procedure TFrameConfigAIModelList.DoLoadModels(AModelList: ISuperArray);
+var
+  I: Integer;
+  ASkinItem:TSkinItem;
+  AModelJson:ISuperObject;
+  AConfiguredJson:ISuperObject;
+begin
+
+  //添加模型列表
+  lvChannel.Prop.Items.BeginUpdate;
+  try
+    Self.lvChannel.Prop.Items.Clear();
+    for I := 0 to AModelList.Length-1 do
+    begin
+      //只需要显示大语言模型就可以了，不需要显示向量模型
+      AModelJson:=AModelList.O[I];
+      if AModelJson.S['type']<>'llm' then Continue;
+
+
+      ASkinItem:=Self.lvChannel.Prop.Items.Add;
+      ASkinItem.Caption:=GlobalManager.MyAIModelsArray.O[I].S['model'];
+      ASkinItem.Checked:=GlobalManager.MyAIModelsArray.O[I].B['isActive'];
+      ASkinItem.Json:=GlobalManager.MyAIModelsArray.O[I];
+
+      if FileExists(GetApplicationPath+'icons'+PathDelim+'model'+PathDelim+AModelJson.S['provider']+'.svg') then
+      begin
+        ASkinItem.Icon.FileName:=GetApplicationPath+'icons'+PathDelim+'model'+PathDelim+AModelJson.S['provider']+'.svg';
+      end;
+
+//      //已经配置的模型,启用状态，没有配置的，不启用状态
+//      AConfiguredJson:=nil;
+//      if GlobalManager.FConfigedChannels<>nil then
+//      begin
+//        AConfiguredJson:=LocateJsonArray(GlobalManager.FConfigedChannels,'type',GlobalManager.MyAIModelsArray.O[I].I['value']);
+//      end;
+//
+//      if AConfiguredJson<>nil then
+//      begin
+////        ASkinItem.Detail:='已配置';
+//        GlobalManager.MyAIModelsArray.O[I].O['configured']:=AConfiguredJson;
+//      end
+//      else
+//      begin
+////        ASkinItem.Detail:='未配置';
+//      end;
+
+    end;
+
+  finally
+    lvChannel.Prop.Items.EndUpdate;
+  end;
+end;
+
 procedure TFrameConfigAIModelList.edtKeywordChange(Sender: TObject);
 begin
   DoFilter;
@@ -199,53 +257,55 @@ begin
     cmbProviders.Items.EndUpdate;
   end;
 
-
-  //添加模型列表
-  lvChannel.Prop.Items.BeginUpdate;
-  try
-    Self.lvChannel.Prop.Items.Clear();
-    for I := 0 to GlobalManager.MyAIModelsArray.Length-1 do
-    begin
-      //只需要显示大语言模型就可以了，不需要显示向量模型
-      AModelJson:=GlobalManager.MyAIModelsArray.O[I];
-      if AModelJson.S['type']<>'llm' then Continue;
-
-
-      ASkinItem:=Self.lvChannel.Prop.Items.Add;
-      ASkinItem.Caption:=GlobalManager.MyAIModelsArray.O[I].S['model'];
-      ASkinItem.Checked:=GlobalManager.MyAIModelsArray.O[I].B['isActive'];
-      ASkinItem.Json:=GlobalManager.MyAIModelsArray.O[I];
-
-      if FileExists(GetApplicationPath+'icons'+PathDelim+'model'+PathDelim+GlobalManager.MyAIModelsArray.O[I].S['provider']+'.svg') then
-      begin
-        ASkinItem.Icon.FileName:=GetApplicationPath+'icons'+PathDelim+'model'+PathDelim+GlobalManager.MyAIModelsArray.O[I].S['provider']+'.svg';
-      end;
-
-//      //已经配置的模型,启用状态，没有配置的，不启用状态
-//      AConfiguredJson:=nil;
-//      if GlobalManager.FConfigedChannels<>nil then
+//
+//  //添加模型列表
+//  lvChannel.Prop.Items.BeginUpdate;
+//  try
+//    Self.lvChannel.Prop.Items.Clear();
+//    for I := 0 to GlobalManager.MyAIModelsArray.Length-1 do
+//    begin
+//      //只需要显示大语言模型就可以了，不需要显示向量模型
+//      AModelJson:=GlobalManager.MyAIModelsArray.O[I];
+//      if AModelJson.S['type']<>'llm' then Continue;
+//
+//
+//      ASkinItem:=Self.lvChannel.Prop.Items.Add;
+//      ASkinItem.Caption:=GlobalManager.MyAIModelsArray.O[I].S['model'];
+//      ASkinItem.Checked:=GlobalManager.MyAIModelsArray.O[I].B['isActive'];
+//      ASkinItem.Json:=GlobalManager.MyAIModelsArray.O[I];
+//
+//      if FileExists(GetApplicationPath+'icons'+PathDelim+'model'+PathDelim+GlobalManager.MyAIModelsArray.O[I].S['provider']+'.svg') then
 //      begin
-//        AConfiguredJson:=LocateJsonArray(GlobalManager.FConfigedChannels,'type',GlobalManager.MyAIModelsArray.O[I].I['value']);
+//        ASkinItem.Icon.FileName:=GetApplicationPath+'icons'+PathDelim+'model'+PathDelim+GlobalManager.MyAIModelsArray.O[I].S['provider']+'.svg';
 //      end;
 //
-//      if AConfiguredJson<>nil then
-//      begin
-////        ASkinItem.Detail:='已配置';
-//        GlobalManager.MyAIModelsArray.O[I].O['configured']:=AConfiguredJson;
-//      end
-//      else
-//      begin
-////        ASkinItem.Detail:='未配置';
-//      end;
-
-    end;
-
-  finally
-    lvChannel.Prop.Items.EndUpdate;
-  end;
-
+////      //已经配置的模型,启用状态，没有配置的，不启用状态
+////      AConfiguredJson:=nil;
+////      if GlobalManager.FConfigedChannels<>nil then
+////      begin
+////        AConfiguredJson:=LocateJsonArray(GlobalManager.FConfigedChannels,'type',GlobalManager.MyAIModelsArray.O[I].I['value']);
+////      end;
+////
+////      if AConfiguredJson<>nil then
+////      begin
+//////        ASkinItem.Detail:='已配置';
+////        GlobalManager.MyAIModelsArray.O[I].O['configured']:=AConfiguredJson;
+////      end
+////      else
+////      begin
+//////        ASkinItem.Detail:='未配置';
+////      end;
+//
+//    end;
+//
+//  finally
+//    lvChannel.Prop.Items.EndUpdate;
+//  end;
+  DoLoadModels(GlobalManager.MyAIModelsArray);
 
   DoFilter;
+
+
 //  Self.tteLoad.Run();
 
 end;
@@ -315,6 +375,69 @@ end;
 procedure TFrameConfigAIModelList.tteLoadExecute(ATimerTask: TTimerTask);
 begin
 //  GlobalManager.LoadConfigedChannels;
+
+  //从接口加载模型列表
+  //从接口加载知识库列表
+  ATimerTask.TaskTag:=TASK_FAIL;
+
+  //获取首页统计
+  TTimerTask(ATimerTask).TaskDesc:=SimpleCallAPI(
+        'ai/model/list',
+        nil,
+        InterfaceUrl+'ragcenter/',
+        [],
+        [],
+        GlobalRestAPISignType,
+        GlobalRestAPIAppSecret
+        );
+
+  TTimerTask(ATimerTask).TaskTag:=TASK_SUCC;
+
+
+
+end;
+
+procedure TFrameConfigAIModelList.tteLoadExecuteEnd(ATimerTask: TTimerTask);
+var
+  I:Integer;
+  ASuperObject:ISuperObject;
+  ASkinItem:TSkinItem;
+  ARecordJson:ISuperObject;
+begin
+  try
+    if TTimerTask(ATimerTask).TaskTag=TASK_SUCC then
+    begin
+      ASuperObject:=TSuperObject.Create(TTimerTask(ATimerTask).TaskDesc);
+      if ASuperObject.I['Code']=200 then
+      begin
+
+        DoLoadModels(ASuperObject.O['Data'].A['RecordList']);
+
+        DoFilter;
+
+
+
+      end
+      else
+      begin
+        //获取基础数据失败
+        ShowMessageBoxFrame(Self,ASuperObject.S['Desc'],'',TMsgDlgType.mtInformation,['确定'],nil);
+      end;
+
+    end
+    else if TTimerTask(ATimerTask).TaskTag=1 then
+    begin
+
+        //网络异常
+        ShowMessageBoxFrame(Self,'接口调用失败',TTimerTask(ATimerTask).TaskDesc,TMsgDlgType.mtInformation,['确定'],nil);
+
+
+    end;
+  finally
+    HideWaitingFrame;
+  end;
+
+
 end;
 
 procedure TFrameConfigAIModelList.tteTestModelBegin(ATimerTask: TTimerTask);

@@ -212,6 +212,7 @@ function CreateGUIDString:String;
 ///   </para>
 /// </summary>
 function CreateGUIDStringHasDevide:String;
+function FormatGUIDStringHasDevide(AGUID:String):String;
 
 
 
@@ -2766,13 +2767,32 @@ begin
 
 //  Result:=ReplaceStr(Result,'{','');
 //  Result:=ReplaceStr(Result,'}','');
-  
+
   //D7
   Result:=StringReplace(Result,'{','', [rfReplaceAll]);
   Result:=StringReplace(Result,'}','', [rfReplaceAll]);
 
 
 end;
+
+
+function FormatGUIDStringHasDevide(AGUID:String):String;
+begin
+  Result:=AGUID;
+
+
+//  Result:=ReplaceStr(Result,'{','');
+//  Result:=ReplaceStr(Result,'}','');
+
+  //D7
+  Result:=StringReplace(Result,'{','', [rfReplaceAll]);
+  Result:=StringReplace(Result,'}','', [rfReplaceAll]);
+
+
+end;
+
+
+
 
 function StdDateTimeToStr(Const ADateTime:TDateTime):String;
 begin

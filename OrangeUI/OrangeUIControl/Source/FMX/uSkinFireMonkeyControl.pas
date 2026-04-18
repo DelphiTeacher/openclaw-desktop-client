@@ -45,6 +45,9 @@ uses
 
 
 Type
+
+
+
   {$I ComponentPlatformsAttribute.inc}
   TSkinFireMonkeyControl=class(TControl,
                                 ISkinControl,
@@ -127,7 +130,6 @@ Type
     property EnabledBuffer:Boolean read FEnabledBuffer write SetEnabledBuffer default False;
     //鼠标按下是否获取焦点
     property MouseDownFocus:Boolean read FMouseDownFocus write FMouseDownFocus default False;
-
   published
     property Action;
     property Align default TAlignLayout.{$IF CompilerVersion >= 35.0}None{$ELSE}alNone{$IFEND};

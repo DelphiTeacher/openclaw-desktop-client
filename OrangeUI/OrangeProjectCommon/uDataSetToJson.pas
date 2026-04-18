@@ -329,6 +329,8 @@ function GetWhereConditions(AFieldNames:TStringDynArray;
                             AFieldValues:TVariantDynArray):String;overload;
 function GetWhereKeyJson(AFieldNames:TStringDynArray;
                             AFieldValues:TVariantDynArray):String;
+function GetWhereKeyJson1(AFieldName:String;
+                            AFieldValue:Variant):String;
 function GetWhereConditionsPro(AFieldNames:TStringDynArray;
                             //比较运算符
                             AFieldOpers:TStringDynArray;
@@ -648,6 +650,12 @@ function GetWhereKeyJson(AFieldNames:TStringDynArray;
                             AFieldValues:TVariantDynArray):String;
 begin
   Result:=GetWhereConditions(AFieldNames,AFieldValues);
+end;
+
+function GetWhereKeyJson1(AFieldName:String;
+                            AFieldValue:Variant):String;
+begin
+  Result:=GetWhereConditions([AFieldName],[AFieldValue]);
 end;
 
 
