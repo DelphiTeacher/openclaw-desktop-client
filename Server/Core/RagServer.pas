@@ -7,6 +7,8 @@ uses
   System.SysUtils,
   System.Classes,
 
+  uDatasetToJson,
+
   uGlobalVar,
   uTableCommonRestCenter,
   ServerDataBaseModule,
@@ -245,13 +247,6 @@ begin
     //表名
     'dataset_datas',
     '',
-//    'SELECT * FROM ( '
-//      +' SELECT '
-//      +' A.*, '
-//      +' B.name as introducer_name,B.phone as introducer_phone '
-//      +' FROM tbluser A '
-//      +' LEFT JOIN tbluser B ON A.appid=B.appid and B.fid=A.bind_introducer_fid '
-//      +' ) view_user ',
     '',
     //删除字段
     '',
@@ -275,18 +270,114 @@ begin
     //表名
     'system_models',
     '',
-//    'SELECT * FROM ( '
-//      +' SELECT '
-//      +' A.*, '
-//      +' B.name as introducer_name,B.phone as introducer_phone '
-//      +' FROM tbluser A '
-//      +' LEFT JOIN tbluser B ON A.appid=B.appid and B.fid=A.bind_introducer_fid '
-//      +' ) view_user ',
     '',
     //删除字段
     '',
     //主键字段
     '_id',
+    //默认排序
+    '',
+    True,
+    '',
+    ['metadata']);
+  GlobalCommonRestIntfList.Add(AIntfItem);
+  {$ENDREGION}
+
+
+
+  {$REGION '应用表'}
+  AIntfItem:=TCommonRestIntfItem.Create(
+    //名称
+    'apps',
+    //名称
+    '应用表',
+    //数据库连接
+    GlobalVar.FDBModule,
+    //表名
+    'apps',
+    '',
+    '',
+    //删除字段
+    '',
+    //主键字段
+    '_id',
+    //默认排序
+    '',
+    True,
+    '',
+    ['chatconfig','modules','edges','agent_param']);
+  GlobalCommonRestIntfList.Add(AIntfItem);
+  {$ENDREGION}
+
+
+
+  {$REGION '聊天会话表'}
+  AIntfItem:=TCommonRestIntfItem.Create(
+    //名称
+    'chats',
+    //名称
+    '聊天会话表',
+    //数据库连接
+    GlobalVar.FDBModule,
+    //表名
+    'chats',
+    '',
+    '',
+    //删除字段
+    '',
+    //主键字段
+    '_id',
+    //默认排序
+    '',
+    True,
+    '',
+    ['variablelist','variables','metadata','plugininputs']);
+  GlobalCommonRestIntfList.Add(AIntfItem);
+  {$ENDREGION}
+
+
+
+  {$REGION '聊天记录表'}
+  AIntfItem:=TCommonRestIntfItem.Create(
+    //名称
+    'chatitems',
+    //名称
+    '聊天记录表',
+    //数据库连接
+    GlobalVar.FDBModule,
+    //表名
+    'chatitems',
+    '',
+    '',
+    //删除字段
+    '',
+    //主键字段
+    '_id',
+    //默认排序
+    '',
+    True,
+    '',
+    ['value','customfeedback','responsedata']);
+  GlobalCommonRestIntfList.Add(AIntfItem);
+  {$ENDREGION}
+
+
+  {$REGION '若依用户表'}
+  AIntfItem:=TCommonRestIntfItem.Create(
+    //名称
+    'sys_user',
+    //名称
+    '若依用户表',
+    //数据库连接
+    GlobalVar.FDBModule,
+    //表名
+    'sys_user',
+    '',
+    '',
+    //删除字段
+    '',
+    //主键字段
+    'user_id',
     //默认排序
     '',
     True);
@@ -302,6 +393,8 @@ procedure TRagServer.Start;
 var
   ADesc:String;
 begin
+  GlobalRestAPIReturnDataType:=rardt_code_message_data;
+
   GlobalVar.Start;
 
   FVectorStore.Start;

@@ -507,13 +507,6 @@ type
 
 
 
-    procedure GenerateLoginKey(ASQLDBHelper:TBaseDBHelper;
-                               AAppID:String;
-                               AUserFID:String;
-                               AUserName:String;
-                               app_type:String;
-                               ADataJson:ISuperObject;
-                               var ADesc:String);
     //登录
     [kbmMW_Method]
     [kbmMW_Rest('method:get, path: "login"')]
@@ -1901,7 +1894,14 @@ type
 
   TUserCenterServiceModule=class(TKbmMWServiceModule)
   private
-    procedure logout_by_userfid(AUserFID: String);
+    procedure GenerateLoginKey(ASQLDBHelper:TBaseDBHelper;
+                               AAppID:String;
+                               AUserFID:String;
+                               AUserName:String;
+                               app_type:String;
+                               ADataJson:ISuperObject;
+                               var ADesc:String);
+
     {$IFDEF YC}
     FGiveStockShareDividendToUserThread:TGiveStockShareDividendToUserThread;
     {$ENDIF}
@@ -1912,6 +1912,8 @@ type
     //从别的APP复制配置到新APP
     function CustomCopyConfigFromApp(ASQLDBHelper:TBaseDBHelper;ASourceAppID:Integer;ADestAppID:Integer;ADestAppJson:ISuperObject;var ADesc:String):Boolean;override;
   public
+    function login_by_password_sha256(AAppID:String;AUserType:Integer;AUserName:String;APassword:String;var ADesc:String;var ADataJson:ISuperObject):Boolean;
+    procedure logout_by_userfid(AUserFID: String);
   public
     constructor Create; override;
     destructor Destroy; override;
@@ -7136,7 +7138,7 @@ end;
 //
 //end;
 
-procedure TsrvUserCenterRestService.GenerateLoginKey(ASQLDBHelper:TBaseDBHelper;
+procedure TUserCenterServiceModule.GenerateLoginKey(ASQLDBHelper:TBaseDBHelper;
                                                      AAppID:String;
                                                      AUserFID:String;
                                                      AUserName:String;
@@ -12755,7 +12757,8 @@ begin
       //手机号码(邮箱)+密码
       if (ALoginType=Const_RegisterLoginType_PhoneNum_PassWord)
       or (ALoginType=Const_RegisterLoginType_Email)
-      or (ALoginType=Const_RegisterLoginType_UserName_PassWord) then
+      or (ALoginType=Const_RegisterLoginType_UserName_PassWord)
+      or (ALoginType=Const_RegisterLoginType_UserName_PassWordSHA256) then
       begin
         if Trim(APassword)='' then
         begin
@@ -13527,6 +13530,42 @@ begin
           //                end;
 
                     end
+                    //用户名+密码
+                    else if (ALoginType=Const_RegisterLoginType_UserName_PassWordSHA256) then
+                    begin
+
+                        //比对密码
+//                        if AUserPassword<>APassword then
+//                        begin
+//
+//                          //密码不正确
+//                          ADesc:=('密码不正确');
+//                          Exit;
+//                        end;
+
+
+          //                //又查了一遍?
+          //                if ASQLDBHelper.SelfQuery(' SELECT * FROM tbluser'
+          //                                            +' WHERE appid=:appid '
+          //                                            +' and user_type=:user_type '
+          //                                            +' and (phone=:phone or email=:email) '
+          //                                            +' and IFNULL(is_deleted,0)=0 ',
+          //                                            ['appid','user_type','phone','email'],
+          //                                            [AAppID,AUserType,AUserName,AUserName],
+          //                                            asoOpen) then
+          //                begin
+          //                  ADataJson:=JSonFromDataSet(ASQLDBHelper.Query,'User');
+          //                  //登录Token随机字符串
+          //                  ADataJson.S['Key']:='123456';
+          //                end
+          //                else
+          //                begin
+          //                  //数据库连接失败或异常
+          //                  ADesc:='数据库连接失败或异常'+' '+ASQLDBHelper.LastExceptMessage;
+          //                  Exit;
+          //                end;
+
+                    end
                     //手机验证码登录
                     else if (ALoginType=Const_RegisterLoginType_PhoneNum_Captcha) then
                     begin
@@ -13668,7 +13707,7 @@ begin
 
         //生成登陆密钥,以便下次重新登录
         //登陆密钥调整为和ADataJson.S['Key']一致
-        GenerateLoginKey(ASQLDBHelper,AAppID,AUserFID,ADataJson.S['name'],app_type,ADataJson,ADesc);
+        UserCenterServiceModule.GenerateLoginKey(ASQLDBHelper,AAppID,AUserFID,ADataJson.S['name'],app_type,ADataJson,ADesc);
 
         ADataJson.A['User'].O[0].S['Key']:=AUserAccessToken.AccessToken;
         ADataJson.A['User'].O[0].S['login_key']:=AUserAccessToken.AccessToken;
@@ -14830,7 +14869,7 @@ begin
     //登录Token随机字符串
     ADataJson.S['Key']:=CreateGUIDString;//'123456';
     //生成登陆密钥,以便下次重新登录
-    GenerateLoginKey(ASQLDBHelper,AAppID,AUserFID,ADataJson.S['name'],app_type,ADataJson,ADesc);
+    UserCenterServiceModule.GenerateLoginKey(ASQLDBHelper,AAppID,AUserFID,ADataJson.S['name'],app_type,ADataJson,ADesc);
 
     GlobalServiceProject.FUserAccessTokenList.Add(AAppID,ADataJson.S['fid'],ADataJson.S['name'],ADataJson.S['Key'],app_type);
 
@@ -20385,6 +20424,190 @@ begin
 
 end;
 
+
+function TUserCenterServiceModule.login_by_password_sha256(AAppID:String;AUserType:Integer;AUserName, APassword: String; var ADesc: String; var ADataJson: ISuperObject): Boolean;
+var
+  ACode:Integer;
+  ADesc2:String;
+  ADataJson2:ISuperObject;
+  AUserFid:String;
+
+  AUserPassword:String;
+
+  ASQLDBHelper:TBaseDBHelper;
+  AHttpResponse:String;
+  AHttpResponseJson:ISuperObject;
+
+  ALoginKey:String;
+  AUserWhereSQL:String;
+  ARegisterLoginType:String;
+
+  AUserAccessToken:TUserAccessToken;
+begin
+
+  ACode:=FAIL;
+  ADesc:='';
+  ADataJson:=nil;
+
+
+
+  if (AAppID='') or (StrToIntDef(AAppID,0)=0) then
+  begin
+    ADesc:=('AppID不能为空');
+    Exit;
+  end;
+
+
+  if Trim(AUserName)='' then
+  begin
+    ADesc:=('用户名不能为空');
+    Exit;
+  end;
+
+  if Trim(APassword)='' then
+  begin
+    ADesc:=('密码不能为空');
+    Exit;
+  end;
+
+  if not UserCenterServiceModule.DBModule.GetDBHelperFromPool(ASQLDBHelper,ADesc) then
+  begin
+    Exit;
+  end;
+  try
+        AUserWhereSQL:='';
+          AUserWhereSQL:=' AND appid='+AAppID+' ';
+
+          //手机号码或邮箱或用户名登录
+          AUserWhereSQL:=AUserWhereSQL+' and (phone='+QuotedStr(AUserName)+' or email='+QuotedStr(AUserName)+' or login_user='+QuotedStr(AUserName)+') ';
+
+
+
+
+                    //手机号码或邮箱或用户名登录
+                    if not ASQLDBHelper.SelfQuery(' SELECT * FROM tbluser '
+                                                  +' WHERE 1=1 '
+                                                  +' and IFNULL(user_type,0)=:user_type '
+                                                  //+' and (phone=:phone or email=:email or name=:name) '
+                                                  +AUserWhereSQL
+                                                  +' and IFNULL(is_deleted,0)=0 ',
+                                                  [
+                                                  'user_type'//,'phone','email','name'
+                                                  ],
+                                                  [
+                                                  AUserType//,AUserName,AUserName,AUserName
+                                                  ],
+                                                  asoOpen) then
+                    begin
+                      //数据库连接失败或异常
+                      ADesc:='数据库连接失败或异常'+' '+ASQLDBHelper.LastExceptMessage;
+                      Exit;
+                    end;
+
+                    if ASQLDBHelper.Query.Eof then
+                    begin
+
+
+                            //不存在此用户
+                            ADesc:=('账号不存在');
+                            Exit;
+
+                    end;
+
+                    AUserFid:=ASQLDBHelper.Query.FieldByName('fid').AsString;
+                    AUserPassword:=ASQLDBHelper.Query.FieldByName('password').AsString;
+
+
+
+
+
+                        //比对密码
+                        if AUserPassword<>APassword then
+                        begin
+
+                          //密码不正确
+                          ADesc:=('密码不正确');
+                          Exit;
+                        end;
+
+
+
+
+                    //密码正确
+                    ADesc:=('登陆成功');
+                    ACode:=SUCC;
+
+                    ADataJson:=JsonFromRecord(ASQLDBHelper.Query);
+                    JSonFromDataSetTo(ASQLDBHelper.Query,'User',ADataJson);
+
+
+        AUserAccessToken:=GlobalServiceProject.FUserAccessTokenList.Find(AAppID,ADataJson.S['fid'],'');
+
+        //服务端的版本
+        ADataJson.S['server_version']:=GlobalServiceProject.FVersion;
+
+        //判断Token是不是已经存在
+        if AUserAccessToken<>nil then
+        begin
+            if AUserAccessToken.AccessToken='' then
+            begin
+              //表示已经退出登录
+              AUserAccessToken.AccessToken:=CreateGUIDString;//'123456';
+            end;
+            //登录Token随机字符串
+            ADataJson.S['Key']:=AUserAccessToken.AccessToken;
+        end
+        else
+        begin
+
+            //每次都生成吗？
+            //登录Token随机字符串
+            ADataJson.S['Key']:=CreateGUIDString;//'123456';
+
+            //不存在,需要生成
+            AUserAccessToken:=GlobalServiceProject.FUserAccessTokenList.Add(AAppID,ADataJson.S['fid'],ADataJson.S['name'],ADataJson.S['Key'],'');
+        end;
+
+
+
+
+        //生成登陆密钥,以便下次重新登录
+        //登陆密钥调整为和ADataJson.S['Key']一致
+        GenerateLoginKey(ASQLDBHelper,AAppID,AUserFID,ADataJson.S['name'],'',ADataJson,ADesc);
+
+        ADataJson.A['User'].O[0].S['Key']:=AUserAccessToken.AccessToken;
+        ADataJson.A['User'].O[0].S['login_key']:=AUserAccessToken.AccessToken;
+        ADataJson.A['User'].O[0].S['server_version']:=GlobalServiceProject.FVersion;
+
+
+
+        {$IFDEF NEED_USER_LOGIN_HISTORY}
+        //插入登录历史
+        //if not
+        ASQLDBHelper.SelfQuery('INSERT INTO tbluser_login_history '
+                                    +' (appid,user_fid,user_type,user_name,phone_imei,phone_uuid,phone_type,os,os_version,app_version,login_time,login_type) '
+                                    +' VALUES '
+                                    +' (:appid,:user_fid,:user_type,:user_name,:phone_imei,:phone_uuid,:phone_type,:os,:os_version,:app_version,:login_time,:login_type) ',
+                                    ['appid','user_fid','user_type','user_name','phone_imei','phone_uuid','phone_type','os','os_version','app_version','login_time','login_type'],
+                                    [AAppID,AUserFid,AUserType,AUserName,'','','','','','',Now,Const_RegisterLoginType_UserName_PassWordSHA256],
+                                    asoExec                                                                   //'Windows 7 Service Pack 1 (Version 6.1, Build 7601, 64-bit Edition)'
+                                    );// then
+        //begin
+        //  //插入登录历史
+        //  //数据库连接失败或异常
+        //  ADesc:='插入登录历史时'+'数据库连接失败或异常'+' '+ASQLDBHelper.LastExceptMessage;
+        //  Exit;
+        //end;
+        {$ENDIF}
+
+
+
+  finally
+    UserCenterServiceModule.DBModule.FreeDBHelperToPool(ASQLDBHelper);
+  end;
+
+
+end;
 
 procedure TUserCenterServiceModule.logout_by_userfid(AUserFID: String);
 var

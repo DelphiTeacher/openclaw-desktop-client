@@ -133,7 +133,7 @@ uses
 
 type
   [kbmMW_Service('name:ragcenter, flags:[listed]')]
-  [kbmMW_Rest('path:/ragcenter')]
+  [kbmMW_Rest('path:/ragcenter/api')]
   // Access to the service can be limited using the [kbmMW_Auth..] attribute.
   // [kbmMW_Auth('role:[SomeRole,SomeOtherRole], grant:true')]
 
@@ -252,6 +252,53 @@ type
                     [kbmMW_Arg(mwatRemoteLocation)] const ARemoteLocation:String):String;
 
 
+  public
+    // 应用管理
+    //获取应用列表
+    [kbmMW_Method]
+    [kbmMW_Rest('method:post, path: "core/app/list"')]
+    function core_app_list(
+                    [kbmMW_Arg(mwatRemoteLocation)] const ARemoteLocation:String):String;
+
+    //获取应用的会话列表
+    [kbmMW_Method]
+    [kbmMW_Rest('method:post, path: "core/chat/getHistories"')]
+    function core_chat_getHistories(
+                    [kbmMW_Arg(mwatRemoteLocation)] const ARemoteLocation:String):String;
+
+    //获取应用的会话的聊天消息列表
+    [kbmMW_Method]
+    [kbmMW_Rest('method:post, path: "core/chat/getPaginationRecords"')]
+    function core_chat_getPaginationRecords(
+                    [kbmMW_Arg(mwatRemoteLocation)] const ARemoteLocation:String):String;
+
+  public
+    // 用户管理
+    //获取系统全局配置参数
+    [kbmMW_Method]
+    [kbmMW_Rest('method:get, path: "common/system/getInitData"')]
+    function common_system_getInitData(
+                    [kbmMW_Arg(mwatRemoteLocation)] const ARemoteLocation:String):String;
+
+    [kbmMW_Method]
+    [kbmMW_Rest('method:get, path: "support/user/account/preLogin"')]
+    function support_user_account_preLogin(
+                    [kbmMW_Arg(mwatRemoteLocation)] const ARemoteLocation:String):String;
+
+    [kbmMW_Method]
+    [kbmMW_Rest('method:post, path: "support/user/account/loginByPassword"')]
+    function support_user_account_loginByPassword(
+                    [kbmMW_Arg(mwatRemoteLocation)] const ARemoteLocation:String):String;
+    [kbmMW_Method]
+    [kbmMW_Rest('method:get, path: "support/user/account/tokenLogin"')]
+    function support_user_account_tokenLogin(
+                    [kbmMW_Arg(mwatRemoteLocation)] const ARemoteLocation:String):String;
+
+    [kbmMW_Method]
+    [kbmMW_Rest('method:get, path: "support/user/account/loginout"')]
+    function support_user_account_loginout(
+                    [kbmMW_Arg(mwatRemoteLocation)] const ARemoteLocation:String):String;
+
 
   public
     function ProcessRequest(const Func:string; const ClientIdent:TkbmMWClientIdentity; const Args:array of Variant):Variant; override;
@@ -296,6 +343,9 @@ implementation
 
 
 {$R *.dfm}
+
+//uses
+//  UserCenterRestService;
 
 
 // Service definitions.
@@ -364,6 +414,285 @@ begin
 
 end;
 
+
+function TsrvRagCenterRestService.support_user_account_loginByPassword(const ARemoteLocation: String): String;
+var
+  ACode:Integer;
+  ADesc:String;
+  ADataJson:ISuperObject;
+  AStringStream:TStringStream;
+  ASuperObject:ISuperObject;
+
+  AUserDataJson:ISuperObject;
+
+  AIntfItem:TCommonRestIntfItem;
+  AWhereKeyJsonArray:ISuperArray;
+  resh:TkbmMWHTTPTransportStreamHelper;
+
+begin
+
+  ACode:=FAIL;
+  ADesc:='';
+  ADataJson:=nil;
+
+  AStringStream:=TStringStream.Create('',TEncoding.UTF8);
+  try
+    AStringStream.LoadFromStream(RequestStream);
+    try
+      ASuperObject:=SO(AStringStream.DataString);
+
+    except
+      on E:Exception do
+      begin
+        ADesc:=('RequestStream不是合法的Json格式');
+        Result:=ReturnJson(ACode,ADesc,ADataJson).AsJSON;
+        Exit;
+      end;
+    end;
+  finally
+    FreeAndNil(AStringStream);
+  end;
+
+  try
+
+      {
+        "username": "root",
+        "code": "aKCldh",
+        "password": "8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92"
+    }
+//    if not UserCenterServiceModule.login_by_password_sha256('',0,ASuperObject.S['username'],ASuperObject.S['username'],ADesc,AUserDataJson) then
+//    begin
+//      Exit;
+//    end;
+
+      AIntfItem:=CommonRestServiceModule.IntfList.Find('sys_user');
+      if AIntfItem=nil then
+      begin
+        ADesc:='不存在sys_user接口';
+        Exit;
+      end;
+
+      //返回知识库列表
+      AWhereKeyJsonArray:=SA();
+      //ASuperObject中有两个参数，一个是parentId,表示父目录的ID，一个是searchKey表示搜索关键词
+      AWhereKeyJsonArray.O[AWhereKeyJsonArray.Length]:=GetFieldCondition('AND','username','=',ASuperObject.S['username']);
+      // 如果searchKey不为空，则加上这个搜索条件，根据知识库的name和intro字段来过滤
+      // if ASuperObject.S['searchKey']<>'' then
+      // begin
+      //   AWhereKeyJsonArray.O[AWhereKeyJsonArray.Length]:=GetFieldCondition('AND','name','like',ASuperObject.S['searchKey']);
+      //   AWhereKeyJsonArray.O[AWhereKeyJsonArray.Length]:=GetFieldCondition('OR','intro','like',ASuperObject.S['searchKey']);
+      // end;
+
+
+      //查询记录
+      if not AIntfItem.GetRecord(AIntfItem.DBModule,nil,
+                                    '',
+                                    AWhereKeyJsonArray.AsJSON,
+                                    '','',
+                                    ACode,
+                                    ADesc,
+                                    ADataJson) then
+      begin
+        Exit;
+      end;
+
+
+
+
+    ACode:=SUCC;
+    ADataJson:=SO();
+    ADataJson.O['user'].S['_id']:=AUserDataJson.S['_id'];
+    ADataJson.O['user'].S['username']:=AUserDataJson.S['user_name'];
+    ADataJson.O['user'].S['nickName']:=AUserDataJson.S['nick_name'];
+    ADataJson.O['user'].S['avatar']:='/imgs/avatar/BlueAvatar.svg';
+    ADataJson.O['user'].S['timezone']:='Asia/Shanghai';
+    ADataJson.O['user'].I['promotionRate']:=15;
+
+    ADataJson.O['user'].O['team'].S['userId']:=AUserDataJson.S['_id'];
+    ADataJson.O['user'].O['team'].S['teamId']:=AUserDataJson.S['team_id'];
+    ADataJson.O['user'].O['team'].S['tmbId']:=AUserDataJson.S['tmbid'];
+    ADataJson.O['user'].O['team'].S['active']:='active';
+
+    ADataJson.O['user'].S['token']:=IntToStr(AUserDataJson.I['user_id'])+':'+CreateGUIDString();
+
+    //设置自定义cookie,返回给客户端
+    resh:=TkbmMWHTTPTransportStreamHelper(ResponseTransportStream.Helper);
+    resh.Header.ValueByName['set-cookie']:='jetai_token='+ ADataJson.O['user'].S['token'] +'; Path=/; HttpOnly; Max-Age=604800; Samesite=Strict;';
+
+
+  finally
+      Result:=ReturnJson(ACode,ADesc,ADataJson).AsJSON;
+
+  end;
+end;
+
+function TsrvRagCenterRestService.support_user_account_loginout(const ARemoteLocation: String): String;
+var
+  ACode:Integer;
+  ADesc:String;
+  ADataJson:ISuperObject;
+
+  resh:TkbmMWHTTPTransportStreamHelper;
+begin
+
+  ACode:=FAIL;
+  ADesc:='';
+  ADataJson:=nil;
+
+
+  try
+    //  res.setHeader("Set-Cookie", [`${TokenName}=; Path=/; Max-Age=0`,`${JetAI_Token}=; Path=/; Max-Age=0`]);
+
+
+    //设置自定义cookie,返回给客户端
+    resh:=TkbmMWHTTPTransportStreamHelper(ResponseTransportStream.Helper);
+    resh.Header.ValueByName['set-cookie']:='jetai_token='+ '' +'; Path=/; HttpOnly; Max-Age=0; Samesite=Strict;';
+
+
+  finally
+      Result:=ReturnJson(ACode,ADesc,ADataJson).AsJSON;
+
+  end;
+
+end;
+
+function TsrvRagCenterRestService.support_user_account_preLogin(const ARemoteLocation: String): String;
+var
+  ACode:Integer;
+  ADesc:String;
+  ADataJson:ISuperObject;
+begin
+
+  ACode:=FAIL;
+  ADesc:='';
+  ADataJson:=nil;
+
+
+  try
+
+      ACode:=SUCC;
+      ADataJson:=SO();
+      ADataJson.S['code']:='aKCldh';
+
+
+  finally
+      Result:=ReturnJson(ACode,ADesc,ADataJson).AsJSON;
+
+  end;
+end;
+
+function TsrvRagCenterRestService.support_user_account_tokenLogin(const ARemoteLocation: String): String;
+var
+  ACode:Integer;
+  ADesc:String;
+  ADataJson:ISuperObject;
+
+  AUserDataJson:ISuperObject;
+
+  AIntfItem:TCommonRestIntfItem;
+  AWhereKeyJsonArray:ISuperArray;
+
+  AStartIndex,AEndIndex:Integer;
+  ACookie:String;
+  ACookieItems:TStringList;
+  AUserId:String;
+  AJetAIToken:String;
+  reqh:TkbmMWHTTPTransportStreamHelper;
+
+begin
+
+  ACode:=FAIL;
+  ADesc:='';
+  ADataJson:=nil;
+
+
+  try
+    reqh:=TkbmMWHTTPTransportStreamHelper(RequestTransportStream.Helper);
+    ACookie:=reqh.Header.ValueByName['cookie'];
+    //找到jetai_token
+    AStartIndex:=Pos('jetai_token',ACookie);
+    if AStartIndex=0 then
+    begin
+      Exit;
+    end;
+    ACookieItems:=SplitString(ACookie,';');
+    AJetAIToken:=ACookieItems.Values['jetai_token'];
+    ACookieItems.Free;
+    //'676bc5488b0b00cd5e72bcf2:hHnN1SU5EiIsv3comcPH9NS1svvjNCDT'
+    if AJetAIToken='' then
+    begin
+      Exit;
+    end;
+    AUserId:=SplitString2(AJetAIToken,':')[0];
+//    if AUserId='676bc5488b0b00cd5e72bcf2' then
+//    begin
+//      AUserId:='1';
+//    end;
+//
+
+
+//    if not UserCenterServiceModule.login_by_password_sha256('',0,ASuperObject.S['username'],ASuperObject.S['username'],ADesc,AUserDataJson) then
+//    begin
+//      Exit;
+//    end;
+
+      AIntfItem:=CommonRestServiceModule.IntfList.Find('sys_user');
+      if AIntfItem=nil then
+      begin
+        ADesc:='不存在sys_user接口';
+        Exit;
+      end;
+
+      //返回知识库列表
+      AWhereKeyJsonArray:=SA();
+      //ASuperObject中有两个参数，一个是parentId,表示父目录的ID，一个是searchKey表示搜索关键词
+      AWhereKeyJsonArray.O[AWhereKeyJsonArray.Length]:=GetFieldCondition('AND','_id','=',AUserId);
+      // 如果searchKey不为空，则加上这个搜索条件，根据知识库的name和intro字段来过滤
+      // if ASuperObject.S['searchKey']<>'' then
+      // begin
+      //   AWhereKeyJsonArray.O[AWhereKeyJsonArray.Length]:=GetFieldCondition('AND','name','like',ASuperObject.S['searchKey']);
+      //   AWhereKeyJsonArray.O[AWhereKeyJsonArray.Length]:=GetFieldCondition('OR','intro','like',ASuperObject.S['searchKey']);
+      // end;
+
+
+      //查询记录
+      if not AIntfItem.GetRecord(AIntfItem.DBModule,nil,
+                                    '',
+                                    AWhereKeyJsonArray.AsJSON,
+                                    '','',
+                                    ACode,
+                                    ADesc,
+                                    AUserDataJson) then
+      begin
+        Exit;
+      end;
+
+
+
+
+    ACode:=SUCC;
+    ADataJson:=SO();
+    ADataJson.O['user'].S['_id']:=AUserDataJson.S['_id'];
+    ADataJson.O['user'].S['username']:=AUserDataJson.S['user_name'];
+    ADataJson.O['user'].S['nickName']:=AUserDataJson.S['nick_name'];
+    ADataJson.O['user'].S['avatar']:='/imgs/avatar/BlueAvatar.svg';
+    ADataJson.O['user'].S['timezone']:='Asia/Shanghai';
+    ADataJson.O['user'].I['promotionRate']:=15;
+
+    ADataJson.O['user'].O['team'].S['userId']:=AUserDataJson.S['_id'];
+    ADataJson.O['user'].O['team'].S['teamId']:=AUserDataJson.S['team_id'];
+    ADataJson.O['user'].O['team'].S['tmbId']:=AUserDataJson.S['tmbid'];
+    ADataJson.O['user'].O['team'].S['active']:='active';
+
+
+
+  finally
+      Result:=ReturnJson(ACode,ADesc,ADataJson).AsJSON;
+
+  end;
+
+
+end;
 
 function TsrvRagCenterRestService.HelloWorld:String;
 begin
@@ -447,8 +776,8 @@ var
   ACode:Integer;
   ADesc:String;
   ADataJson:ISuperObject;
-  AStringStream:TStringStream;
-  ASuperObject:ISuperObject;
+//  AStringStream:TStringStream;
+//  ASuperObject:ISuperObject;
 
   AIntfItem:TCommonRestIntfItem;
   AWhereKeyJsonArray:ISuperArray;
@@ -462,23 +791,23 @@ begin
   ADesc:='';
   ADataJson:=nil;
 
-  AStringStream:=TStringStream.Create('',TEncoding.UTF8);
-  try
-    AStringStream.LoadFromStream(RequestStream);
-    try
-      ASuperObject:=SO(AStringStream.DataString);
-
-    except
-      on E:Exception do
-      begin
-        ADesc:=('RequestStream不是合法的Json格式');
-        Result:=ReturnJson(ACode,ADesc,ADataJson).AsJSON;
-        Exit;
-      end;
-    end;
-  finally
-    FreeAndNil(AStringStream);
-  end;
+//  AStringStream:=TStringStream.Create('',TEncoding.UTF8);
+//  try
+//    AStringStream.LoadFromStream(RequestStream);
+//    try
+//      ASuperObject:=SO(AStringStream.DataString);
+//
+//    except
+//      on E:Exception do
+//      begin
+//        ADesc:=('RequestStream不是合法的Json格式');
+//        Result:=ReturnJson(ACode,ADesc,ADataJson).AsJSON;
+//        Exit;
+//      end;
+//    end;
+//  finally
+//    FreeAndNil(AStringStream);
+//  end;
 
   try
 
@@ -522,13 +851,13 @@ begin
 
 
       //http://127.0.0.1:10022/ragcenter/ai/model/list
-      AModelList:=SA();
-      for I := 0 to ADataJson.A['RecordList'].Length-1 do
-      begin
-        AModelJson:=SO(ADataJson.A['RecordList'].O[I].S['metadata']);
-        AModelList.O[I]:=AModelJson;
-      end;
-      ADataJson.A['RecordList']:=AModelList;
+//      AModelList:=SA();
+//      for I := 0 to ADataJson.A['RecordList'].Length-1 do
+//      begin
+//        AModelJson:=SO(ADataJson.A['RecordList'].O[I].S['metadata']);
+//        AModelList.O[I]:=AModelJson;
+//      end;
+//      ADataJson.A['RecordList']:=AModelList;
 
 
 
@@ -812,6 +1141,343 @@ begin
 
 end;
 
+function TsrvRagCenterRestService.common_system_getInitData(const ARemoteLocation: String): String;
+var
+  ACode:Integer;
+  ADesc:String;
+  ADataJson:ISuperObject;
+begin
+
+  ACode:=FAIL;
+  ADesc:='';
+  ADataJson:=nil;
+
+
+  try
+
+      ACode:=SUCC;
+      ADataJson:=SO(GetStringFromFile(GetApplicationPath+'config.json',TEncoding.UTF8));
+
+
+  finally
+      Result:=ReturnJson(ACode,ADesc,ADataJson).AsJSON;
+
+  end;
+
+end;
+
+function TsrvRagCenterRestService.core_app_list(const ARemoteLocation: String): String;
+var
+  ACode:Integer;
+  ADesc:String;
+  ADataJson:ISuperObject;
+  AStringStream:TStringStream;
+  ASuperObject:ISuperObject;
+
+  AIntfItem:TCommonRestIntfItem;
+  AWhereKeyJsonArray:ISuperArray;
+  AModelList:ISuperArray;
+  AModelJson:ISuperObject;
+  I: Integer;
+begin
+{
+    "getRecentlyChat": true
+}
+
+  ACode:=FAIL;
+  ADesc:='';
+  ADataJson:=nil;
+
+  AStringStream:=TStringStream.Create('',TEncoding.UTF8);
+  try
+    AStringStream.LoadFromStream(RequestStream);
+    try
+      ASuperObject:=SO(AStringStream.DataString);
+
+    except
+      on E:Exception do
+      begin
+        ADesc:=('RequestStream不是合法的Json格式');
+        Result:=ReturnJson(ACode,ADesc,ADataJson).AsJSON;
+        Exit;
+      end;
+    end;
+  finally
+    FreeAndNil(AStringStream);
+  end;
+
+  try
+
+
+      AIntfItem:=CommonRestServiceModule.IntfList.Find('apps');
+      if AIntfItem=nil then
+      begin
+        ADesc:='不存在apps接口';
+        Exit;
+      end;
+
+      //返回知识库列表
+      AWhereKeyJsonArray:=SA();
+      //ASuperObject中有两个参数，一个是parentId,表示父目录的ID，一个是searchKey表示搜索关键词
+//      AWhereKeyJsonArray.O[AWhereKeyJsonArray.Length]:=GetFieldCondition('AND','parentId','=',ASuperObject.S['parentId']);
+      // 如果searchKey不为空，则加上这个搜索条件，根据知识库的name和intro字段来过滤
+      // if ASuperObject.S['searchKey']<>'' then
+      // begin
+      //   AWhereKeyJsonArray.O[AWhereKeyJsonArray.Length]:=GetFieldCondition('AND','name','like',ASuperObject.S['searchKey']);
+      //   AWhereKeyJsonArray.O[AWhereKeyJsonArray.Length]:=GetFieldCondition('OR','intro','like',ASuperObject.S['searchKey']);
+      // end;
+
+
+      //查询记录
+      if not AIntfItem.GetRecordList(AIntfItem.DBModule,
+                                    nil,
+                                    '',
+                                    1,
+                                    MaxInt,
+                                    AWhereKeyJsonArray.AsJSON,
+                                    '',
+                                    '',0,0,'',0,
+                                    ACode,
+                                    ADesc,
+                                    ADataJson,
+                                    nil
+                                    ) then
+      begin
+        Exit;
+      end;
+
+
+//      //http://127.0.0.1:10022/ragcenter/ai/model/list
+//      AModelList:=SA();
+//      for I := 0 to ADataJson.A['RecordList'].Length-1 do
+//      begin
+//        AModelJson:=SO(ADataJson.A['RecordList'].O[I].S['metadata']);
+//        AModelList.O[I]:=AModelJson;
+//      end;
+//      ADataJson.A['RecordList']:=AModelList;
+
+
+
+
+  finally
+      Result:=ReturnJson(ACode,ADesc,ADataJson).AsJSON;
+
+  end;
+
+
+end;
+
+function TsrvRagCenterRestService.core_chat_getHistories(const ARemoteLocation: String): String;
+var
+  ACode:Integer;
+  ADesc:String;
+  ADataJson:ISuperObject;
+  AStringStream:TStringStream;
+  ASuperObject:ISuperObject;
+
+  AIntfItem:TCommonRestIntfItem;
+  AWhereKeyJsonArray:ISuperArray;
+  AModelList:ISuperArray;
+  AModelJson:ISuperObject;
+  I: Integer;
+begin
+
+  ACode:=FAIL;
+  ADesc:='';
+  ADataJson:=nil;
+
+  AStringStream:=TStringStream.Create('',TEncoding.UTF8);
+  try
+    AStringStream.LoadFromStream(RequestStream);
+    try
+      ASuperObject:=SO(AStringStream.DataString);
+
+    except
+      on E:Exception do
+      begin
+        ADesc:=('RequestStream不是合法的Json格式');
+        Result:=ReturnJson(ACode,ADesc,ADataJson).AsJSON;
+        Exit;
+      end;
+    end;
+  finally
+    FreeAndNil(AStringStream);
+  end;
+
+  try
+
+
+      AIntfItem:=CommonRestServiceModule.IntfList.Find('chats');
+      if AIntfItem=nil then
+      begin
+        ADesc:='不存在chats接口';
+        Exit;
+      end;
+{
+    "offset": 0,
+    "pageSize": 20,
+    "appId": "67bfb74bdb8a03d411f53f54",
+    "source": "online"
+}
+
+      //返回知识库列表
+      AWhereKeyJsonArray:=SA();
+      //ASuperObject中有两个参数，一个是parentId,表示父目录的ID，一个是searchKey表示搜索关键词
+      AWhereKeyJsonArray.O[AWhereKeyJsonArray.Length]:=GetFieldCondition('AND','appId','=',ASuperObject.S['appId']);
+      // 如果searchKey不为空，则加上这个搜索条件，根据知识库的name和intro字段来过滤
+      // if ASuperObject.S['searchKey']<>'' then
+      // begin
+      //   AWhereKeyJsonArray.O[AWhereKeyJsonArray.Length]:=GetFieldCondition('AND','name','like',ASuperObject.S['searchKey']);
+      //   AWhereKeyJsonArray.O[AWhereKeyJsonArray.Length]:=GetFieldCondition('OR','intro','like',ASuperObject.S['searchKey']);
+      // end;
+
+
+      //查询记录
+      if not AIntfItem.GetRecordList(AIntfItem.DBModule,
+                                    nil,
+                                    '',
+                                    Floor(ASuperObject.I['offset']/ASuperObject.I['pageSize']),
+                                    ASuperObject.I['pageSize'],
+                                    AWhereKeyJsonArray.AsJSON,
+                                    '',
+                                    '',0,0,'',0,
+                                    ACode,
+                                    ADesc,
+                                    ADataJson,
+                                    nil
+                                    ) then
+      begin
+        Exit;
+      end;
+
+
+//      //http://127.0.0.1:10022/ragcenter/ai/model/list
+//      AModelList:=SA();
+//      for I := 0 to ADataJson.A['RecordList'].Length-1 do
+//      begin
+//        AModelJson:=SO(ADataJson.A['RecordList'].O[I].S['metadata']);
+//        AModelList.O[I]:=AModelJson;
+//      end;
+//      ADataJson.A['RecordList']:=AModelList;
+
+
+
+
+  finally
+      Result:=ReturnJson(ACode,ADesc,ADataJson).AsJSON;
+
+  end;
+
+
+
+end;
+
+function TsrvRagCenterRestService.core_chat_getPaginationRecords(const ARemoteLocation: String): String;
+var
+  ACode:Integer;
+  ADesc:String;
+  ADataJson:ISuperObject;
+  AStringStream:TStringStream;
+  ASuperObject:ISuperObject;
+
+  AIntfItem:TCommonRestIntfItem;
+  AWhereKeyJsonArray:ISuperArray;
+  AModelList:ISuperArray;
+  AModelJson:ISuperObject;
+  I: Integer;
+begin
+
+  ACode:=FAIL;
+  ADesc:='';
+  ADataJson:=nil;
+
+  AStringStream:=TStringStream.Create('',TEncoding.UTF8);
+  try
+    AStringStream.LoadFromStream(RequestStream);
+    try
+      ASuperObject:=SO(AStringStream.DataString);
+
+    except
+      on E:Exception do
+      begin
+        ADesc:=('RequestStream不是合法的Json格式');
+        Result:=ReturnJson(ACode,ADesc,ADataJson).AsJSON;
+        Exit;
+      end;
+    end;
+  finally
+    FreeAndNil(AStringStream);
+  end;
+
+  try
+
+
+      AIntfItem:=CommonRestServiceModule.IntfList.Find('chatitems');
+      if AIntfItem=nil then
+      begin
+        ADesc:='不存在chatitems接口';
+        Exit;
+      end;
+{
+    "offset": 0,
+    "pageSize": 10,
+    "appId": "67bfb74bdb8a03d411f53f54",
+    "type": "normal",
+    "chatId": "w1kGZS3Ea4CtsNoCaKnZH9P5",
+    "isCorrect": "",
+    "answerValue": "",
+    "likeValue": ""
+}
+
+      //返回知识库列表
+      AWhereKeyJsonArray:=SA();
+      //ASuperObject中有两个参数，一个是parentId,表示父目录的ID，一个是searchKey表示搜索关键词
+      AWhereKeyJsonArray.O[AWhereKeyJsonArray.Length]:=GetFieldCondition('AND','chatId','=',ASuperObject.S['chatId']);
+      // 如果searchKey不为空，则加上这个搜索条件，根据知识库的name和intro字段来过滤
+      // if ASuperObject.S['searchKey']<>'' then
+      // begin
+      //   AWhereKeyJsonArray.O[AWhereKeyJsonArray.Length]:=GetFieldCondition('AND','name','like',ASuperObject.S['searchKey']);
+      //   AWhereKeyJsonArray.O[AWhereKeyJsonArray.Length]:=GetFieldCondition('OR','intro','like',ASuperObject.S['searchKey']);
+      // end;
+
+
+      //查询记录
+      if not AIntfItem.GetRecordList(AIntfItem.DBModule,
+                                    nil,
+                                    '',
+                                    Floor(ASuperObject.I['offset']/ASuperObject.I['pageSize']),
+                                    ASuperObject.I['pageSize'],
+                                    AWhereKeyJsonArray.AsJSON,
+                                    '',
+                                    '',0,0,'',0,
+                                    ACode,
+                                    ADesc,
+                                    ADataJson,
+                                    nil
+                                    ) then
+      begin
+        Exit;
+      end;
+
+
+//      //http://127.0.0.1:10022/ragcenter/ai/model/list
+//      AModelList:=SA();
+//      for I := 0 to ADataJson.A['RecordList'].Length-1 do
+//      begin
+//        AModelJson:=SO(ADataJson.A['RecordList'].O[I].S['metadata']);
+//        AModelList.O[I]:=AModelJson;
+//      end;
+//      ADataJson.A['RecordList']:=AModelList;
+
+
+
+
+  finally
+      Result:=ReturnJson(ACode,ADesc,ADataJson).AsJSON;
+
+  end;
+end;
+
 function TsrvRagCenterRestService.dataset_collection_create_localFile(const ARemoteLocation: String): String;
 var
   ACode:Integer;
@@ -933,8 +1599,8 @@ begin
       if not AIntfItem.GetRecordList(AIntfItem.DBModule,
                                     nil,
                                     '',
-                                    1,
-                                    MaxInt,
+                                    Floor(ASuperObject.I['offset']/ASuperObject.I['pageSize']),
+                                    ASuperObject.I['pageSize'],
                                     AWhereKeyJsonArray.AsJSON,
                                     '',
                                     '',0,0,'',0,

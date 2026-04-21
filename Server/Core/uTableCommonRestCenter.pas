@@ -413,6 +413,8 @@ type
     FFieldTableAliasList:TStringList;
     FSQLHasWhere:Boolean;
 
+    FJsonFieldNames:TStringDynArray;
+
     //是否是存储过程
     function IsStoreProcedure:Boolean;
 
@@ -446,7 +448,7 @@ type
                       //是否拥有AppID字段
                       AHasAppIDField:Boolean;
                       //主表在子表中的字段
-                      ARelateToMasterFieldName:String='');overload;
+                      ARelateToMasterFieldName:String='';AJsonFieldNames:TStringDynArray=[]);overload;
     destructor Destroy;override;
   public
 
@@ -834,7 +836,8 @@ type
                       //是否拥有AppID字段
                       AHasAppIDField:Boolean=False;
                       //该表中与主表关联的字段
-                      ARelateToMasterFieldName:String='');overload;
+                      ARelateToMasterFieldName:String='';
+                      AJsonFieldNames:TStringDynArray=[]);overload;
     destructor Destroy;override;
 
     //从json中加载
@@ -1393,7 +1396,8 @@ constructor TCommonRestIntfItem.Create(
                                       ADefaultOrderBy:String;
                                       //是否拥有AppID字段
                                       AHasAppIDField:Boolean;
-                                      ARelateToMasterFieldName:String
+                                      ARelateToMasterFieldName:String;
+                                      AJsonFieldNames:TStringDynArray
                                       );
 begin
   Inherited Create(
@@ -1406,7 +1410,8 @@ begin
                     APKFieldName,
                     ADefaultOrderBy,
                     AHasAppIDField,
-                    ARelateToMasterFieldName
+                    ARelateToMasterFieldName,
+                    AJsonFieldNames
                     );
 
 //  //数据库模块
@@ -2958,7 +2963,8 @@ constructor TBaseQueryItem.Create(
   ADefaultOrderBy:String;
   //是否拥有AppID字段
   AHasAppIDField:Boolean;
-  ARelateToMasterFieldName:String);
+  ARelateToMasterFieldName:String;
+  AJsonFieldNames:TStringDynArray);
 begin
   Inherited Create;
 
@@ -2990,6 +2996,8 @@ begin
   HasAppIDField:=AHasAppIDField;
 
   RelateToMasterFieldName:=ARelateToMasterFieldName;
+
+  FJsonFieldNames:=AJsonFieldNames;
 
 
   //默认的查询条件
@@ -4549,7 +4557,7 @@ begin
 
             //成功
             //ADataJson:=JSonFromDataSet(ASQLDBHelper.Query,'RecordList');
-            JSonFromDataSetTo(ASQLDBHelper.Query,'RecordList',ADataJson);
+            JSonFromDataSetTo(ASQLDBHelper.Query,'RecordList',ADataJson,nil,True,Self.FJsonFieldNames);
           end;
 
 

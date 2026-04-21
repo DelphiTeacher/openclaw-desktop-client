@@ -142,12 +142,12 @@ begin
   end;
 
 
-  ADBModels:=SA();
-  for I := 0 to ADataJson.A['RecordList'].Length-1 do
-  begin
-    AModelJson:=SO(ADataJson.A['RecordList'].O[I].S['metadata']);
-    ADBModels.O[ADBModels.Length]:=AModelJson;
-  end;
+  ADBModels:=ADataJson.A['RecordList'];
+//  for I := 0 to ADataJson.A['RecordList'].Length-1 do
+//  begin
+//    AModelJson:=SO(ADataJson.A['RecordList'].O[I].S['metadata']);
+//    ADBModels.O[ADBModels.Length]:=AModelJson;
+//  end;
   GlobalVar.systemModelList:=ADBModels;
   GlobalVar.llmModelMap:=FilterModels(ADBModels,ModelTypeLLM);
   GlobalVar.embeddingModelMap:=FilterModels(ADBModels,ModelTypeEmbedding);
